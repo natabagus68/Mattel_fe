@@ -4,13 +4,13 @@ const axios = ({ url, method, data, params }) => {
     return new Promise((res, rej) => {
         setTimeout(() => {
             switch (url) {
-                case 'me': return res({
+                case 'auth/me': return res({
                     data: authMe
                 });
-                case 'login': return res({
+                case 'auth/login': return res({
                     data: authMe
                 });
-                case 'logout': return res({
+                case 'auth/logout': return res({
                     data: {}
                 });
             }
