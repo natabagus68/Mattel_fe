@@ -66,7 +66,7 @@ export const Login = () => {
                 setForm((form) => ({ ...form, email: e.target.value }))
               }
               type="email"
-              className="pl-10 w-full"
+              className="pl-10 w-[225px]"
               placeholder="input your email"
             />
           </div>
@@ -81,7 +81,7 @@ export const Login = () => {
                   setForm((form) => ({ ...form, password: e.target.value }))
                 }
                 type="password"
-                className="pl-10 w-full"
+                className="pl-10 w-[225px]"
                 placeholder="input password"
               />
             </div>

@@ -12,13 +12,13 @@ export const Report = (props) => {
       <div className="grid grid-flow-col auto-cols-min gap-6">
         <Dropdown list={["Maintenance", "QC", "RUN", "Material"]} />
         {/*  TODO : Implement date picker*/}
-        <div className="bg-white-lightest flex gap-[11px] w-[190px] h-[44px] items-center rounded-lg py-2.5 px-3.5">
+        <div className="bg-white-lightest flex gap-[11px] w-[190px] h-[44px] items-center rounded-lg py-2.5 px-3.5 ">
           <CalendarIcon />
           <div className="font-body font-normal text-gray-300">Date</div>
         </div>
       </div>
       <div
-        className="mt-6 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12, 47, 57, 0.08)]
+        className="mt-6 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]
       px-9 pt-9 pb-6"
       >
         <Input

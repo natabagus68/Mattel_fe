@@ -65,7 +65,7 @@ export const MachineForm = () => {
 
   return (
     <>
-      <div className="bg-white-lightest pl-[48px] pr-[135px] py-[48px] rounded-[8px]">
+      <div className="bg-white-lightest pl-[48px] pr-[135px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)]">
         <form onSubmit={submitHandler}>
           <div className="flex flex-col gap-4">
             <InputLabel

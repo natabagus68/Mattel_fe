@@ -61,7 +61,7 @@ export const Account = () => {
 
   return (
     <>
-      <div className="p-9 bg-white-lightest rounded-lg">
+      <div className="p-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
         <div className="flex justify-between">
           <Input
             type="text"
@@ -146,7 +146,9 @@ export const Account = () => {
           </table>
           <div className="flex justify-between items-center">
             <div className="text-neutral-500 font-normal text-base">
-              Showing 1 to 10 of {users.totalRows} entries
+              {`Showing ${(page - 1) * 10 + 1} to ${
+                (page - 1) * 10 + users.data.length
+              } of ${users.totalRows} entries`}
             </div>
             <div className="flex justify-center">
               <nav>

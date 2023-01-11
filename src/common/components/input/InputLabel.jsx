@@ -2,7 +2,7 @@ export const InputLabel = ({ name, placeholder, label, row = 0 }) => {
   return (
     <div className="flex flex-col gap-2">
       <label
-        for={name}
+        htmlFor={name}
         className="uppercase font-medium text-[22px] text-gray-foundation-500"
       >
         {label}
