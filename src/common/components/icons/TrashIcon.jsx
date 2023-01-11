@@ -1,11 +1,21 @@
-import React from 'react';
+import React from "react";
 
 export const TrashIcon = ({ width = 18, height = 18, ...props }) => {
-    return (
-        <>
-            <svg width={ width } height={ height } { ...props } viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.75 2.25V3H3V4.5H3.75V14.25C3.75 14.6478 3.90804 15.0294 4.18934 15.3107C4.47064 15.592 4.85218 15.75 5.25 15.75H12.75C13.1478 15.75 13.5294 15.592 13.8107 15.3107C14.092 15.0294 14.25 14.6478 14.25 14.25V4.5H15V3H11.25V2.25H6.75ZM6.75 6H8.25V12.75H6.75V6ZM9.75 6H11.25V12.75H9.75V6Z" fill="#FEECEB" />
-            </svg>
-        </>
-    );
+  return (
+    <>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="24" height="24" rx="3" fill="#F04438" />
+        <path
+          d="M9.75 5.25V6H6V7.5H6.75V17.25C6.75 17.6478 6.90804 18.0294 7.18934 18.3107C7.47064 18.592 7.85218 18.75 8.25 18.75H15.75C16.1478 18.75 16.5294 18.592 16.8107 18.3107C17.092 18.0294 17.25 17.6478 17.25 17.25V7.5H18V6H14.25V5.25H9.75ZM9.75 9H11.25V15.75H9.75V9ZM12.75 9H14.25V15.75H12.75V9Z"
+          fill="#FEECEB"
+        />
+      </svg>
+    </>
+  );
 };
