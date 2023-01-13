@@ -1,21 +1,28 @@
-import { Input } from "../../../../common/components/index.js";
+import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import {
-  InactiveToggleIcon,
-  ActiveToggleIcon,
-} from "../../../../common/components/icons/index.js";
-import {
+  CalendarIcon,
   EditIcon,
   EyeIcon,
   TrashIcon,
-} from "../../../../common/components/icons";
-import { useGetUsersQuery, useVerifyUserMutation } from "./accountApiSlice.js";
+} from "../../../../common/components/icons/index.js";
+import { Input } from "../../../../common/components/index.js";
+import { useGetMachinesQuery } from "./machineSlice.js";
 import { useEffect, useState } from "react";
+import { config } from "../../../../common/utils/index.js";
+import { Link, useNavigate } from "react-router-dom";
 
-export const Account = () => {
+export const MachineMaster = (props) => {
+  const [lineId, setLineId] = useState(null);
   const [page, setPage] = useState(1);
 
-  const { data: users = { data: [] }, refetch } = useGetUsersQuery(page);
-  const [verifyUser, result] = useVerifyUserMutation();
+  const navigate = useNavigate();
+
+  const { data: machines = { data: [] }, refetch } =
+    useGetMachinesQuery(lineId);
+
+  useEffect(() => {
+    refetch();
+  }, [lineId]);
 
   useEffect(() => {
     async function refresh() {
@@ -25,23 +32,16 @@ export const Account = () => {
     refresh();
   }, [page]);
 
-  useEffect(() => {
-    if (result.isSuccess) {
-      refetch();
-    }
-  }, [result.isSuccess]);
-
-  //TODO : add global loader
-
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < users.totalPage; i++) {
+    for (let i = 0; i < machines.totalPage; i++) {
       arr.push(
         <button
           disabled={page === i + 1}
           onClick={() => {
             setPage(i + 1);
           }}
+          key={i}
         >
           <li
             className={`px-[12px] py-[8px] border border-neutral-100 ${
@@ -61,18 +61,23 @@ export const Account = () => {
 
   return (
     <>
-      <div className="p-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
+      <div className="grid grid-flow-col auto-cols-min gap-6">
+        <Dropdown list={["Maintenance", "QC", "RUN", "Material"]} />
+        {/*  TODO : Implement date picker*/}
+        <div className="bg-white-lightest flex gap-[11px] w-[190px] h-[44px] items-center rounded-lg py-2.5 px-3.5 ">
+          <CalendarIcon />
+          <div className="font-body font-normal text-gray-300">Date</div>
+        </div>
+      </div>
+      <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
         <div className="flex justify-between">
           <Input
             type="text"
             placeholder="Search..."
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
-          <div className="flex gap-4">
-            <button className="py-[6px] px-[31px] bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-              Trash
-            </button>
-            <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
+          <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
+            <Link to={`${config.pathPrefix}machine/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -88,67 +93,61 @@ export const Account = () => {
                 </svg>
                 Add Data
               </div>
-            </button>
-          </div>
+            </Link>
+          </button>
         </div>
-        <div className="mt-[22px]">
+        <div className="mt-[18px]">
           <table className="my-[28px] table-auto w-full">
             <thead className="bg-[#E2F1FF]">
               <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
-                <td className="px-6 ">Status</td>
-                <td>Name</td>
-                <td>NPK</td>
-                <td>Department</td>
-                <td>Role</td>
-                <td>Action</td>
+                <td className="px-6 ">Code</td>
+                <td>Machine No / Name</td>
+                <td>Line Location</td>
+                <td>Machine Part 1</td>
+                <td>Machine Part 2</td>
+                <td>Machine Part 3</td>
+                <td>Device ID</td>
+                <td>Option</td>
               </tr>
             </thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {users.data.length > 0 &&
-                users.data.map((el) => (
-                  <tr
-                    className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
-                    key={el.id}
-                  >
-                    <td className="px-6 ">
-                      <div className="flex gap-2 items-center">
-                        <button
-                          onClick={() => {
-                            // setUserId(el.id);
-                            verifyUser(el.id);
-                          }}
-                        >
-                          {el.is_verified ? (
-                            <ActiveToggleIcon />
-                          ) : (
-                            <InactiveToggleIcon />
-                          )}
-                        </button>
-                        <div className="text-center">
-                          {el.is_verified ? "Active" : "Inactive"}
-                        </div>
-                      </div>
-                    </td>
-                    <td>{el.name}</td>
-                    <td>{el.employee?.kpk}</td>
-                    <td>Put department</td>
-                    <td>{el.roles.length > 0 && el.roles[0].name}</td>
-                    <td>
-                      <div className="flex gap-[9px]">
-                        <EyeIcon />
+              {machines.data.map((el, index) => (
+                <tr
+                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
+                  key={index}
+                >
+                  <td className="px-6 ">{el.code}</td>
+                  <td>{el.number}</td>
+                  <td>{el.line.name}</td>
+                  <td>{el.parts[0].name}</td>
+                  <td>{el.parts[1]?.name}</td>
+                  <td>{el.parts[2]?.name}</td>
+                  <td>{el.device?.name}</td>
+                  <td>
+                    <div className="flex gap-[9px]">
+                      <EyeIcon />
+                      <button
+                        onClick={() => {
+                          navigate(`${config.pathPrefix}machine/edit`, {
+                            state: { edit: true, machines: el },
+                          });
+                        }}
+                      >
                         <EditIcon />
-                        <TrashIcon />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </button>
+                      <TrashIcon />
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <div className="flex justify-between items-center">
             <div className="text-neutral-500 font-normal text-base">
               {`Showing ${(page - 1) * 10 + 1} to ${
-                (page - 1) * 10 + users.data.length
-              } of ${users.totalRows} entries`}
+                (page - 1) * 10 + machines.data.length
+              } of ${machines.totalRows} entries`}
+              {/*Showing 1 to 10 of 14 Entries*/}
             </div>
             <div className="flex justify-center">
               <nav>
@@ -165,7 +164,7 @@ export const Account = () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === users.totalPage}
+                    disabled={page === machines.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}

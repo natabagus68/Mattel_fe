@@ -1,4 +1,4 @@
-export const SelectLabel = ({ name, label, list }) => {
+export const SelectLabel = ({ name, label, list, value = "", onChange }) => {
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -12,6 +12,8 @@ export const SelectLabel = ({ name, label, list }) => {
           className="border border-neutral-100 rounded-lg py-2 px-4 bg-white-lightest text-neutral-500"
           id={name}
           name={name}
+          value={value}
+          onChange={onChange}
           placeholder="Select"
         >
           <option value="" disabled selected>

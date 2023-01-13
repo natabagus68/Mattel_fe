@@ -59,6 +59,7 @@ module.exports = {
                 },
                 ink: {
                     'base': "#404446",
+                    'darker': "#202325",
                     'lighter': "#72777A"
                 },
                 graphite: {
@@ -69,6 +70,10 @@ module.exports = {
                 warning: '#F59F00',
                 info: '#229BD8',
                 danger: '#DE1B1B',
+                error:{
+                    'light': "#FCEAEA",
+                    'primary': "#DD5353"
+                },
                 neutral: {
                     '100': "#CACBCD",
                     'B100': "#858383",

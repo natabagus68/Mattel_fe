@@ -35,4 +35,6 @@ export * from "./CalendarIcon";
 export * from "./ActiveToggleIcon";
 export * from "./InactiveToggleIcon";
 export * from "./EditIcon";
-export * from "./DangerWarningIcon.jsx";
+export * from "./DangerWarningIcon";
+export * from "./ClosedEyeIcon";
+export * from "./OpenEyeIcon";

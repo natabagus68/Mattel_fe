@@ -1,4 +1,4 @@
-import { apiSlice } from "../../api/apiSlice.js";
+import { apiSlice } from "../../../api/apiSlice.js";
 
 export const machineSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,6 +10,11 @@ export const machineSlice = apiSlice.injectEndpoints({
       query: () => "/admin/machine-part",
       providesTags: ["Machine-Part"],
     }),
+    getMachines: builder.query({
+      query: (lineId = null) =>
+        `/admin/machine${lineId !== null ? `?line_id=${lineId}` : ""}`,
+      providesTags: ["Machines"],
+    }),
     createMachine: builder.mutation({
       query: (form) => ({
         url: "/admin/machine",
@@ -18,8 +23,19 @@ export const machineSlice = apiSlice.injectEndpoints({
       }),
       //add invalidate query fetch all machine
     }),
+    updateMachine: builder.mutation({
+      query: ({ id, form }) => ({
+        url: `/admin/machine/${id}`,
+        method: "PUT",
+        body: form,
+      }),
+    }),
   }),
 });
 
-export const { useGetLinesQuery, useGetPartsQuery, useCreateMachineMutation } =
-  machineSlice;
+export const {
+  useGetLinesQuery,
+  useGetPartsQuery,
+  useCreateMachineMutation,
+  useGetMachinesQuery,
+} = machineSlice;

@@ -8,7 +8,7 @@ import {
   MasterDataIcon,
   AppNameText,
 } from "../../../common/components/icons";
-import appLogo from "../../../assets/app-logo.png";
+import appLogo from "../../../assets/company-logo.png";
 
 export const SideBar = () => {
   const { navOpen } = useSelector((state) => state.adminLayout);

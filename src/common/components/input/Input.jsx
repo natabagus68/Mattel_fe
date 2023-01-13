@@ -13,8 +13,9 @@ export const Input = ({
         placeholder={placeholder}
         // value={value}
         className={`border rounded-lg px-2.5 py-3.5 text-gray-700 
-        placeholder-gray-300 disabled:bg-gray-50 h-[44px] w-[114px] 
+        placeholder-gray-300 disabled:bg-gray-50 h-[44px] 
         box-shadow[0_1px_2px_rgba(16, 24, 40, 0.05)] ${className}`}
+        // w-[114px]
         {...props}
       />
     </>
