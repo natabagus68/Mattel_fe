@@ -1,7 +1,13 @@
-import { LightIcon } from "../../../../common/components/icons";
+import { LightIcon } from "../../../../common/components/icons/index.js";
 import { fontSize, statusColor } from "./const.js";
+import { useEffect, useState } from "react";
 
 export const ConditionCard = ({ lineNum, status, Condition = "Condition" }) => {
+  const [font, setFont] = useState("4xl");
+  useEffect(() => {
+    setFont(fontSize(status));
+  }, [status]);
+
   return (
     <>
       <div className="w-[211px] h-[205px] p-[18px] rounded-[9.36759px] bg-[#FFFBFE] shadow-[0_2.3419px_15.6126px_rgba(0,0,0,0.07),0_1.56126px_4.68379px_1.56126px_rgba(0,0,0,0.01)] font-inter">
@@ -14,7 +20,7 @@ export const ConditionCard = ({ lineNum, status, Condition = "Condition" }) => {
             <div
               className={`text-green-400 font-bold ${statusColor(
                 status
-              )} text-${fontSize(status)}`}
+              )} text-${font}`}
             >
               {status}
             </div>

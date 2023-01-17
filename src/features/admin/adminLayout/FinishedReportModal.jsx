@@ -19,18 +19,34 @@ export const FinishedReportModal = ({ visible = false }) => {
             Finished Report
           </div>
           <div className="mt-[16px] flex flex-col gap-[16px]  w-[696px]">
-            <InputLabel label="Machine" name="machine" placeholder="27" />
-            <InputLabel label="Line" name="line" placeholder="Line C-27" />
+            <InputLabel
+              label="Machine"
+              name="machine"
+              placeholder="27"
+              value=""
+              onChange={() => {}}
+            />
+            <InputLabel
+              label="Line"
+              name="line"
+              placeholder="Line C-27"
+              value=""
+              onChange={() => {}}
+            />
             <SelectLabel
               name="part"
               label="Machine Part"
               list={["Conveyor", "Other"]}
+              value=""
+              onChange={() => {}}
             />
             <InputLabel
               label="Description"
               name="desc"
               placeholder="Describe the problem"
               row={6}
+              value=""
+              onChange={() => {}}
             />
           </div>
           <div className="mt-[26px] flex  gap-[16px]">

@@ -52,7 +52,10 @@ export const MachineForm = () => {
 
   useEffect(() => {
     if (state?.edit) {
-      // formik.setFieldValue("code", state.)
+      formik.setFieldValue("code", state.machines.code);
+      formik.setFieldValue("number", state.machines.number);
+      // formik.setFieldValue("machine_line_id", state.machines.machine_line_id);
+
       //  TODO: Edit Machine?
     }
   }, [state]);

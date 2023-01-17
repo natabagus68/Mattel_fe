@@ -132,9 +132,5 @@ export const DowntimeTrendChart = (props) => {
     }
   }, []);
 
-  return (
-    <div>
-      <canvas ref={ctx}></canvas>
-    </div>
-  );
+  return <canvas ref={ctx}></canvas>;
 };

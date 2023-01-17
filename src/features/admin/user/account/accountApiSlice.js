@@ -7,7 +7,6 @@ export const accountApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Users"],
     }),
     verifyUser: builder.mutation({
-      //TODO : later change to mutation
       query: (userId) => ({
         url: `/admin/user/${userId}`,
         method: "PUT",

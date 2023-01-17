@@ -45,6 +45,7 @@ module.exports = {
                 sky: {
                     'base': '#CDCFD0',
                     'light': '#E3E5E6',
+                    'lighter': '#F2F4F5',
                     'lightest': '#F7F9FA',
                     'dark': '#979C9E',
                 },
@@ -55,6 +56,8 @@ module.exports = {
                     '300': "#72B3F8"
                 },
                 orange: {
+                    'foundation-50': '#FEF4E6',
+                    'foundation-900': '#683C04',
                     '300': '#FAB55A'
                 },
                 ink: {

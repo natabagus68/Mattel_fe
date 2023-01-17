@@ -1,77 +1,68 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Chart from "../../../../common/components/Chart.js";
+import moment from "moment";
 
-export const TimeChart = (props) => {
+export const TimeChart = ({ data, month }) => {
+  const [label, setLabel] = useState([]);
+  const [duration, setDuration] = useState([]);
+  const [color, setColor] = useState([]);
+
   const ctx = useRef();
   const chart = useRef();
 
-  useEffect(() => {
-    const initChart = () => {
-      chart.current = new Chart(ctx.current, {
-        type: "bar",
-        data: {
-          labels: [
-            "09 Sep",
-            "10 Sep",
-            "11 Sep",
-            "12 Sep",
-            "13 Sep",
-            "14 Sep",
-            "15 Sep",
-            "16 Sep",
-          ],
-          datasets: [
-            {
-              label: "minute(s)",
-              data: [210, 224, 180, 20, 100, 216, 80, 240],
-              backgroundColor: [
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-              ],
-              borderColor: [
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-                "#FAB55A",
-              ],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-          maintainAspectRatio: false,
-        },
+  useLayoutEffect(() => {
+    setLabel([]);
+    setDuration([]);
+    setColor([]);
+    if (data.length > 0) {
+      data.forEach((el) => {
+        setLabel((prev) => [...prev, `${el.day} ${moment.monthsShort(month)}`]);
+        setDuration((prev) => [...prev, el.duration]);
+        setColor((prev) => [...prev, "#FAB55A"]);
       });
-    };
-    if (!chart.current) {
-      initChart();
-    } else {
-      try {
-        chart.current.data.datasets[0].data = [
-          210, 224, 180, 20, 100, 216, 80, 240,
-        ];
-        chart.current.update();
-      } catch (err) {
-        chart.current.destroy();
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (label.length > 0) {
+      const initChart = () => {
+        chart.current = new Chart(ctx.current, {
+          type: "bar",
+          data: {
+            labels: label,
+            datasets: [
+              {
+                label: "minute(s)",
+                data: duration,
+                backgroundColor: color,
+                borderColor: color,
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+            maintainAspectRatio: false,
+          },
+        });
+      };
+      if (!chart.current) {
         initChart();
+      } else {
+        try {
+          chart.current.data.datasets[0].data = duration;
+          chart.current.update();
+        } catch (err) {
+          chart.current.destroy();
+          initChart();
+        }
       }
     }
-  }, []);
+  }, [label, duration]);
 
   return (
     <div>

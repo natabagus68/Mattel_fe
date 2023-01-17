@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { Loader, Select } from "../../../common/components";
+import { Loader } from "../../../common/components";
 import { useDispatch, useSelector } from "react-redux";
 import { SideBar } from "./SideBar";
 import {
@@ -15,6 +15,7 @@ import {
 import { toggle } from "./adminLayoutSlice.js";
 import { WarningPopUp } from "./WarningPopUp";
 import { FinishedReportModal } from "./FinishedReportModal";
+// import { ConfirmationModal } from "./ConfirmationModal";
 
 export const AdminLayout = () => {
   const { data: auth, isLoading, isError } = useGetAuthenticatedUserQuery();
@@ -31,6 +32,7 @@ export const AdminLayout = () => {
     <>
       <WarningPopUp />
       <FinishedReportModal />
+      {/*<ConfirmationModal />*/}
       <div className="w-full">
         <div
           className={`${

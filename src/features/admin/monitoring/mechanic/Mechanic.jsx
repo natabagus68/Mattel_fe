@@ -1,5 +1,5 @@
-import { Dropdown } from "../dashboard/Dropdown";
-import { Input } from "../../../common/components/index.js";
+import { Dropdown } from "../../dashboard/Dropdown.jsx";
+import { Input } from "../../../../common/components/index.js";
 import { Status } from "./Status.jsx";
 
 export const Mechanic = (props) => {

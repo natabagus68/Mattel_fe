@@ -1,86 +1,71 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Chart from "../../../../common/components/Chart.js";
 
-export const ResponseChart = (props) => {
+export const ResponseChart = ({ data }) => {
+  const [label, setLabel] = useState([]);
+  const [duration, setDuration] = useState([]);
+  const [color, setColor] = useState([]);
+
+  useLayoutEffect(() => {
+    setLabel([]);
+    setDuration([]);
+    setColor([]);
+    if (data.length > 0) {
+      data.forEach((el) => {
+        setLabel((prev) => [...prev, el.name]);
+        setDuration((prev) => [...prev, el.responseDuration]);
+        setColor((prev) => [...prev, "#72B3F8"]);
+      });
+    }
+  }, [data]);
+
   const ctx = useRef();
   const chart = useRef();
   useEffect(() => {
-    const initChart = () => {
-      chart.current = new Chart(ctx.current, {
-        type: "bar",
-        data: {
-          labels: [
-            "Asep",
-            "Adi",
-            "Agung",
-            "Annas",
-            "Ferdi",
-            "Kiki",
-            "Solihin",
-            "Dwiki",
-            "Darmawan",
-          ],
-          datasets: [
-            {
-              label: "quantity",
-              data: [224, 20, 60, 148, 276, 160, 286, 50, 120],
-              backgroundColor: [
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-              ],
-              borderColor: [
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-                "#72B3F8",
-              ],
-              borderWidth: 1,
-              // maxBarThickness: 3,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+    if (label.length === data.length) {
+      const initChart = () => {
+        chart.current = new Chart(ctx.current, {
+          type: "bar",
+          data: {
+            labels: label,
+            datasets: [
+              {
+                label: "quantity",
+                data: duration,
+                backgroundColor: color,
+                borderColor: color,
+                borderWidth: 1,
+              },
+            ],
           },
-          maintainAspectRatio: false,
-        },
-      });
-    };
-    if (!chart.current) {
-      initChart();
-    } else {
-      try {
-        chart.current.data.datasets[0].data = [
-          224, 20, 60, 148, 276, 160, 286, 50, 120,
-        ];
-        chart.current.update();
-      } catch (err) {
-        chart.current.destroy();
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+            maintainAspectRatio: false,
+          },
+        });
+      };
+      if (!chart.current) {
         initChart();
+      } else {
+        try {
+          chart.current.data.datasets[0].data = duration;
+          chart.current.labels = label;
+          chart.current.update();
+        } catch (err) {
+          chart.current.destroy();
+          initChart();
+        }
       }
     }
-  }, []);
+  }, [label, duration, color, data]);
 
   return (
-    // <>
     <div>
       <canvas ref={ctx}></canvas>
     </div>
-    // </>
   );
 };

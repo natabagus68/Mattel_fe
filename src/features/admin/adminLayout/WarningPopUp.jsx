@@ -25,7 +25,7 @@ export const WarningPopUp = ({ visible = false }) => {
           </div>
           <div className="text-2xl font-normal text-neutral-400">Line B-24</div>
           <div className="text-2xl font-normal text-neutral-400">07:35:40</div>
-          <div className="mt-[26px] flex  gap-[16px]">
+          <div className="mt-[26px] flex gap-[16px]">
             <button className="rounded-[4px] bg-graphite-800 flex items-center justify-center w-[301px] h-[72px] text-white-lightest font-medium text-2xl">
               Response / OK
             </button>

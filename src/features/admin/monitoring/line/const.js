@@ -18,20 +18,17 @@ export const statusColor = (status) => {
 };
 
 export const fontSize = (status) => {
-  let size = "";
   switch (status) {
     case "RUN":
-      size = "4xl";
-      break;
+      return "4xl";
+
     case "QC":
-      size = "4xl";
-      break;
+      return "4xl";
+
     case "Material":
-      size = "xl";
-      break;
+      return "xl";
+
     case "Maintenance":
-      size = "base";
-      break;
+      return "base";
   }
-  return size;
 };

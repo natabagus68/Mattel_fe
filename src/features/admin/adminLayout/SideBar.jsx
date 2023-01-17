@@ -9,6 +9,7 @@ import {
   AppNameText,
 } from "../../../common/components/icons";
 import appLogo from "../../../assets/company-logo.png";
+import { MonitorIcon } from "../../../common/components/icons/MonitorIcon";
 
 export const SideBar = () => {
   const { navOpen } = useSelector((state) => state.adminLayout);
@@ -32,18 +33,21 @@ export const SideBar = () => {
         >
           <NavItem to={`dashboard/general`} label={`General`} />
           <NavItem to={`dashboard/man-power`} label={`Man Power`} />
-          <NavItem to={`dashboard/machine`} label={`Machine`} />
-          <NavItem to={`dashboard/machine-detail`} label={`Machine Detail`} />
+          <NavItem to={`dashboard/machine-problem`} label={`Machine Problem`} />
+        </NavItem>
+        <NavItem
+          label={`Monitoring`}
+          icon={<MonitorIcon className="mr-3 -mb-1" />}
+        >
+          <NavItem label={`Line`} to={`monitoring/line`} />
+          <NavItem label={`Layout`} to={`monitoring/layout`} />
+          <NavItem label={`Mechanic`} to={`monitoring/mechanic`} />
         </NavItem>
         <NavItem
           to={`report`}
           label={`Report`}
           icon={<ChartIcon className="mr-3 -mb-1" />}
         />
-        <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
-          <NavItem to={`user/account`} label={`Account`} />
-          <NavItem to={`access`} label={`Access`} />
-        </NavItem>
         <NavItem
           label={`Master`}
           icon={<MasterDataIcon className="mr-3 -mb-1" />}
@@ -51,9 +55,13 @@ export const SideBar = () => {
           <NavItem to={`line-location`} label={`Line Location`} />
           <NavItem to={`code`} label={`Code`} />
           <NavItem to={`machine-part`} label={`Machine Part`} />
-          <NavItem to={`device`} label={`Device`} />
+          <NavItem to={`machine-device`} label={`Device`} />
           <NavItem to={`machine`} label={`Machine`} />
           <NavItem to={`mechanic-status`} label={`Mechanic Status`} />
+        </NavItem>
+        <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
+          <NavItem to={`user/account`} label={`Account`} />
+          <NavItem to={`access`} label={`Access`} />
         </NavItem>
       </div>
     </>
