@@ -13,7 +13,26 @@ export const partApiSlice = apiSlice.injectEndpoints({
         body: form,
       }),
     }),
+    editPart: builder.mutation({
+      query: ({ partId, form }) => ({
+        url: `/admin/machine-part/${partId}`,
+        method: "PUT",
+        body: form,
+      }),
+    }),
+    deletePart: builder.mutation({
+      query: (partId) => ({
+        url: `/admin/machine-part/${partId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Parts"],
+    }),
   }),
 });
 
-export const { useGetPartsQuery, useCreatePartMutation } = partApiSlice;
+export const {
+  useGetPartsQuery,
+  useCreatePartMutation,
+  useEditPartMutation,
+  useDeletePartMutation,
+} = partApiSlice;

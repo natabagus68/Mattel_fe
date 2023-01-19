@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export const DoubleChartContainer = ({ title, children, toggleList = [] }) => {
   const [activeToggle, setActiveToggle] = useState(0);
-  const toggleActive = "bg-white-lightest rounded-[4px] px-[6px] py-[2px]";
+  const toggleActive = "bg-white-lightest rounded-[4px]";
   return (
     <>
       <div
@@ -13,7 +13,9 @@ export const DoubleChartContainer = ({ title, children, toggleList = [] }) => {
           <div className="bg-sky-lighter rounded-[5px] border-[1px] border-sky-lighter flex items-center gap-[10px] px-[12px] py-[4px]">
             {toggleList.map((el, index) => (
               <button
-                className={`text-xs ${activeToggle === index && toggleActive}`}
+                className={`text-xs px-[6px] py-[2px] ${
+                  activeToggle === index && toggleActive
+                }`}
                 key={index}
                 onClick={setActiveToggle.bind(this, index)}
               >

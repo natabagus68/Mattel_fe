@@ -1,6 +1,6 @@
 import { ChartContainer } from "../ChartContainer";
 import { DowntimeTrendChart } from "./DowntimeTrendChart";
-import { MachineDowntimeList } from "./MachineDowntimeList";
+import { GeneralList } from "./GeneralList.jsx";
 import { DoubleChartContainer } from "./DoubleChartContainer";
 import { SideBarChart } from "./SideBarChart";
 
@@ -16,14 +16,14 @@ export const General = (props) => {
             title="Top 5 Machine Downtime"
             toggleList={["List", "Graphic"]}
           >
-            <MachineDowntimeList />
+            <GeneralList />
             <SideBarChart />
           </DoubleChartContainer>
           <DoubleChartContainer
             title="Top 5 Line Downtime"
             toggleList={["List", "Graphic"]}
           >
-            <MachineDowntimeList />
+            <GeneralList />
             <SideBarChart />
           </DoubleChartContainer>
         </div>
@@ -32,14 +32,14 @@ export const General = (props) => {
             title="Top 5 Fastest Respond Time"
             toggleList={["List", "Graphic"]}
           >
-            <MachineDowntimeList />
+            <GeneralList />
             <SideBarChart />
           </DoubleChartContainer>
           <DoubleChartContainer
             title="Top 5 Fastest Repair Time"
             toggleList={["List", "Graphic"]}
           >
-            <MachineDowntimeList />
+            <GeneralList />
             <SideBarChart />
           </DoubleChartContainer>
         </div>

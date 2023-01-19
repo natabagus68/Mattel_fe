@@ -2,18 +2,16 @@ import { apiSlice } from "../../../api/apiSlice.js";
 
 export const machineSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getLines: builder.query({
-      query: () => "/admin/machine-line",
-      providesTags: ["Machine-Line"],
-    }),
-    getParts: builder.query({
-      query: () => "/admin/machine-part",
-      providesTags: ["Machine-Part"],
-    }),
     getMachines: builder.query({
-      query: (lineId = null) =>
-        `/admin/machine${lineId !== null ? `?line_id=${lineId}` : ""}`,
+      query: (page = 1, lineId = "") =>
+        `/admin/machine?page=${page}&limit=10${
+          lineId !== "" && `&line_id=${lineId}`
+        }`,
       providesTags: ["Machines"],
+    }),
+    getMachine: builder.query({
+      query: (machineId) => `/admin/machine/${machineId}`,
+      providesTags: ["Machine"],
     }),
     createMachine: builder.mutation({
       query: (form) => ({
@@ -29,13 +27,22 @@ export const machineSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: form,
       }),
+      invalidatesTags: ["Machine"],
+    }),
+    deleteMachine: builder.mutation({
+      query: (machineId) => ({
+        url: `/admin/machine/${machineId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Machines"],
     }),
   }),
 });
 
 export const {
-  useGetLinesQuery,
-  useGetPartsQuery,
   useCreateMachineMutation,
   useGetMachinesQuery,
+  useGetMachineQuery,
+  useUpdateMachineMutation,
+  useDeleteMachineMutation,
 } = machineSlice;

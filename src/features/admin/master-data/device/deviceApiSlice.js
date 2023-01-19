@@ -14,6 +14,14 @@ export const deviceApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Devices"],
     }),
+    updateDevice: builder.mutation({
+      query: ({ deviceId, form }) => ({
+        url: `/admin/machine-device/${deviceId}`,
+        method: "PUT",
+        body: form,
+      }),
+      invalidatesTags: ["Devices"],
+    }),
     deleteDevice: builder.mutation({
       query: (deviceId) => ({
         url: `/admin/machine-device/${deviceId}`,
@@ -26,5 +34,6 @@ export const deviceApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetDevicesQuery,
   useCreateDeviceMutation,
+  useUpdateDeviceMutation,
   useDeleteDeviceMutation,
 } = deviceApiSlice;

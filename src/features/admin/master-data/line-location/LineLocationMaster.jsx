@@ -1,41 +1,34 @@
-import { Input } from "../../../../common/components/index.js";
+import { Link, useNavigate } from "react-router-dom";
 import {
-  InactiveToggleIcon,
-  ActiveToggleIcon,
-} from "../../../../common/components/icons/index.js";
+  useDeleteLineMutation,
+  useGetLinesQuery,
+} from "./lineLocationApiSlice.js";
+import { useEffect, useState } from "react";
+import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import {
+  CalendarIcon,
   EditIcon,
   EyeIcon,
   TrashIcon,
-} from "../../../../common/components/icons";
-import { useGetUsersQuery, useVerifyUserMutation } from "./accountApiSlice.js";
-import { useEffect, useState } from "react";
+} from "../../../../common/components/icons/index.js";
+import { Input } from "../../../../common/components/index.js";
+import { config } from "../../../../common/utils/index.js";
 
-export const Account = () => {
+export const LineLocationMaster = () => {
   const [page, setPage] = useState(1);
 
-  const { data: users = { data: [] }, refetch } = useGetUsersQuery(page);
-  const [verifyUser, result] = useVerifyUserMutation();
+  const navigate = useNavigate();
+
+  const { data: lines = { data: [] }, refetch } = useGetLinesQuery(page);
+  const [deleteLine, deleteResult] = useDeleteLineMutation();
 
   useEffect(() => {
-    async function refresh() {
-      await refetch();
-    }
-    console.log(page);
-    refresh();
+    refetch();
   }, [page]);
-
-  useEffect(() => {
-    if (result.isSuccess) {
-      refetch();
-    }
-  }, [result.isSuccess]);
-
-  //TODO : add global loader
 
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < users.totalPage; i++) {
+    for (let i = 0; i < lines.totalPage; i++) {
       arr.push(
         <button
           disabled={page === i + 1}
@@ -58,21 +51,17 @@ export const Account = () => {
     }
     return arr;
   };
-
   return (
     <>
-      <div className="p-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
+      <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
         <div className="flex justify-between">
           <Input
             type="text"
             placeholder="Search..."
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
-          <div className="flex gap-4">
-            <button className="py-[6px] px-[31px] bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-              Trash
-            </button>
-            <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
+          <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
+            <Link to={`${config.pathPrefix}line-location/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -88,67 +77,59 @@ export const Account = () => {
                 </svg>
                 Add Data
               </div>
-            </button>
-          </div>
+            </Link>
+          </button>
         </div>
-        <div className="mt-[22px]">
+        <div className="mt-[18px]">
           <table className="my-[28px] table-auto w-full">
             <thead className="bg-[#E2F1FF]">
               <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
-                <td className="px-6 ">Status</td>
-                <td>Name</td>
-                <td>NPK</td>
-                <td>Department</td>
-                <td>Role</td>
-                <td>Action</td>
+                <td className="px-6">No.</td>
+                <td>Line Name</td>
+                <td align="right" className="pr-9">
+                  Option
+                </td>
               </tr>
             </thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {users.data.length > 0 &&
-                users.data.map((el) => (
-                  <tr
-                    className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
-                    key={el.id}
-                  >
-                    <td className="px-6 ">
-                      <div className="flex gap-2 items-center">
-                        <button
-                          onClick={() => {
-                            // setUserId(el.id);
-                            verifyUser(el.id);
-                          }}
-                        >
-                          {el.is_verified ? (
-                            <ActiveToggleIcon />
-                          ) : (
-                            <InactiveToggleIcon />
-                          )}
-                        </button>
-                        <div className="text-center">
-                          {el.is_verified ? "Active" : "Inactive"}
-                        </div>
-                      </div>
-                    </td>
-                    <td>{el.name}</td>
-                    <td>{el.employee?.kpk}</td>
-                    <td>Put department</td>
-                    <td>{el.roles.length > 0 && el.roles[0].name}</td>
-                    <td>
-                      <div className="flex gap-[9px]">
-                        <EyeIcon />
+              {lines.data.map((el, index) => (
+                <tr
+                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
+                  key={index}
+                >
+                  <td className="px-6 ">{index + 1}</td>
+                  <td>{el.name}</td>
+                  <td align="right" className="pr-3">
+                    <div className="flex justify-end gap-[9px]">
+                      <EyeIcon />
+                      <button
+                        onClick={() => {
+                          navigate(`${config.pathPrefix}line-location/edit`, {
+                            state: { edit: true, data: el },
+                          });
+                        }}
+                      >
                         <EditIcon />
+                      </button>
+                      <button
+                        onClick={() => {
+                          deleteLine(el.id);
+                        }}
+                      >
                         <TrashIcon />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <div className="flex justify-between items-center">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * users.limit + 1} to ${
-                (page - 1) * users.limit + users.data.length
-              } of ${users.totalRows} entries`}
+              {`Showing ${(page - 1) * lines.limit + 1} to ${
+                (page - 1) * lines.limit + lines.data.length
+              } of ${lines.totalRows} entries`}
+              {/*Showing 1 to 10 of 14 Entries*/}
             </div>
             <div className="flex justify-center">
               <nav>
@@ -165,7 +146,7 @@ export const Account = () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === users.totalPage}
+                    disabled={page === lines.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}

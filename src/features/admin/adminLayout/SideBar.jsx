@@ -53,11 +53,9 @@ export const SideBar = () => {
           icon={<MasterDataIcon className="mr-3 -mb-1" />}
         >
           <NavItem to={`line-location`} label={`Line Location`} />
-          <NavItem to={`code`} label={`Code`} />
           <NavItem to={`machine-part`} label={`Machine Part`} />
           <NavItem to={`machine-device`} label={`Device`} />
           <NavItem to={`machine`} label={`Machine`} />
-          <NavItem to={`mechanic-status`} label={`Mechanic Status`} />
         </NavItem>
         <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
           <NavItem to={`user/account`} label={`Account`} />

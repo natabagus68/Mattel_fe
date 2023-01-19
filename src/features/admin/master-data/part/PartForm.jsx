@@ -1,13 +1,15 @@
 import { useFormik } from "formik";
 import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
-import { useNavigate } from "react-router-dom";
-import { useCreatePartMutation } from "./partApiSlice.js";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useCreatePartMutation, useEditPartMutation } from "./partApiSlice.js";
 import { useEffect } from "react";
 
 export const PartForm = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const [storePart, { isSuccess }] = useCreatePartMutation();
+  const [updatePart, updateResult] = useEditPartMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -17,16 +19,25 @@ export const PartForm = () => {
       let data = {
         name: values.name,
       };
-      storePart(data);
-      //    mutate data
+      if (state?.edit) {
+        updatePart({ partId: state.part.id, form: data });
+      } else {
+        storePart(data);
+      }
     },
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (state?.edit) {
+      formik.setFieldValue("name", state.part.name);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (isSuccess || updateResult.isSuccess) {
       navigate(-1);
     }
-  }, [isSuccess]);
+  }, [isSuccess, updateResult]);
 
   return (
     <>
@@ -50,7 +61,8 @@ export const PartForm = () => {
             </button>
             <button
               className="py-3 px-[70.5px] bg-neutral-200 rounded text-white-lightest"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 navigate(-1);
               }}
             >

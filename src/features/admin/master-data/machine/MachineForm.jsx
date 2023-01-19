@@ -2,25 +2,34 @@ import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
 import { SelectLabel } from "../../../../common/components/input/SelectLabel.jsx";
 import {
   useCreateMachineMutation,
-  useGetLinesQuery,
-  useGetPartsQuery,
+  useGetMachineQuery,
+  useUpdateMachineMutation,
 } from "./machineSlice.js";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { useGetDevicesQuery } from "../device/deviceApiSlice.js";
+import { useGetLinesQuery } from "../line-location/lineLocationApiSlice.js";
+import { useGetPartsQuery } from "../part/partApiSlice.js";
 
 export const MachineForm = () => {
   const linesQuery = useGetLinesQuery();
   const partsQuery = useGetPartsQuery();
+  const devicesQuery = useGetDevicesQuery();
   const [storeMachine, { isSuccess, error, isLoading }] =
     useCreateMachineMutation();
+  const [updateMachine, updateResult] = useUpdateMachineMutation();
   const [lines, setLines] = useState([]);
   const [parts, setParts] = useState([]);
-  const [mode, setMode] = useState("add");
+  const [devices, setDevices] = useState([]);
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  console.log(state);
+
+  const machineQuery = useGetMachineQuery(state.machines.id, {
+    skip: !state?.machines?.id,
+    keepUnusedDataFor: 0,
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -46,19 +55,40 @@ export const MachineForm = () => {
       if (values.part3 !== "") {
         data.part = [...data.part, values.part3];
       }
-      storeMachine(data);
+      if (state?.edit) {
+        updateMachine({ id: state.machines.id, form: data });
+      } else {
+        storeMachine(data);
+      }
     },
   });
 
   useEffect(() => {
     if (state?.edit) {
-      formik.setFieldValue("code", state.machines.code);
-      formik.setFieldValue("number", state.machines.number);
-      // formik.setFieldValue("machine_line_id", state.machines.machine_line_id);
+      if (machineQuery.isSuccess) {
+        formik.setFieldValue("code", machineQuery.data.data.code);
+        formik.setFieldValue("number", machineQuery.data.data.number);
+        formik.setFieldValue(
+          "machine_line_id",
+          machineQuery.data.data.line?.id
+        );
+        formik.setFieldValue(
+          "machine_device_id",
+          machineQuery.data.data.device?.id
+        );
+        let i = 1;
+        for (const part of machineQuery.data.data.parts) {
+          formik.setFieldValue(`part${i}`, part.id);
+          i++;
+        }
+      } else {
+        machineQuery.refetch();
+      }
 
+      // console.log(formik.values);
       //  TODO: Edit Machine?
     }
-  }, [state]);
+  }, [state, machineQuery]);
 
   useEffect(() => {
     if (linesQuery.isSuccess) {
@@ -91,10 +121,19 @@ export const MachineForm = () => {
   }, [partsQuery.isSuccess]);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (devicesQuery.isSuccess) {
+      setDevices([]);
+      devicesQuery.data.data.forEach((el) => {
+        setDevices((prev) => [...prev, { key: el.id, value: el.name }]);
+      });
+    }
+  }, [devicesQuery.isSuccess]);
+
+  useEffect(() => {
+    if (isSuccess || updateResult.isSuccess) {
       navigate(-1);
     }
-  }, [isSuccess]);
+  }, [isSuccess, updateResult]);
 
   return (
     <>
@@ -143,10 +182,10 @@ export const MachineForm = () => {
               value={formik.values.part3}
               onChange={formik.handleChange}
             />
-            <InputLabel
+            <SelectLabel
               label="Device ID"
               name="machine_device_id"
-              placeholder="Enter your device ID"
+              list={devices}
               value={formik.values.machine_device_id}
               onChange={formik.handleChange}
             />
@@ -160,7 +199,8 @@ export const MachineForm = () => {
             </button>
             <button
               className="py-3 px-[70.5px] bg-neutral-200 rounded text-white-lightest"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 navigate(-1);
               }}
             >

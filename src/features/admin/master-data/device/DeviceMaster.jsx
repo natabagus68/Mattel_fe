@@ -19,19 +19,13 @@ export const DeviceMaster = () => {
 
   const navigate = useNavigate();
 
-  const { data: devices = { data: [] }, refetch } = useGetDevicesQuery();
+  const { data: devices = { data: [] }, refetch } = useGetDevicesQuery(page);
 
   const [deleteDevice, deleteResult] = useDeleteDeviceMutation();
 
   useEffect(() => {
     refetch();
   }, [page]);
-
-  useEffect(() => {
-    if (deleteResult.isSuccess) {
-      refetch();
-    }
-  }, [deleteResult.isSuccess]);
 
   const pagination = () => {
     let arr = [];
@@ -61,14 +55,6 @@ export const DeviceMaster = () => {
 
   return (
     <>
-      <div className="grid grid-flow-col auto-cols-min gap-6">
-        <Dropdown list={["Maintenance", "QC", "RUN", "Material"]} />
-        {/*  TODO : Implement date picker*/}
-        <div className="bg-white-lightest flex gap-[11px] w-[190px] h-[44px] items-center rounded-lg py-2.5 px-3.5 ">
-          <CalendarIcon />
-          <div className="font-body font-normal text-gray-300">Date</div>
-        </div>
-      </div>
       <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
         <div className="flex justify-between">
           <Input
@@ -142,8 +128,8 @@ export const DeviceMaster = () => {
           </table>
           <div className="flex justify-between items-center">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * 10 + 1} to ${
-                (page - 1) * 10 + devices.data.length
+              {`Showing ${(page - 1) * devices.limit + 1} to ${
+                (page - 1) * devices.limit + devices.data.length
               } of ${devices.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>

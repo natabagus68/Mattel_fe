@@ -4,7 +4,7 @@ import { config } from "../common/utils";
 import { Login } from "../features/auth/Login";
 import { AdminLayout } from "../features/admin/adminLayout";
 import { GuestLayouts } from "../features/guest/GuestLayouts";
-import { General } from "../features/admin/dashboard/new-general/General";
+import { General } from "../features/admin/dashboard/general/General";
 import { ManPower } from "../features/admin/dashboard/manpower/ManPower";
 import { Report } from "../features/admin/report/Report.jsx";
 import { MachineForm } from "../features/admin/master-data/machine/MachineForm";
@@ -17,6 +17,8 @@ import { PartMaster } from "../features/admin/master-data/part/PartMaster";
 import { PartForm } from "../features/admin/master-data/part/PartForm";
 import { DeviceMaster } from "../features/admin/master-data/device/DeviceMaster.jsx";
 import { DeviceForm } from "../features/admin/master-data/device/DeviceForm";
+import { LineLocationMaster } from "../features/admin/master-data/line-location/LineLocationMaster";
+import { LineLocationForm } from "../features/admin/master-data/line-location/LineLocationForm";
 
 const Root = () => {
   return <Outlet />;
@@ -67,6 +69,9 @@ export default createBrowserRouter([
       },
       { path: "machine/create", element: <MachineForm /> },
       { path: "machine/edit", element: <MachineForm /> },
+      { path: "line-location", element: <LineLocationMaster /> },
+      { path: "line-location/create", element: <LineLocationForm /> },
+      { path: "line-location/edit", element: <LineLocationForm /> },
       { path: "machine-part", element: <PartMaster /> },
       { path: "machine-part/create", element: <PartForm /> },
       { path: "machine-part/edit", element: <PartForm /> },

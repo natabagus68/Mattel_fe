@@ -16,7 +16,7 @@ export const SelectLabel = ({ name, label, list, value = "", onChange }) => {
           onChange={onChange}
           placeholder="Select"
         >
-          <option value="" disabled selected>
+          <option value="" disabled>
             Select
           </option>
           {list.map((el, index) => (

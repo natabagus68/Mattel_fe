@@ -1,4 +1,3 @@
-import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import {
   CalendarIcon,
   EditIcon,
@@ -6,19 +5,25 @@ import {
   TrashIcon,
 } from "../../../../common/components/icons/index.js";
 import { Input } from "../../../../common/components/index.js";
-import { useGetMachinesQuery } from "./machineSlice.js";
+import {
+  useDeleteMachineMutation,
+  useGetMachinesQuery,
+} from "./machineSlice.js";
 import { useEffect, useState } from "react";
 import { config } from "../../../../common/utils/index.js";
 import { Link, useNavigate } from "react-router-dom";
 
-export const MachineMaster = (props) => {
-  const [lineId, setLineId] = useState(null);
+export const MachineMaster = () => {
+  const [lineId, setLineId] = useState("");
   const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
-  const { data: machines = { data: [] }, refetch } =
-    useGetMachinesQuery(lineId);
+  const { data: machines = { data: [] }, refetch } = useGetMachinesQuery(
+    page,
+    lineId
+  );
+  const [deleteMachine, deleteResult] = useDeleteMachineMutation();
 
   useEffect(() => {
     refetch();
@@ -28,7 +33,6 @@ export const MachineMaster = (props) => {
     async function refresh() {
       await refetch();
     }
-    console.log(page);
     refresh();
   }, [page]);
 
@@ -61,14 +65,6 @@ export const MachineMaster = (props) => {
 
   return (
     <>
-      <div className="grid grid-flow-col auto-cols-min gap-6">
-        <Dropdown list={["Maintenance", "QC", "RUN", "Material"]} />
-        {/*  TODO : Implement date picker*/}
-        <div className="bg-white-lightest flex gap-[11px] w-[190px] h-[44px] items-center rounded-lg py-2.5 px-3.5 ">
-          <CalendarIcon />
-          <div className="font-body font-normal text-gray-300">Date</div>
-        </div>
-      </div>
       <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
         <div className="flex justify-between">
           <Input
@@ -107,7 +103,9 @@ export const MachineMaster = (props) => {
                 <td>Machine Part 2</td>
                 <td>Machine Part 3</td>
                 <td>Device ID</td>
-                <td>Option</td>
+                <td align="right" className="pr-9">
+                  Option
+                </td>
               </tr>
             </thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
@@ -119,12 +117,12 @@ export const MachineMaster = (props) => {
                   <td className="px-6 ">{el.code}</td>
                   <td>{el.number}</td>
                   <td>{el.line.name}</td>
-                  <td>{el.parts[0].name}</td>
+                  <td>{el.parts[0]?.name}</td>
                   <td>{el.parts[1]?.name}</td>
                   <td>{el.parts[2]?.name}</td>
                   <td>{el.device?.name}</td>
-                  <td>
-                    <div className="flex gap-[9px]">
+                  <td align="right" className="pr-3">
+                    <div className="flex justify-end gap-[9px]">
                       <EyeIcon />
                       <button
                         onClick={() => {
@@ -135,7 +133,13 @@ export const MachineMaster = (props) => {
                       >
                         <EditIcon />
                       </button>
-                      <TrashIcon />
+                      <button
+                        onClick={() => {
+                          deleteMachine(el.id);
+                        }}
+                      >
+                        <TrashIcon />
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -144,8 +148,8 @@ export const MachineMaster = (props) => {
           </table>
           <div className="flex justify-between items-center">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * 10 + 1} to ${
-                (page - 1) * 10 + machines.data.length
+              {`Showing ${(page - 1) * machines.limit + 1} to ${
+                (page - 1) * machines.limit + machines.data.length
               } of ${machines.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>

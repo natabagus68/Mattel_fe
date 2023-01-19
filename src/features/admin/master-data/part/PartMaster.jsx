@@ -1,6 +1,4 @@
-import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import {
-  CalendarIcon,
   EditIcon,
   EyeIcon,
   TrashIcon,
@@ -9,7 +7,7 @@ import { Input } from "../../../../common/components/index.js";
 import { Link, useNavigate } from "react-router-dom";
 import { config } from "../../../../common/utils/index.js";
 import { useEffect, useState } from "react";
-import { useGetPartsQuery } from "./partApiSlice.js";
+import { useDeletePartMutation, useGetPartsQuery } from "./partApiSlice.js";
 
 export const PartMaster = () => {
   const [page, setPage] = useState(1);
@@ -17,6 +15,7 @@ export const PartMaster = () => {
   const navigate = useNavigate();
 
   const { data: parts = { data: [] }, refetch } = useGetPartsQuery();
+  const [deletePart, deleteResult] = useDeletePartMutation();
 
   useEffect(() => {
     refetch();
@@ -27,6 +26,7 @@ export const PartMaster = () => {
     for (let i = 0; i < parts.totalPage; i++) {
       arr.push(
         <button
+          key={i}
           disabled={page === i + 1}
           onClick={() => {
             setPage(i + 1);
@@ -38,7 +38,6 @@ export const PartMaster = () => {
                 ? "bg-graphite-500 text-white-lightest"
                 : "text-neutral-500"
             }`}
-            key={i}
           >
             {i + 1}
           </li>
@@ -50,14 +49,6 @@ export const PartMaster = () => {
 
   return (
     <>
-      <div className="grid grid-flow-col auto-cols-min gap-6">
-        <Dropdown list={["Maintenance", "QC", "RUN", "Material"]} />
-        {/*  TODO : Implement date picker*/}
-        <div className="bg-white-lightest flex gap-[11px] w-[190px] h-[44px] items-center rounded-lg py-2.5 px-3.5 ">
-          <CalendarIcon />
-          <div className="font-body font-normal text-gray-300">Date</div>
-        </div>
-      </div>
       <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
         <div className="flex justify-between">
           <Input
@@ -116,7 +107,13 @@ export const PartMaster = () => {
                       >
                         <EditIcon />
                       </button>
-                      <TrashIcon />
+                      <button
+                        onClick={() => {
+                          deletePart(el.id);
+                        }}
+                      >
+                        <TrashIcon />
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -125,8 +122,8 @@ export const PartMaster = () => {
           </table>
           <div className="flex justify-between items-center">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * 10 + 1} to ${
-                (page - 1) * 10 + parts.data.length
+              {`Showing ${(page - 1) * parts.limit + 1} to ${
+                (page - 1) * parts.limit + parts.data.length
               } of ${parts.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>

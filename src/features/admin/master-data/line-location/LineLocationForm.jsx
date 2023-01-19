@@ -1,18 +1,18 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
 import {
-  useCreateDeviceMutation,
-  useUpdateDeviceMutation,
-} from "./deviceApiSlice.js";
+  useCreateLineMutation,
+  useUpdateLineMutation,
+} from "./lineLocationApiSlice.js";
+import { useFormik } from "formik";
 import { useEffect } from "react";
 import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
 
-export const DeviceForm = () => {
+export const LineLocationForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const [storeDevice, { isSuccess }] = useCreateDeviceMutation();
-  const [updateDevice, updateResult] = useUpdateDeviceMutation();
+  const [storeLine, storeResult] = useCreateLineMutation();
+  const [updateLine, updateResult] = useUpdateLineMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -23,24 +23,24 @@ export const DeviceForm = () => {
         name: values.name,
       };
       if (state?.edit) {
-        updateDevice({ deviceId: state.data.id, form: data });
+        updateLine({ lineId: state.data.id, form: data });
       } else {
-        storeDevice(data);
+        storeLine(data);
       }
     },
   });
 
   useEffect(() => {
-    if (isSuccess || updateResult.isSuccess) {
-      navigate(-1);
-    }
-  }, [isSuccess, updateResult]);
-
-  useEffect(() => {
-    if (state && state.edit) {
+    if (state?.edit) {
       formik.setFieldValue("name", state.data.name);
     }
   }, [state]);
+
+  useEffect(() => {
+    if (storeResult.isSuccess || updateResult.isSuccess) {
+      navigate(-1);
+    }
+  }, [storeResult.isSuccess, updateResult.isSuccess]);
 
   return (
     <>
@@ -49,7 +49,7 @@ export const DeviceForm = () => {
           <div className="flex flex-col gap-4">
             <InputLabel
               label="Name"
-              placeholder="Enter Machine Device"
+              placeholder="Enter Machine Line Name"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -64,8 +64,8 @@ export const DeviceForm = () => {
             </button>
             <button
               className="py-3 px-[70.5px] bg-neutral-200 rounded text-white-lightest"
-              onClick={(event) => {
-                event.preventDefault();
+              onClick={(e) => {
+                e.preventDefault();
                 navigate(-1);
               }}
             >

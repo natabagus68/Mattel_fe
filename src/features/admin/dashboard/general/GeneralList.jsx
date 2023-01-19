@@ -1,4 +1,4 @@
-export const MachineDowntimeList = () => {
+export const GeneralList = () => {
   return (
     <>
       <div className="px-[25px] py-[12px] border-[#F2F4F5] border-[1px]">
