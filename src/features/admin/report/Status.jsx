@@ -9,7 +9,12 @@ export const Status = ({ text }) => {
   } else if (text === "On Progress" || text === "Material") {
     cls =
       "py-[9px] px-[12px] rounded-[8px] text-black-500 w-fit font-normal text-base my-[9px] bg-info";
-  } else if (text === "Waiting" || text === "QC" || text === "Not Started") {
+  } else if (
+    text === "Waiting" ||
+    text === "QC" ||
+    text === "Not Started" ||
+    text === "On Hold"
+  ) {
     cls =
       "py-[9px] px-[12px] rounded-[8px] text-black-500 w-fit font-normal text-base my-[9px] bg-warning";
   }

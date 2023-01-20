@@ -58,7 +58,7 @@ export const SideBar = () => {
           <NavItem to={`machine`} label={`Machine`} />
         </NavItem>
         <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
-          <NavItem to={`user/account`} label={`Account`} />
+          <NavItem to={`account`} label={`Account`} />
           <NavItem to={`access`} label={`Access`} />
         </NavItem>
       </div>

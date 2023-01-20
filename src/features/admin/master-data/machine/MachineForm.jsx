@@ -26,7 +26,7 @@ export const MachineForm = () => {
 
   const { state } = useLocation();
 
-  const machineQuery = useGetMachineQuery(state.machines.id, {
+  const machineQuery = useGetMachineQuery(state?.machines?.id, {
     skip: !state?.machines?.id,
     keepUnusedDataFor: 0,
   });
@@ -84,9 +84,6 @@ export const MachineForm = () => {
       } else {
         machineQuery.refetch();
       }
-
-      // console.log(formik.values);
-      //  TODO: Edit Machine?
     }
   }, [state, machineQuery]);
 

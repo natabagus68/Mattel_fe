@@ -38,3 +38,4 @@ export * from "./EditIcon";
 export * from "./DangerWarningIcon";
 export * from "./ClosedEyeIcon";
 export * from "./OpenEyeIcon";
+export * from "./BigTrashIcon";

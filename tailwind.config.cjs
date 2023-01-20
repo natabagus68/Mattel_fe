@@ -15,6 +15,8 @@ module.exports = {
                     '500': '#B1B5BA',
                     'foundation-500': '#343C44',
                     'foundation-300': '#777C82',
+                    'foundation-400': '#5D6369',
+                    'foundation-800': '#383E49',
                     '700': '#5C5E61',
                     'dropdown': '#989FAD'
                 },
@@ -36,7 +38,9 @@ module.exports = {
                 },
                 black: {
                     'base': '#1A1A27',
-                    '500': "#343C44"
+                    '400': '#C8CCD2',
+                    '500': "#343C44",
+                    '700': "#5C5E61"
                 },
                 white: {
                     'base': '#C4C4C4',

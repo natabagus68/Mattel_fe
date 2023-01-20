@@ -1,4 +1,11 @@
-export const SelectLabel = ({ name, label, list, value = "", onChange }) => {
+export const SelectLabel = ({
+  name,
+  label,
+  list,
+  value = "",
+  onChange,
+  placeholder = "Select",
+}) => {
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -17,7 +24,7 @@ export const SelectLabel = ({ name, label, list, value = "", onChange }) => {
           placeholder="Select"
         >
           <option value="" disabled>
-            Select
+            {placeholder}
           </option>
           {list.map((el, index) => (
             <option key={index} value={el.key}>

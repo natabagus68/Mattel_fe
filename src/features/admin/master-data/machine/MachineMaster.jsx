@@ -1,5 +1,4 @@
 import {
-  CalendarIcon,
   EditIcon,
   EyeIcon,
   TrashIcon,
@@ -97,11 +96,11 @@ export const MachineMaster = () => {
             <thead className="bg-[#E2F1FF]">
               <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
                 <td className="px-6 ">Code</td>
-                <td>Machine No / Name</td>
+                <td>Machine No</td>
                 <td>Line Location</td>
-                <td>Machine Part 1</td>
-                <td>Machine Part 2</td>
-                <td>Machine Part 3</td>
+                <td>Part</td>
+                <td>Part</td>
+                <td>Part</td>
                 <td>Device ID</td>
                 <td align="right" className="pr-9">
                   Option
@@ -117,9 +116,9 @@ export const MachineMaster = () => {
                   <td className="px-6 ">{el.code}</td>
                   <td>{el.number}</td>
                   <td>{el.line.name}</td>
-                  <td>{el.parts[0]?.name}</td>
-                  <td>{el.parts[1]?.name}</td>
-                  <td>{el.parts[2]?.name}</td>
+                  <td>{el.parts[0]?.name ?? "-"}</td>
+                  <td>{el.parts[1]?.name ?? "-"}</td>
+                  <td>{el.parts[2]?.name ?? "-"}</td>
                   <td>{el.device?.name}</td>
                   <td align="right" className="pr-3">
                     <div className="flex justify-end gap-[9px]">

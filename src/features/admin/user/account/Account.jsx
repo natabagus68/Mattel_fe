@@ -10,9 +10,12 @@ import {
 } from "../../../../common/components/icons";
 import { useGetUsersQuery, useVerifyUserMutation } from "./accountApiSlice.js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { config } from "../../../../common/utils/index.js";
 
 export const Account = () => {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
   const { data: users = { data: [] }, refetch } = useGetUsersQuery(page);
   const [verifyUser, result] = useVerifyUserMutation();
@@ -21,7 +24,6 @@ export const Account = () => {
     async function refresh() {
       await refetch();
     }
-    console.log(page);
     refresh();
   }, [page]);
 
@@ -61,18 +63,26 @@ export const Account = () => {
 
   return (
     <>
-      <div className="p-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
-        <div className="flex justify-between">
-          <Input
-            type="text"
-            placeholder="Search..."
-            className="border border-[1px] border-neutral-100 w-[191px]"
-          />
+      <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
+        <div className="flex justify-between px-12 py-6 bg-sky-lightest border-sky-light rounded-t-lg">
+          <div className="text-2xl text-gray-foundation-800 font-semibold">
+            Account
+          </div>
           <div className="flex gap-4">
-            <button className="py-[6px] px-[31px] bg-graphite-500 rounded text-white-lightest text-sm font-medium">
+            <button
+              className="py-[6px] px-[31px] bg-ink-base rounded text-white-lightest text-sm font-medium"
+              onClick={() => {
+                navigate(`${config.pathPrefix}account/trash`);
+              }}
+            >
               Trash
             </button>
-            <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
+            <button
+              className="py-[6px] px-3 bg-ink-base rounded text-white-lightest text-sm font-medium"
+              onClick={() => {
+                navigate(`${config.pathPrefix}account/create`);
+              }}
+            >
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -91,8 +101,15 @@ export const Account = () => {
             </button>
           </div>
         </div>
-        <div className="mt-[22px]">
-          <table className="my-[28px] table-auto w-full">
+        <div className="flex">
+          <Input
+            type="text"
+            placeholder="Search..."
+            className="border border-[1px] border-neutral-100 w-[191px] ml-auto mr-[44px] my-6"
+          />
+        </div>
+        <div className="px-9">
+          <table className="table-auto w-full">
             <thead className="bg-[#E2F1FF]">
               <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
                 <td className="px-6 ">Status</td>
@@ -135,7 +152,13 @@ export const Account = () => {
                     <td>{el.roles.length > 0 && el.roles[0].name}</td>
                     <td>
                       <div className="flex gap-[9px]">
-                        <EyeIcon />
+                        <button
+                          onClick={() => {
+                            navigate(`${config.pathPrefix}account/detail`);
+                          }}
+                        >
+                          <EyeIcon />
+                        </button>
                         <EditIcon />
                         <TrashIcon />
                       </div>

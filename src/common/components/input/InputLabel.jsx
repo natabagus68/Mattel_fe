@@ -5,6 +5,7 @@ export const InputLabel = ({
   row = 0,
   value = "",
   onChange,
+  type = "text",
 }) => {
   return (
     <div className="flex flex-col gap-2">
@@ -19,7 +20,7 @@ export const InputLabel = ({
           id={name}
           name={name}
           placeholder={placeholder}
-          type="text"
+          type={type}
           value={value}
           onChange={onChange}
           className="border border-neutral-100 rounded-lg py-2 px-4"

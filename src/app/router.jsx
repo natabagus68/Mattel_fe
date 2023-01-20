@@ -3,7 +3,6 @@ import { Error404 } from "../common/components";
 import { config } from "../common/utils";
 import { Login } from "../features/auth/Login";
 import { AdminLayout } from "../features/admin/adminLayout";
-import { GuestLayouts } from "../features/guest/GuestLayouts";
 import { General } from "../features/admin/dashboard/general/General";
 import { ManPower } from "../features/admin/dashboard/manpower/ManPower";
 import { Report } from "../features/admin/report/Report.jsx";
@@ -19,6 +18,14 @@ import { DeviceMaster } from "../features/admin/master-data/device/DeviceMaster.
 import { DeviceForm } from "../features/admin/master-data/device/DeviceForm";
 import { LineLocationMaster } from "../features/admin/master-data/line-location/LineLocationMaster";
 import { LineLocationForm } from "../features/admin/master-data/line-location/LineLocationForm";
+import { GuestLayouts } from "../features/guest/GuestLayouts.jsx";
+import { AccountDetail } from "../features/admin/user/account/AccountDetail";
+import { AccountForm } from "../features/admin/user/account/AccountForm";
+import { Layout } from "../features/admin/monitoring/layout/Layout.jsx";
+import { Trash } from "../features/admin/user/account/Trash.jsx";
+import { Access } from "../features/admin/user/access/Access";
+import { MappingMenu } from "../features/admin/user/access/MappingMenu";
+import { AccessForm } from "../features/admin/user/access/AccessForm";
 
 const Root = () => {
   return <Outlet />;
@@ -59,6 +66,7 @@ export default createBrowserRouter([
         element: <MonitoringLine />,
       },
       { path: "monitoring/mechanic", element: <Mechanic /> },
+      { path: "monitoring/layout", element: <Layout /> },
       {
         path: "report",
         element: <Report />,
@@ -79,13 +87,15 @@ export default createBrowserRouter([
       { path: "machine-device/create", element: <DeviceForm /> },
       { path: "machine-device/edit", element: <DeviceForm /> },
       {
-        path: "user/account",
+        path: "account",
         element: <Account />,
       },
-      {
-        path: "mechanic-status",
-        element: <Mechanic />,
-      },
+      { path: "account/detail", element: <AccountDetail /> },
+      { path: "account/create", element: <AccountForm /> },
+      { path: "account/trash", element: <Trash /> },
+      { path: "access", element: <Access /> },
+      { path: "access/mapping", element: <MappingMenu /> },
+      { path: "access/create", element: <AccessForm /> },
     ],
   },
   {
