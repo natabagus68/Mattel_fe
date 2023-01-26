@@ -18,8 +18,28 @@ export const authApiSlice = apiSlice.injectEndpoints({
           console.log(e);
         }
       },
+      invalidatesTags: ["Auth-me"],
+    }),
+    me: builder.query({
+      query: () => ({ url: "/admin/me" }),
+      providesTags: ["Auth-me"],
+      async onQueryStarted(payload, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          localStorage.setItem(
+            "permission",
+            JSON.stringify(
+              data.data.positions[0].permissions.map((el) =>
+                el.name.toLowerCase()
+              )
+            )
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      },
     }),
   }),
 });
 
-export const { useLoginMutation } = authApiSlice;
+export const { useLoginMutation, useMeQuery } = authApiSlice;

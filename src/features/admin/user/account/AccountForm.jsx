@@ -55,10 +55,10 @@ export const AccountForm = () => {
     if (id && isSuccess) {
       formik.setValues({
         name: detail.data.name,
-        kpk: detail.data.employee.kpk,
+        kpk: detail.data.employee?.kpk,
         email: detail.data.email,
         password: "",
-        phone: detail.data.employee.phone,
+        phone: detail.data.employee?.phone,
         role: detail.data.roles?.[0]?.id ?? "",
         position: detail.data.positions?.[0]?.id ?? "",
       });

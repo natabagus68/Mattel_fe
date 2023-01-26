@@ -1,12 +1,12 @@
 import { LightIcon } from "../../../../common/components/icons/index.js";
 import { fontSize, statusColor } from "./const.js";
-import { useEffect, useState } from "react";
 
 export const ConditionCard = ({ lineNum, status, Condition = "Condition" }) => {
-  const [font, setFont] = useState("4xl");
-  useEffect(() => {
-    setFont(fontSize(status));
-  }, [status]);
+  // const [font, setFont] = useState("4xl");
+  // useEffect(() => {
+  //   setFont(fontSize(status));
+  // }, [status]);
+  const font = fontSize(status);
 
   return (
     <>
@@ -24,9 +24,9 @@ export const ConditionCard = ({ lineNum, status, Condition = "Condition" }) => {
             >
               {status}
             </div>
-            <div className="mt-[6.49px] text-sm font-medium text-center text-neutral-500">
-              {Condition}
-            </div>
+            {/*<div className="mt-[6.49px] text-sm font-medium text-center text-neutral-500">*/}
+            {/*  {Condition}*/}
+            {/*</div>*/}
           </div>
           {/*Line Light*/}
           <div className="ml-[13px]">

@@ -13,6 +13,8 @@ import { MonitorIcon } from "../../../common/components/icons/MonitorIcon";
 
 export const SideBar = () => {
   const { navOpen } = useSelector((state) => state.adminLayout);
+  const permission = useSelector((state) => state.adminLayout.permissions);
+  console.log(permission);
   return (
     <>
       <div
@@ -27,40 +29,54 @@ export const SideBar = () => {
           <img className="mr-[13.74px]" src={appLogo} alt="" />
           <AppNameText />
         </div>
-        <NavItem
-          label={`Dashboard`}
-          icon={<DashboardIcon className="mr-3 -mb-1" />}
-        >
-          <NavItem to={`dashboard/general`} label={`General`} />
-          <NavItem to={`dashboard/man-power`} label={`Man Power`} />
-          <NavItem to={`dashboard/machine-problem`} label={`Machine Problem`} />
-        </NavItem>
-        <NavItem
-          label={`Monitoring`}
-          icon={<MonitorIcon className="mr-3 -mb-1" />}
-        >
-          <NavItem label={`Line`} to={`monitoring/line`} />
-          <NavItem label={`Layout`} to={`monitoring/layout`} />
-          <NavItem label={`Mechanic`} to={`monitoring/mechanic`} />
-        </NavItem>
-        <NavItem
-          to={`report`}
-          label={`Report`}
-          icon={<ChartIcon className="mr-3 -mb-1" />}
-        />
-        <NavItem
-          label={`Master`}
-          icon={<MasterDataIcon className="mr-3 -mb-1" />}
-        >
-          <NavItem to={`line-location`} label={`Line Location`} />
-          <NavItem to={`machine-part`} label={`Machine Part`} />
-          <NavItem to={`machine-device`} label={`Device`} />
-          <NavItem to={`machine`} label={`Machine`} />
-        </NavItem>
-        <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
-          <NavItem to={`account`} label={`Account`} />
-          <NavItem to={`access`} label={`Access`} />
-        </NavItem>
+        {permission.includes("#dashboard") && (
+          <NavItem
+            label={`Dashboard`}
+            icon={<DashboardIcon className="mr-3 -mb-1" />}
+          >
+            <NavItem to={`dashboard/general`} label={`General`} />
+            <NavItem to={`dashboard/man-power`} label={`Man Power`} />
+            <NavItem
+              to={`dashboard/machine-problem`}
+              label={`Machine Problem`}
+            />
+          </NavItem>
+        )}
+        {permission.includes("#monitoring") && (
+          <NavItem
+            label={`Monitoring`}
+            icon={<MonitorIcon className="mr-3 -mb-1" />}
+          >
+            <NavItem label={`Line`} to={`monitoring/line`} />
+            <NavItem label={`Layout`} to={`monitoring/layout`} />
+            <NavItem label={`Mechanic`} to={`monitoring/mechanic`} />
+          </NavItem>
+        )}
+        {permission.includes("#report") && (
+          <NavItem
+            to={`report`}
+            label={`Report`}
+            icon={<ChartIcon className="mr-3 -mb-1" />}
+          />
+        )}
+
+        {permission.includes("#master") && (
+          <NavItem
+            label={`Master`}
+            icon={<MasterDataIcon className="mr-3 -mb-1" />}
+          >
+            <NavItem to={`line-location`} label={`Line Location`} />
+            <NavItem to={`machine-part`} label={`Machine Part`} />
+            <NavItem to={`machine-device`} label={`Device`} />
+            <NavItem to={`machine`} label={`Machine`} />
+          </NavItem>
+        )}
+        {permission.includes("#user") && (
+          <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
+            <NavItem to={`account`} label={`Account`} />
+            <NavItem to={`access`} label={`Access`} />
+          </NavItem>
+        )}
       </div>
     </>
   );

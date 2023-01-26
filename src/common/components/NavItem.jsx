@@ -26,7 +26,7 @@ export const NavItem = ({
       className={`${
         open || active
           ? `text-[#DD5353] hover-text-[#DD5353]`
-          : `text-white-base  hover:text-white-lightest`
+          : `text-white-base hover:text-white-lightest`
       }${className}`}
     >
       <NavLink

@@ -30,7 +30,7 @@ export const PermissionForm = () => {
 
   return (
     <>
-      <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)] h-screen">
+      <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
         <div className="flex justify-between px-12 py-6 bg-sky-lightest border-sky-light rounded-t-lg">
           <div className="text-2xl text-gray-foundation-800 font-semibold">
             Add Data

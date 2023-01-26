@@ -1,34 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Loader } from "../../../common/components";
 import { useDispatch, useSelector } from "react-redux";
 import { SideBar } from "./SideBar";
 import {
-  useGetAuthenticatedUserQuery,
-  useLogoutMutation,
-} from "../../../app/services/authService";
-import {
   BellIcon,
   BurgerIcon,
   PersonIcon,
 } from "../../../common/components/icons/index.js";
-import { toggle } from "./adminLayoutSlice.js";
+import { setPermissions, toggle } from "./adminLayoutSlice.js";
 import { WarningPopUp } from "./WarningPopUp";
 import { FinishedReportModal } from "./FinishedReportModal";
+import { useMeQuery } from "../../auth/authApiSlice.js";
 // import { ConfirmationModal } from "./ConfirmationModal";
 
 export const AdminLayout = () => {
-  const { data: auth, isLoading, isError } = useGetAuthenticatedUserQuery();
   const { navOpen, activeRoute, loading } = useSelector(
     (state) => state.adminLayout
   );
-  console.log(activeRoute);
   const dispatch = useDispatch();
   if (!localStorage.getItem("token")) {
     return <Navigate to={`login`} />;
   }
-  const [logout, { logoutIsLoading }] = useLogoutMutation();
-  if (isLoading || logoutIsLoading) return <Loader />;
+  const { data, isSuccess } = useMeQuery({
+    skip: !localStorage.getItem("token"),
+  });
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(
+        setPermissions({
+          permission: data.data.positions[0].permissions.map((el) =>
+            el.name.toLowerCase()
+          ),
+        })
+      );
+    }
+  }, [isSuccess]);
+
   // if (isError || !auth?.data) return <Navigate to={`login`} />;
   if (loading) {
     return <Loader />;

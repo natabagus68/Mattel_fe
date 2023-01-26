@@ -32,6 +32,64 @@ const Root = () => {
   return <Outlet />;
 };
 
+const dashboardRouter = [
+  {
+    path: "dashboard/general",
+    element: <General />,
+  },
+  {
+    path: "dashboard/man-power",
+    element: <ManPower />,
+  },
+  { path: "dashboard/machine-problem", element: <MachineProblem /> },
+];
+const monitoringRouter = [
+  {
+    path: "monitoring/line",
+    element: <MonitoringLine />,
+  },
+  { path: "monitoring/mechanic", element: <Mechanic /> },
+  { path: "monitoring/layout", element: <Layout /> },
+];
+const reportRouter = [
+  {
+    path: "report",
+    element: <Report />,
+  },
+];
+const masterRouter = [
+  {
+    path: "machine",
+    element: <MachineMaster />,
+  },
+  { path: "machine/create", element: <MachineForm /> },
+  { path: "machine/edit", element: <MachineForm /> },
+  { path: "line-location", element: <LineLocationMaster /> },
+  { path: "line-location/create", element: <LineLocationForm /> },
+  { path: "line-location/edit", element: <LineLocationForm /> },
+  { path: "machine-part", element: <PartMaster /> },
+  { path: "machine-part/create", element: <PartForm /> },
+  { path: "machine-part/edit", element: <PartForm /> },
+  { path: "machine-device", element: <DeviceMaster /> },
+  { path: "machine-device/create", element: <DeviceForm /> },
+  { path: "machine-device/edit", element: <DeviceForm /> },
+];
+const accountRouter = [
+  {
+    path: "account",
+    element: <Account />,
+  },
+  { path: "account/:id/detail", element: <AccountDetail /> },
+  { path: "account/:id/edit", element: <AccountForm /> },
+  { path: "account/create", element: <AccountForm /> },
+  { path: "account/trash", element: <Trash /> },
+  { path: "access", element: <Access /> },
+  { path: "access/:id/permission", element: <MappingMenu /> },
+  { path: "access/permission/create", element: <PermissionForm /> },
+  { path: "access/create", element: <AccessForm /> },
+  { path: "access/:id/edit", element: <AccessForm /> },
+];
+
 export default createBrowserRouter([
   {
     path: config.pathPrefix,
@@ -51,55 +109,13 @@ export default createBrowserRouter([
   {
     path: config.pathPrefix,
     element: <AdminLayout />,
-    errorElemepnt: <Error404 />,
+    errorElement: <Error404 />,
     children: [
-      {
-        path: "dashboard/general",
-        element: <General />,
-      },
-      {
-        path: "dashboard/man-power",
-        element: <ManPower />,
-      },
-      { path: "dashboard/machine-problem", element: <MachineProblem /> },
-      {
-        path: "monitoring/line",
-        element: <MonitoringLine />,
-      },
-      { path: "monitoring/mechanic", element: <Mechanic /> },
-      { path: "monitoring/layout", element: <Layout /> },
-      {
-        path: "report",
-        element: <Report />,
-      },
-      {
-        path: "machine",
-        element: <MachineMaster />,
-      },
-      { path: "machine/create", element: <MachineForm /> },
-      { path: "machine/edit", element: <MachineForm /> },
-      { path: "line-location", element: <LineLocationMaster /> },
-      { path: "line-location/create", element: <LineLocationForm /> },
-      { path: "line-location/edit", element: <LineLocationForm /> },
-      { path: "machine-part", element: <PartMaster /> },
-      { path: "machine-part/create", element: <PartForm /> },
-      { path: "machine-part/edit", element: <PartForm /> },
-      { path: "machine-device", element: <DeviceMaster /> },
-      { path: "machine-device/create", element: <DeviceForm /> },
-      { path: "machine-device/edit", element: <DeviceForm /> },
-      {
-        path: "account",
-        element: <Account />,
-      },
-      { path: "account/:id/detail", element: <AccountDetail /> },
-      { path: "account/:id/edit", element: <AccountForm /> },
-      { path: "account/create", element: <AccountForm /> },
-      { path: "account/trash", element: <Trash /> },
-      { path: "access", element: <Access /> },
-      { path: "access/:id/permission", element: <MappingMenu /> },
-      { path: "access/permission/create", element: <PermissionForm /> },
-      { path: "access/create", element: <AccessForm /> },
-      { path: "access/:id/edit", element: <AccessForm /> },
+      ...dashboardRouter,
+      ...monitoringRouter,
+      ...reportRouter,
+      ...masterRouter,
+      ...accountRouter,
     ],
   },
   {
@@ -107,3 +123,39 @@ export default createBrowserRouter([
     element: <Error404 />,
   },
 ]);
+
+// export const router = (permission) => {
+//   return createBrowserRouter([
+//     {
+//       path: config.pathPrefix,
+//       element: <Navigate to={`${config.pathPrefix}login`} />,
+//     },
+//     {
+//       path: config.pathPrefix,
+//       element: <GuestLayouts />,
+//       errorElement: <Error404 />,
+//       children: [
+//         {
+//           path: "login",
+//           element: <Login />,
+//         },
+//       ],
+//     },
+//     {
+//       path: config.pathPrefix,
+//       element: <AdminLayout />,
+//       errorElement: <Error404 />,
+//       children: [
+//         // permission.includes("#dashboard") && dashboardRouter,
+//         // permission.includes("#monitoring") && monitoringRouter,
+//         // permission.includes("#report") && reportRouter,
+//         // permission.includes("#master") && masterRouter,
+//         // permission.includes("#account") && accountRouter,
+//       ],
+//     },
+//     {
+//       path: "*",
+//       element: <Error404 />,
+//     },
+//   ]);
+// };

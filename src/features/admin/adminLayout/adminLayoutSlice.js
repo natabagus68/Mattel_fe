@@ -4,6 +4,7 @@ const initialState = {
   navOpen: null,
   activeRoute: "",
   loading: false,
+  permissions: [],
 };
 
 export const adminLayoutSlice = createSlice({
@@ -20,9 +21,12 @@ export const adminLayoutSlice = createSlice({
       console.log(action.payload.loading);
       state.loading = action.payload.loading;
     },
+    setPermissions: (state, action) => {
+      state.permissions = action.payload.permission;
+    },
   },
 });
 
-export const { toggle, setActiveRouteName, toggleLoading } =
+export const { toggle, setActiveRouteName, toggleLoading, setPermissions } =
   adminLayoutSlice.actions;
 export default adminLayoutSlice.reducer;
