@@ -115,9 +115,11 @@ export const Account = () => {
                 <td className="px-6 ">Status</td>
                 <td>Name</td>
                 <td>NPK</td>
-                <td>Department</td>
                 <td>Role</td>
-                <td>Action</td>
+                <td>Access</td>
+                <td align="right" className="pr-9">
+                  Action
+                </td>
               </tr>
             </thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
@@ -148,18 +150,28 @@ export const Account = () => {
                     </td>
                     <td>{el.name}</td>
                     <td>{el.employee?.kpk}</td>
-                    <td>Put department</td>
                     <td>{el.roles.length > 0 && el.roles[0].name}</td>
-                    <td>
-                      <div className="flex gap-[9px]">
+                    <td>{el.positions?.[0]?.name}</td>
+                    <td align="right" className="pr-3">
+                      <div className="flex justify-end gap-[9px]">
                         <button
                           onClick={() => {
-                            navigate(`${config.pathPrefix}account/detail`);
+                            navigate(
+                              `${config.pathPrefix}account/${el.id}/detail`
+                            );
                           }}
                         >
                           <EyeIcon />
                         </button>
-                        <EditIcon />
+                        <button
+                          onClick={() => {
+                            navigate(
+                              `${config.pathPrefix}account/${el.id}/edit`
+                            );
+                          }}
+                        >
+                          <EditIcon />
+                        </button>
                         <TrashIcon />
                       </div>
                     </td>
@@ -173,7 +185,7 @@ export const Account = () => {
                 (page - 1) * users.limit + users.data.length
               } of ${users.totalRows} entries`}
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-12">
               <nav>
                 <ul className="flex list-style-none">
                   <button

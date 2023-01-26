@@ -55,6 +55,34 @@ export const accessApiSlice = apiSlice.injectEndpoints({
     }),
     getPositions: builder.query({
       query: () => `/admin/position`,
+      providesTags: ["Positions"],
+    }),
+    getPositionDetail: builder.query({
+      query: (id) => `/admin/position/${id}`,
+      providesTags: ["Position-detail"],
+    }),
+    createPosition: builder.mutation({
+      query: (form) => ({
+        url: `/admin/position`,
+        method: "POST",
+        body: form,
+      }),
+      invalidatesTags: ["Positions"],
+    }),
+    deletePosition: builder.mutation({
+      query: (id) => ({
+        url: `/admin/position/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Positions"],
+    }),
+    updatePosition: builder.mutation({
+      query: ({ id, form }) => ({
+        url: `/admin/position/${id}`,
+        method: "PUT",
+        body: form,
+      }),
+      invalidatesTags: ["Positions", "Position-detail"],
     }),
   }),
 });
@@ -69,4 +97,8 @@ export const {
   useGetRolesDetailQuery,
   useUpdateRolePermissionsMutation,
   useGetPositionsQuery,
+  useGetPositionDetailQuery,
+  useCreatePositionMutation,
+  useUpdatePositionMutation,
+  useDeletePositionMutation,
 } = accessApiSlice;

@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Checkbox } from "../../../../../common/components/input/Checkbox.jsx";
 import {
   useGetPermissionsQuery,
-  useGetRolesDetailQuery,
-  useUpdateRolePermissionsMutation,
+  useGetPositionDetailQuery,
+  useUpdatePositionMutation,
 } from "../accessApiSlice.js";
 import { useEffect, useState } from "react";
 
@@ -14,26 +14,28 @@ export const MappingMenu = () => {
   const [currPermissions, setCurrPermissions] = useState([]);
 
   const { data: permissions = { data: [] } } = useGetPermissionsQuery();
-  const { data: role = { data: {} } } = useGetRolesDetailQuery(id);
-  const [updateRolePermission, result] = useUpdateRolePermissionsMutation();
+  const { data: position = { data: {} } } = useGetPositionDetailQuery(id, {
+    skip: !id,
+  });
+  const [updatePositionPermission, result] = useUpdatePositionMutation();
 
   useEffect(() => {
-    if (role.data?.permissions?.length > 0) {
-      for (const permission of role.data.permissions) {
+    if (position.data?.permissions?.length > 0) {
+      for (const permission of position.data.permissions) {
         setCurrPermissions((prev) => [...prev, permission.id]);
       }
     }
     return () => {
       setCurrPermissions([]);
     };
-  }, [role]);
+  }, [position]);
 
   const handleSubmit = () => {
     const data = {
-      name: role.data.name,
+      name: position.data.name,
       permission: currPermissions,
     };
-    updateRolePermission({ id: id, form: data });
+    updatePositionPermission({ id: id, form: data });
   };
 
   useEffect(() => {

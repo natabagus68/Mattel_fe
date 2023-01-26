@@ -1,8 +1,12 @@
 import { InputLabel } from "../../../../common/components/input/InputLabel";
 import { useFormik } from "formik";
 import { SelectLabel } from "../../../../common/components/input/SelectLabel";
-import { useNavigate } from "react-router-dom";
-import { useCreateUserMutation } from "./accountApiSlice.js";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useCreateUserMutation,
+  useGetUserDetailQuery,
+  useUpdateUserMutation,
+} from "./accountApiSlice.js";
 import {
   useGetPositionsQuery,
   useGetRolesQuery,
@@ -10,21 +14,26 @@ import {
 import { useEffect } from "react";
 
 export const AccountForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [createUser, result] = useCreateUserMutation();
   const { data: roles = { data: [] } } = useGetRolesQuery();
   const { data: positions = { data: [] } } = useGetPositionsQuery();
+  const { data: detail = { data: {} }, isSuccess } = useGetUserDetailQuery(id, {
+    skip: !id,
+  });
+  const [updateUser, updateResult] = useUpdateUserMutation();
+  const initial = {
+    name: "",
+    kpk: "",
+    email: "",
+    password: "",
+    phone: "",
+    role: "",
+    position: "",
+  };
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      kpk: "",
-      email: "",
-      password: "",
-      phone: "",
-      role: "",
-      position: "",
-      profile: "",
-    },
+    initialValues: initial,
     onSubmit: (val) => {
       const formData = new FormData();
       formData.append("name", val.name);
@@ -34,21 +43,37 @@ export const AccountForm = () => {
       formData.append("phone", val.phone);
       formData.append("role", val.role);
       formData.append("position", val.position);
-      // formData.append(
-      //   "profile",
-      //   document.getElementById("profile").files[0],
-      //   document.getElementById("profile").files[0].name
-      // );
-      createUser(formData);
+      if (id) {
+        updateUser({ id: id, form: formData });
+      } else {
+        createUser(formData);
+      }
     },
   });
 
   useEffect(() => {
-    if (result.isSuccess) {
+    if (id && isSuccess) {
+      formik.setValues({
+        name: detail.data.name,
+        kpk: detail.data.employee.kpk,
+        email: detail.data.email,
+        password: "",
+        phone: detail.data.employee.phone,
+        role: detail.data.roles?.[0]?.id ?? "",
+        position: detail.data.positions?.[0]?.id ?? "",
+      });
+    }
+    return () => {
+      formik.setValues(initial);
+    };
+  }, [id, isSuccess]);
+
+  useEffect(() => {
+    if (result.isSuccess || updateResult.isSuccess) {
       navigate(-1);
     }
     return () => {};
-  }, [result.isSuccess]);
+  }, [result.isSuccess, updateResult.isSuccess]);
 
   return (
     <>

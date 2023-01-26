@@ -3,20 +3,21 @@ import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import {
-  useCreateRoleMutation,
-  useGetRolesDetailQuery,
-  useUpdateRoleMutation,
+  useCreatePositionMutation,
+  useGetPositionDetailQuery,
+  useUpdatePositionMutation,
 } from "./accessApiSlice.js";
 import { config } from "../../../../common/utils/index.js";
 
 export const AccessForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: role = { data: {} }, isSuccess } = useGetRolesDetailQuery(id, {
-    skip: !id,
-  });
-  const [createRole, createResult] = useCreateRoleMutation();
-  const [updateRole, updateResult] = useUpdateRoleMutation();
+  const { data: position = { data: {} }, isSuccess } =
+    useGetPositionDetailQuery(id, {
+      skip: !id,
+    });
+  const [createPosition, createResult] = useCreatePositionMutation();
+  const [updatePosition, updateResult] = useUpdatePositionMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -28,16 +29,16 @@ export const AccessForm = () => {
         permission: [],
       };
       if (id) {
-        updateRole({ id: id, form: form });
+        updatePosition({ id: id, form: form });
       } else {
-        createRole(form);
+        createPosition(form);
       }
     },
   });
 
   useEffect(() => {
     if (id && isSuccess) {
-      formik.setFieldValue("name", role.data.name);
+      formik.setFieldValue("name", position.data.name);
     }
     return () => {
       formik.setFieldValue("name", "");
@@ -62,8 +63,8 @@ export const AccessForm = () => {
         <form onSubmit={formik.handleSubmit} className="px-[48px]">
           <div className="mt-[16px] flex flex-col gap-4">
             <InputLabel
-              label="Role"
-              placeholder="Input role"
+              label="Access"
+              placeholder="Input access"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}

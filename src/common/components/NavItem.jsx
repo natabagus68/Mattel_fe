@@ -24,15 +24,17 @@ export const NavItem = ({
   return (
     <div
       className={`${
-        open || active ? `text-white-lightest` : `text-white-base`
-      } hover:text-white-lightest ${className}`}
+        open || active
+          ? `text-[#DD5353] hover-text-[#DD5353]`
+          : `text-white-base  hover:text-white-lightest`
+      }${className}`}
     >
       <NavLink
         to={to}
         onClick={toggle}
         className={({ isActive }) =>
           `flex items-center cursor-pointer ${
-            (isActive && to !== null) || active == true ? "text-green-50" : ""
+            (isActive && to !== null) || active === true ? "text-[#DD5353]" : ""
           }`
         }
       >

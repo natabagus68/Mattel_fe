@@ -1,13 +1,16 @@
 import { config } from "../../../../common/utils/index.js";
 import { useNavigate } from "react-router-dom";
 import { Input, OptionMenu } from "../../../../common/components/index.js";
-import { useDeleteRoleMutation, useGetRolesQuery } from "./accessApiSlice.js";
+import {
+  useDeletePositionMutation,
+  useGetPositionsQuery,
+} from "./accessApiSlice.js";
 
 export const Access = () => {
   const navigate = useNavigate();
 
-  const { data: roles = { data: [] } } = useGetRolesQuery();
-  const [deleteRole, result] = useDeleteRoleMutation();
+  const { data: positions = { data: [] } } = useGetPositionsQuery();
+  const [deleteAccess, result] = useDeletePositionMutation();
 
   return (
     <>
@@ -55,7 +58,7 @@ export const Access = () => {
                "
               >
                 <td align="left" className="px-9">
-                  Role
+                  Access
                 </td>
                 <td align="right" className="px-9">
                   Action
@@ -63,7 +66,7 @@ export const Access = () => {
               </tr>
             </thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {roles.data.map((el, index) => (
+              {positions.data.map((el, index) => (
                 <tr
                   key={index}
                   className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
@@ -91,7 +94,7 @@ export const Access = () => {
                         {
                           label: "Delete",
                           fn: () => {
-                            deleteRole(el.id);
+                            deleteAccess(el.id);
                           },
                         },
                       ]}
