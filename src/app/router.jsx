@@ -24,8 +24,9 @@ import { AccountForm } from "../features/admin/user/account/AccountForm";
 import { Layout } from "../features/admin/monitoring/layout/Layout.jsx";
 import { Trash } from "../features/admin/user/account/Trash.jsx";
 import { Access } from "../features/admin/user/access/Access";
-import { MappingMenu } from "../features/admin/user/access/MappingMenu";
+import { MappingMenu } from "../features/admin/user/access/mapping-permissions/MappingMenu.jsx";
 import { AccessForm } from "../features/admin/user/access/AccessForm";
+import { PermissionForm } from "../features/admin/user/access/mapping-permissions/PermissionForm";
 
 const Root = () => {
   return <Outlet />;
@@ -94,8 +95,10 @@ export default createBrowserRouter([
       { path: "account/create", element: <AccountForm /> },
       { path: "account/trash", element: <Trash /> },
       { path: "access", element: <Access /> },
-      { path: "access/mapping", element: <MappingMenu /> },
+      { path: "access/:id/permission", element: <MappingMenu /> },
+      { path: "access/permission/create", element: <PermissionForm /> },
       { path: "access/create", element: <AccessForm /> },
+      { path: "access/:id/edit", element: <AccessForm /> },
     ],
   },
   {

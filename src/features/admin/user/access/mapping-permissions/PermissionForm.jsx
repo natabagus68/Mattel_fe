@@ -1,22 +1,13 @@
-import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { useNavigate, useParams } from "react-router-dom";
+import { InputLabel } from "../../../../../common/components/input/InputLabel.jsx";
+import { useStorePermissionsMutation } from "../accessApiSlice.js";
 import { useEffect } from "react";
-import {
-  useCreateRoleMutation,
-  useGetRolesDetailQuery,
-  useUpdateRoleMutation,
-} from "./accessApiSlice.js";
-import { config } from "../../../../common/utils/index.js";
 
-export const AccessForm = () => {
+export const PermissionForm = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { data: role = { data: {} }, isSuccess } = useGetRolesDetailQuery(id, {
-    skip: !id,
-  });
-  const [createRole, createResult] = useCreateRoleMutation();
-  const [updateRole, updateResult] = useUpdateRoleMutation();
+
+  const [storePermission, storeResult] = useStorePermissionsMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -25,45 +16,31 @@ export const AccessForm = () => {
     onSubmit: (val) => {
       const form = {
         name: val.name,
-        permission: [],
       };
-      if (id) {
-        updateRole({ id: id, form: form });
-      } else {
-        createRole(form);
-      }
+      storePermission(form);
     },
   });
 
   useEffect(() => {
-    if (id && isSuccess) {
-      formik.setFieldValue("name", role.data.name);
-    }
-    return () => {
-      formik.setFieldValue("name", "");
-    };
-  }, [id, isSuccess]);
-
-  useEffect(() => {
-    if (createResult.isSuccess || updateResult.isSuccess) {
-      navigate(`${config.pathPrefix}access`);
+    if (storeResult.isSuccess) {
+      navigate(-1);
     }
     return () => {};
-  }, [createResult.isSuccess, updateResult.isSuccess]);
+  }, [storeResult.isSuccess]);
 
   return (
     <>
-      <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)] ">
+      <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)] h-screen">
         <div className="flex justify-between px-12 py-6 bg-sky-lightest border-sky-light rounded-t-lg">
           <div className="text-2xl text-gray-foundation-800 font-semibold">
-            {id !== undefined ? "Edit" : "Add"} Data
+            Add Data
           </div>
         </div>
         <form onSubmit={formik.handleSubmit} className="px-[48px]">
           <div className="mt-[16px] flex flex-col gap-4">
             <InputLabel
-              label="Role"
-              placeholder="Input role"
+              label="Permission"
+              placeholder="Input menu permission"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}

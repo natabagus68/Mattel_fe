@@ -6,13 +6,24 @@ export const accountApiSlice = apiSlice.injectEndpoints({
       query: (page = 1) => `/admin/user?page=${page}&limit=10`,
       providesTags: ["Users"],
     }),
+    createUser: builder.mutation({
+      query: (form) => ({
+        url: `/admin/user`,
+        method: "POST",
+        body: form,
+      }),
+    }),
     verifyUser: builder.mutation({
       query: (userId) => ({
-        url: `/admin/user/${userId}`,
+        url: `/admin/user/${userId}/verify`,
         method: "PUT",
       }),
     }),
   }),
 });
 
-export const { useGetUsersQuery, useVerifyUserMutation } = accountApiSlice;
+export const {
+  useGetUsersQuery,
+  useCreateUserMutation,
+  useVerifyUserMutation,
+} = accountApiSlice;

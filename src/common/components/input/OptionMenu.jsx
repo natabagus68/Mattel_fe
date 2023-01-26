@@ -5,7 +5,7 @@ export const OptionMenu = ({ options = [{ label: "Item", fn: () => {} }] }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block overflow-visible">
       <button
         onClick={() => {
           setOpen((prev) => !prev);

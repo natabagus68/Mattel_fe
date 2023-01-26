@@ -2,22 +2,53 @@ import { InputLabel } from "../../../../common/components/input/InputLabel";
 import { useFormik } from "formik";
 import { SelectLabel } from "../../../../common/components/input/SelectLabel";
 import { useNavigate } from "react-router-dom";
+import { useCreateUserMutation } from "./accountApiSlice.js";
+import {
+  useGetPositionsQuery,
+  useGetRolesQuery,
+} from "../access/accessApiSlice.js";
+import { useEffect } from "react";
 
 export const AccountForm = () => {
   const navigate = useNavigate();
+  const [createUser, result] = useCreateUserMutation();
+  const { data: roles = { data: [] } } = useGetRolesQuery();
+  const { data: positions = { data: [] } } = useGetPositionsQuery();
   const formik = useFormik({
     initialValues: {
       name: "",
+      kpk: "",
       email: "",
       password: "",
+      phone: "",
       role: "",
       position: "",
       profile: "",
     },
     onSubmit: (val) => {
-      console.log(val);
+      const formData = new FormData();
+      formData.append("name", val.name);
+      formData.append("kpk", val.kpk);
+      formData.append("email", val.email);
+      formData.append("password", val.password);
+      formData.append("phone", val.phone);
+      formData.append("role", val.role);
+      formData.append("position", val.position);
+      // formData.append(
+      //   "profile",
+      //   document.getElementById("profile").files[0],
+      //   document.getElementById("profile").files[0].name
+      // );
+      createUser(formData);
     },
   });
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      navigate(-1);
+    }
+    return () => {};
+  }, [result.isSuccess]);
 
   return (
     <>
@@ -37,6 +68,13 @@ export const AccountForm = () => {
               onChange={formik.handleChange}
             />
             <InputLabel
+              label="KPK"
+              placeholder="Input kpk"
+              name="kpk"
+              value={formik.values.kpk}
+              onChange={formik.handleChange}
+            />
+            <InputLabel
               label="Email"
               placeholder="Input Email"
               name="email"
@@ -52,12 +90,20 @@ export const AccountForm = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
             />
+            <InputLabel
+              label="Phone"
+              placeholder="Input phone number"
+              name="phone"
+              type="text"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+            />
             <SelectLabel
               label="Role"
               name="role"
               placeholder="Select Role"
               value={formik.values.role}
-              list={["MTC", "MTL"].map((el) => ({ key: el, value: el }))}
+              list={roles.data.map((el) => ({ key: el.id, value: el.name }))}
               onChange={formik.handleChange}
             />
             <SelectLabel
@@ -66,47 +112,47 @@ export const AccountForm = () => {
               placeholder="Select Position"
               value={formik.values.position}
               onChange={formik.handleChange}
-              list={["Admin", "Superadmin", "Staff"].map((el) => ({
-                key: el,
-                value: el,
+              list={positions.data.map((el) => ({
+                key: el.id,
+                value: el.name,
               }))}
             />
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor="profile"
-                className="uppercase font-medium text-[22px] text-gray-foundation-500"
-              >
-                Profile Picture
-              </label>
-              <input
-                name="profile"
-                id="profile"
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={(val) => {
-                  const str = val.target.value;
-                  const ind = str.lastIndexOf("\\");
-                  const splitted = str.slice(ind + 1);
-                  formik.setFieldValue("profile", splitted);
-                }}
-              />
-              <div className="border border-neutral-100 rounded-lg text-[#646566] flex items-center">
-                <button
-                  className="px-[19px] py-[8px] bg-black-400 text-black-700"
-                  onClick={() => {
-                    document.getElementById("profile").click();
-                  }}
-                >
-                  Choose
-                </button>
-                <div className="py-2 px-4">
-                  {formik.values.profile === ""
-                    ? "no file choosen"
-                    : formik.values.profile}
-                </div>
-              </div>
-            </div>
+            {/*<div className="flex flex-col gap-2">*/}
+            {/*  <label*/}
+            {/*    htmlFor="profile"*/}
+            {/*    className="uppercase font-medium text-[22px] text-gray-foundation-500"*/}
+            {/*  >*/}
+            {/*    Profile Picture*/}
+            {/*  </label>*/}
+            {/*  <input*/}
+            {/*    name="profile"*/}
+            {/*    id="profile"*/}
+            {/*    type="file"*/}
+            {/*    className="hidden"*/}
+            {/*    accept="image/*"*/}
+            {/*    onChange={(val) => {*/}
+            {/*      const str = val.target.value;*/}
+            {/*      const ind = str.lastIndexOf("\\");*/}
+            {/*      const splitted = str.slice(ind + 1);*/}
+            {/*      formik.setFieldValue("profile", splitted);*/}
+            {/*    }}*/}
+            {/*  />*/}
+            {/*  <div className="border border-neutral-100 rounded-lg text-[#646566] flex items-center">*/}
+            {/*    <button*/}
+            {/*      className="px-[19px] py-[8px] bg-black-400 text-black-700"*/}
+            {/*      onClick={() => {*/}
+            {/*        document.getElementById("profile").click();*/}
+            {/*      }}*/}
+            {/*    >*/}
+            {/*      Choose*/}
+            {/*    </button>*/}
+            {/*    <div className="py-2 px-4">*/}
+            {/*      {formik.values.profile === ""*/}
+            {/*        ? "no file choosen"*/}
+            {/*        : formik.values.profile}*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             <div className="mt-4 flex flex-row gap-4">
               <button
                 className="py-3 px-[70.5px] bg-ink-base rounded text-white-lightest"

@@ -1,13 +1,17 @@
 import { config } from "../../../../common/utils/index.js";
 import { useNavigate } from "react-router-dom";
 import { Input, OptionMenu } from "../../../../common/components/index.js";
+import { useDeleteRoleMutation, useGetRolesQuery } from "./accessApiSlice.js";
 
 export const Access = () => {
   const navigate = useNavigate();
 
+  const { data: roles = { data: [] } } = useGetRolesQuery();
+  const [deleteRole, result] = useDeleteRoleMutation();
+
   return (
     <>
-      <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)] h-[1197px]">
+      <div className="pb-12 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">
         <div className="flex justify-between px-12 py-6 bg-sky-lightest border-sky-light rounded-t-lg">
           <div className="text-2xl text-gray-foundation-800 font-semibold">
             Access
@@ -59,114 +63,42 @@ export const Access = () => {
               </tr>
             </thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              <tr className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50">
-                <td className="px-6 ">SuperAdmin</td>
-                <td className="px-6" align="right">
-                  <OptionMenu
-                    options={[
-                      {
-                        label: "Mapping Menu",
-                        fn: () => {
-                          navigate(`${config.pathPrefix}access/mapping`);
+              {roles.data.map((el, index) => (
+                <tr
+                  key={index}
+                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
+                >
+                  <td className="px-6 ">{el.name}</td>
+                  <td className="px-6" align="right">
+                    <OptionMenu
+                      options={[
+                        {
+                          label: "Mapping Menu",
+                          fn: () => {
+                            navigate(
+                              `${config.pathPrefix}access/${el.id}/permission`
+                            );
+                          },
                         },
-                      },
-                      {
-                        label: "Edit",
-                        fn: () => {
-                          console.log("Edit Access");
+                        {
+                          label: "Edit",
+                          fn: () => {
+                            navigate(
+                              `${config.pathPrefix}access/${el.id}/edit`
+                            );
+                          },
                         },
-                      },
-                      {
-                        label: "Delete",
-                        fn: () => {
-                          console.log("Delete Access");
+                        {
+                          label: "Delete",
+                          fn: () => {
+                            deleteRole(el.id);
+                          },
                         },
-                      },
-                    ]}
-                  />
-                </td>
-              </tr>
-              <tr className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50">
-                <td className="px-6 ">Admin</td>
-                <td className="px-6" align="right">
-                  <OptionMenu
-                    options={[
-                      {
-                        label: "Mapping Menu",
-                        fn: () => {
-                          navigate(`${config.pathPrefix}access/mapping`);
-                        },
-                      },
-                      {
-                        label: "Edit",
-                        fn: () => {
-                          console.log("Edit Access");
-                        },
-                      },
-                      {
-                        label: "Delete",
-                        fn: () => {
-                          console.log("Delete Access");
-                        },
-                      },
-                    ]}
-                  />
-                </td>
-              </tr>
-              <tr className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50">
-                <td className="px-6 ">Manajemen</td>
-                <td className="px-6" align="right">
-                  <OptionMenu
-                    options={[
-                      {
-                        label: "Mapping Menu",
-                        fn: () => {
-                          navigate(`${config.pathPrefix}access/mapping`);
-                        },
-                      },
-                      {
-                        label: "Edit",
-                        fn: () => {
-                          console.log("Edit Access");
-                        },
-                      },
-                      {
-                        label: "Delete",
-                        fn: () => {
-                          console.log("Delete Access");
-                        },
-                      },
-                    ]}
-                  />
-                </td>
-              </tr>
-              <tr className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50">
-                <td className="px-6 ">User Produksi</td>
-                <td className="px-6" align="right">
-                  <OptionMenu
-                    options={[
-                      {
-                        label: "Mapping Menu",
-                        fn: () => {
-                          navigate(`${config.pathPrefix}access/mapping`);
-                        },
-                      },
-                      {
-                        label: "Edit",
-                        fn: () => {
-                          console.log("Edit Access");
-                        },
-                      },
-                      {
-                        label: "Delete",
-                        fn: () => {
-                          console.log("Delete Access");
-                        },
-                      },
-                    ]}
-                  />
-                </td>
-              </tr>
+                      ]}
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -1,10 +1,11 @@
-export const Checkbox = ({ width = 25, height = 25, checked = false }) => {
+export const Checkbox = ({ checked = false, onClick = () => {} }) => {
   return (
     <>
       <div
-        className={`w-[${width}px] h-[${height}px] rounded-lg border border-sky-light  ${
+        className={`w-[25px] h-[25px] rounded-lg border border-sky-light  ${
           checked ? "bg-ink-base grid place-items-center" : "bg-white-lightest"
         }`}
+        onClick={onClick}
       >
         {checked && (
           <svg

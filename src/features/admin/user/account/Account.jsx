@@ -44,6 +44,7 @@ export const Account = () => {
           onClick={() => {
             setPage(i + 1);
           }}
+          key={i}
         >
           <li
             className={`px-[12px] py-[8px] border border-neutral-100 ${
@@ -51,7 +52,6 @@ export const Account = () => {
                 ? "bg-graphite-500 text-white-lightest"
                 : "text-neutral-500"
             }`}
-            key={i}
           >
             {i + 1}
           </li>
