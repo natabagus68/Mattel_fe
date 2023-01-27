@@ -3,10 +3,6 @@ import { KeyIcon, OpenEyeIcon } from "../../common/components/icons";
 import { Input } from "../../common/components/index.js";
 import appLogo from "../../assets/app-logo.png";
 import companyLogo from "../../assets/company-logo-no-background.png";
-import {
-  useGetAuthenticatedUserQuery,
-  // useLoginMutation,
-} from "../../app/services/authService";
 import { useLoginMutation } from "./authApiSlice.js";
 import { ClosedEyeIcon } from "../../common/components/icons/index.js";
 
@@ -15,9 +11,8 @@ export const Login = () => {
     authenticate,
     { error: authenticateError, isLoading: authenticateLoading },
   ] = useLoginMutation();
-  const { data: auth, isLoading, isError } = useGetAuthenticatedUserQuery();
   const [form, setForm] = useState({
-    email: "admin2@gmail.com",
+    email: "admin@gmail.com",
     password: "password",
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +33,7 @@ export const Login = () => {
         {/*//   authenticate(form);*/}
         {/*// }}*/}
         {/*// >*/}
-        <div className="bg-white shadow-[0px_0px_13px_rgba(4_67_50_0.15)] rounded-xl border-[1px] border-gray-100 py-[92px] px-10 md:px-[74px] md:w-[479px]">
+        <div className="bg-white-lightest shadow-[0px_0px_13px_rgba(4_67_50_0.15)] rounded-xl border-[1px] border-gray-100 py-[92px] px-10 md:px-[74px] md:w-[479px]">
           <img className="w-[47px] h-[47px]" src={companyLogo} alt="" />
           <div className=" font-bold text-ink-base text-[34px]">
             Welcome back.

@@ -1,31 +1,33 @@
-import React, { useEffect } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import React, { useLayoutEffect } from "react";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Loader } from "../../../common/components";
 import { useDispatch, useSelector } from "react-redux";
 import { SideBar } from "./SideBar";
 import {
   BellIcon,
   BurgerIcon,
-  PersonIcon,
 } from "../../../common/components/icons/index.js";
 import { setPermissions, toggle } from "./adminLayoutSlice.js";
 import { WarningPopUp } from "./WarningPopUp";
 import { FinishedReportModal } from "./FinishedReportModal";
 import { useMeQuery } from "../../auth/authApiSlice.js";
-// import { ConfirmationModal } from "./ConfirmationModal";
+import { config } from "../../../common/utils/index.js";
+import { AvatarDropdown } from "./AvatarDropdown.jsx";
 
 export const AdminLayout = () => {
   const { navOpen, activeRoute, loading } = useSelector(
     (state) => state.adminLayout
   );
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
-  if (!localStorage.getItem("token")) {
+  const token = localStorage.getItem("token");
+  if (!token) {
     return <Navigate to={`login`} />;
   }
-  const { data, isSuccess } = useMeQuery({
-    skip: !localStorage.getItem("token"),
-  });
-  useEffect(() => {
+  const { data, isSuccess } = useMeQuery();
+
+  useLayoutEffect(() => {
     if (isSuccess) {
       dispatch(
         setPermissions({
@@ -34,8 +36,23 @@ export const AdminLayout = () => {
           ),
         })
       );
+      const permissions = JSON.parse(localStorage.getItem("permission")).map(
+        (el) => el.replace("#", "")
+      );
+      console.log(permissions);
+      const prefix = pathname.split("/")[2];
+      let permit;
+      if (prefix === "access") {
+        permit = permissions.includes("account");
+      } else {
+        permit = permissions.includes(prefix);
+      }
+      if (!permit) {
+        navigate(`${config.pathPrefix}404`);
+      }
     }
-  }, [isSuccess]);
+    return () => {};
+  }, [pathname, isSuccess]);
 
   // if (isError || !auth?.data) return <Navigate to={`login`} />;
   if (loading) {
@@ -71,7 +88,8 @@ export const AdminLayout = () => {
                 </div>
                 <div className=" ml-auto flex items-center">
                   <BellIcon className="mr-[30px]" />
-                  <PersonIcon />
+                  {/*<PersonIcon />*/}
+                  <AvatarDropdown />
                 </div>
               </div>
             </div>

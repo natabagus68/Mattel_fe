@@ -4,9 +4,7 @@ import {
   useDeleteDeviceMutation,
   useGetDevicesQuery,
 } from "./deviceApiSlice.js";
-import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import {
-  CalendarIcon,
   EditIcon,
   EyeIcon,
   TrashIcon,
@@ -63,7 +61,7 @@ export const DeviceMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}machine-device/create`}>
+            <Link to={`${config.pathPrefix}master/machine-device/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -106,9 +104,12 @@ export const DeviceMaster = () => {
                       <EyeIcon />
                       <button
                         onClick={() => {
-                          navigate(`${config.pathPrefix}machine-device/edit`, {
-                            state: { edit: true, data: el },
-                          });
+                          navigate(
+                            `${config.pathPrefix}master/machine-device/edit`,
+                            {
+                              state: { edit: true, data: el },
+                            }
+                          );
                         }}
                       >
                         <EditIcon />

@@ -34,7 +34,7 @@ const Root = () => {
 
 const dashboardRouter = [
   {
-    path: "dashboard/general",
+    path: "dashboard",
     element: <General />,
   },
   {
@@ -59,20 +59,20 @@ const reportRouter = [
 ];
 const masterRouter = [
   {
-    path: "machine",
+    path: "master/machine",
     element: <MachineMaster />,
   },
-  { path: "machine/create", element: <MachineForm /> },
-  { path: "machine/edit", element: <MachineForm /> },
-  { path: "line-location", element: <LineLocationMaster /> },
-  { path: "line-location/create", element: <LineLocationForm /> },
-  { path: "line-location/edit", element: <LineLocationForm /> },
-  { path: "machine-part", element: <PartMaster /> },
-  { path: "machine-part/create", element: <PartForm /> },
-  { path: "machine-part/edit", element: <PartForm /> },
-  { path: "machine-device", element: <DeviceMaster /> },
-  { path: "machine-device/create", element: <DeviceForm /> },
-  { path: "machine-device/edit", element: <DeviceForm /> },
+  { path: "master/machine/create", element: <MachineForm /> },
+  { path: "master/machine/edit", element: <MachineForm /> },
+  { path: "master/line-location", element: <LineLocationMaster /> },
+  { path: "master/line-location/create", element: <LineLocationForm /> },
+  { path: "master/line-location/edit", element: <LineLocationForm /> },
+  { path: "master/machine-part", element: <PartMaster /> },
+  { path: "master/machine-part/create", element: <PartForm /> },
+  { path: "master/machine-part/edit", element: <PartForm /> },
+  { path: "master/machine-device", element: <DeviceMaster /> },
+  { path: "master/machine-device/create", element: <DeviceForm /> },
+  { path: "master/machine-device/edit", element: <DeviceForm /> },
 ];
 const accountRouter = [
   {
@@ -116,6 +116,10 @@ export default createBrowserRouter([
       ...reportRouter,
       ...masterRouter,
       ...accountRouter,
+      {
+        path: "404",
+        element: <Error404 text="You dont get access" />,
+      },
     ],
   },
   {

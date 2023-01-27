@@ -72,7 +72,7 @@ export const MachineMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}machine/create`}>
+            <Link to={`${config.pathPrefix}master/machine/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -125,7 +125,7 @@ export const MachineMaster = () => {
                       <EyeIcon />
                       <button
                         onClick={() => {
-                          navigate(`${config.pathPrefix}machine/edit`, {
+                          navigate(`${config.pathPrefix}master/machine/edit`, {
                             state: { edit: true, machines: el },
                           });
                         }}

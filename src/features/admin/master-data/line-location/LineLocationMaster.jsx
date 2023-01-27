@@ -4,9 +4,7 @@ import {
   useGetLinesQuery,
 } from "./lineLocationApiSlice.js";
 import { useEffect, useState } from "react";
-import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import {
-  CalendarIcon,
   EditIcon,
   EyeIcon,
   TrashIcon,
@@ -61,7 +59,7 @@ export const LineLocationMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}line-location/create`}>
+            <Link to={`${config.pathPrefix}master/line-location/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -104,9 +102,12 @@ export const LineLocationMaster = () => {
                       <EyeIcon />
                       <button
                         onClick={() => {
-                          navigate(`${config.pathPrefix}line-location/edit`, {
-                            state: { edit: true, data: el },
-                          });
+                          navigate(
+                            `${config.pathPrefix}master/line-location/edit`,
+                            {
+                              state: { edit: true, data: el },
+                            }
+                          );
                         }}
                       >
                         <EditIcon />

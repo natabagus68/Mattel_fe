@@ -14,7 +14,6 @@ import { MonitorIcon } from "../../../common/components/icons/MonitorIcon";
 export const SideBar = () => {
   const { navOpen } = useSelector((state) => state.adminLayout);
   const permission = useSelector((state) => state.adminLayout.permissions);
-  console.log(permission);
   return (
     <>
       <div
@@ -34,7 +33,7 @@ export const SideBar = () => {
             label={`Dashboard`}
             icon={<DashboardIcon className="mr-3 -mb-1" />}
           >
-            <NavItem to={`dashboard/general`} label={`General`} />
+            <NavItem to={`dashboard`} label={`General`} />
             <NavItem to={`dashboard/man-power`} label={`Man Power`} />
             <NavItem
               to={`dashboard/machine-problem`}
@@ -65,10 +64,10 @@ export const SideBar = () => {
             label={`Master`}
             icon={<MasterDataIcon className="mr-3 -mb-1" />}
           >
-            <NavItem to={`line-location`} label={`Line Location`} />
-            <NavItem to={`machine-part`} label={`Machine Part`} />
-            <NavItem to={`machine-device`} label={`Device`} />
-            <NavItem to={`machine`} label={`Machine`} />
+            <NavItem to={`master/line-location`} label={`Line Location`} />
+            <NavItem to={`master/machine-part`} label={`Machine Part`} />
+            <NavItem to={`master/machine-device`} label={`Device`} />
+            <NavItem to={`master/machine`} label={`Machine`} />
           </NavItem>
         )}
         {permission.includes("#user") && (

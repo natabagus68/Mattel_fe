@@ -57,7 +57,7 @@ export const PartMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}machine-part/create`}>
+            <Link to={`${config.pathPrefix}master/machine-part/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -100,9 +100,12 @@ export const PartMaster = () => {
                       <EyeIcon />
                       <button
                         onClick={() => {
-                          navigate(`${config.pathPrefix}machine-part/edit`, {
-                            state: { edit: true, part: el },
-                          });
+                          navigate(
+                            `${config.pathPrefix}master/machine-part/edit`,
+                            {
+                              state: { edit: true, part: el },
+                            }
+                          );
                         }}
                       >
                         <EditIcon />
