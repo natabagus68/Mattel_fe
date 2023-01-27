@@ -36,12 +36,12 @@ export const AdminLayout = () => {
           ),
         })
       );
-      const permissions = JSON.parse(localStorage.getItem("permission")).map(
-        (el) => el.replace("#", "")
+      const permissions = data.data.positions[0].permissions.map((el) =>
+        el.name.toLowerCase().replace("#", "")
       );
       console.log(permissions);
       const prefix = pathname.split("/")[2];
-      let permit;
+      let permit = true;
       if (prefix === "access") {
         permit = permissions.includes("account");
       } else {
