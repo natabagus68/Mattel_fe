@@ -1,50 +1,42 @@
-import {
-  EditIcon,
-  EyeIcon,
-  TrashIcon,
-} from "../../../../common/components/icons/index.js";
 import { Input } from "../../../../common/components/index.js";
-import {
-  useDeleteMachineMutation,
-  useGetMachinesQuery,
-} from "./machineSlice.js";
-import { useEffect, useState } from "react";
-import { config } from "../../../../common/utils/index.js";
 import { Link, useNavigate } from "react-router-dom";
+import { config } from "../../../../common/utils/index.js";
+import { Table } from "../../../../common/components/table/Table.jsx";
+import { Thead } from "../../../../common/components/table/Thead.jsx";
+import { Tr } from "../../../../common/components/table/Tr.jsx";
+import { Td } from "../../../../common/components/table/Td.jsx";
+import { useEffect, useState } from "react";
+import {
+  useDeleteLineMutation,
+  useGetLinesQuery,
+} from "./lineLocationApiSlice.js";
+import { EyeIcon } from "../../../../common/components/icons/index.js";
+import {
+  DeleteButton,
+  EditButton,
+} from "../../../../common/components/button/index.js";
 
-export const MachineMaster = () => {
-  const [lineId, setLineId] = useState("");
+export default () => {
   const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
-  const { data: machines = { data: [] }, refetch } = useGetMachinesQuery(
-    page,
-    lineId
-  );
-  const [deleteMachine, _] = useDeleteMachineMutation();
+  const { data: lines = { data: [] }, refetch } = useGetLinesQuery(page);
+  const [deleteLine, _] = useDeleteLineMutation();
 
   useEffect(() => {
     refetch();
-  }, [lineId]);
-
-  useEffect(() => {
-    async function refresh() {
-      await refetch();
-    }
-    refresh();
   }, [page]);
 
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < machines.totalPage; i++) {
+    for (let i = 0; i < lines.totalPage; i++) {
       arr.push(
         <button
           disabled={page === i + 1}
           onClick={() => {
             setPage(i + 1);
           }}
-          key={i}
         >
           <li
             className={`px-[12px] py-[8px] border border-neutral-100 ${
@@ -72,7 +64,7 @@ export const MachineMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}master/machine/create`}>
+            <Link to={`${config.pathPrefix}master/line-location/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -92,68 +84,48 @@ export const MachineMaster = () => {
           </button>
         </div>
         <div className="mt-[18px]">
-          <table className="my-[28px] table-auto w-full">
-            <thead className="bg-[#E2F1FF]">
-              <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
-                <td className="px-6 ">Code</td>
-                <td>Machine Name</td>
-                <td>Machine Number</td>
-                <td>Line Location</td>
-                <td>Machine Line Number</td>
-                <td>Part</td>
-                <td>Part</td>
-                <td>Part</td>
-                <td>Device ID</td>
-                <td align="right" className="pr-9">
-                  Option
-                </td>
-              </tr>
-            </thead>
+          <Table>
+            <Thead>
+              <Tr>
+                <Td>No.</Td>
+                <Td>Line Name</Td>
+                <Td align="right">Option</Td>
+              </Tr>
+            </Thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {machines.data.map((el, index) => (
-                <tr
-                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
-                  key={index}
-                >
-                  <td className="px-6 ">{el.code}</td>
-                  <td>{el.name}</td>
-                  <td>{el.number}</td>
-                  <td>{el.line.name}</td>
-                  <td>{el.machine_line_number}</td>
-                  <td>{el.parts[0]?.name ?? "-"}</td>
-                  <td>{el.parts[1]?.name ?? "-"}</td>
-                  <td>{el.parts[2]?.name ?? "-"}</td>
-                  <td>{el.device?.name}</td>
-                  <td align="right" className="pr-3">
+              {lines.data.map((el, index) => (
+                <Tr key={index} even={!!((index + 1) % 2)}>
+                  <Td>{index + 1}</Td>
+                  <Td>{el.name}</Td>
+                  <Td align="right">
                     <div className="flex justify-end gap-[9px]">
                       <EyeIcon />
-                      <button
+                      <EditButton
                         onClick={() => {
-                          navigate(`${config.pathPrefix}master/machine/edit`, {
-                            state: { edit: true, machines: el },
-                          });
+                          navigate(
+                            `${config.pathPrefix}master/line-location/edit`,
+                            {
+                              state: { edit: true, data: el },
+                            }
+                          );
                         }}
-                      >
-                        <EditIcon />
-                      </button>
-                      <button
+                      />
+                      <DeleteButton
                         onClick={() => {
-                          deleteMachine(el.id);
+                          deleteLine(el.id);
                         }}
-                      >
-                        <TrashIcon />
-                      </button>
+                      />
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
             </tbody>
-          </table>
-          <div className="flex justify-between items-center">
+          </Table>
+          <div className="flex justify-between items-center mt-[28px]">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * machines.limit + 1} to ${
-                (page - 1) * machines.limit + machines.data.length
-              } of ${machines.totalRows} entries`}
+              {`Showing ${(page - 1) * lines.limit + 1} to ${
+                (page - 1) * lines.limit + lines.data.length
+              } of ${lines.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>
             <div className="flex justify-center">
@@ -171,7 +143,7 @@ export const MachineMaster = () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === machines.totalPage}
+                    disabled={page === lines.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}

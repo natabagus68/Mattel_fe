@@ -39,14 +39,8 @@ export const AdminLayout = () => {
       const permissions = data.data.positions[0].permissions.map((el) =>
         el.name.toLowerCase().replace("#", "")
       );
-      console.log(permissions);
       const prefix = pathname.split("/")[2];
-      let permit = true;
-      if (prefix === "access") {
-        permit = permissions.includes("account");
-      } else {
-        permit = permissions.includes(prefix);
-      }
+      const permit = permissions.includes(prefix);
       if (!permit) {
         navigate(`${config.pathPrefix}404`);
       }

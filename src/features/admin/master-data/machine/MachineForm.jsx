@@ -16,8 +16,7 @@ export const MachineForm = () => {
   const linesQuery = useGetLinesQuery();
   const partsQuery = useGetPartsQuery();
   const devicesQuery = useGetDevicesQuery();
-  const [storeMachine, { isSuccess, error, isLoading }] =
-    useCreateMachineMutation();
+  const [storeMachine, { isSuccess }] = useCreateMachineMutation();
   const [updateMachine, updateResult] = useUpdateMachineMutation();
   const [lines, setLines] = useState([]);
   const [parts, setParts] = useState([]);
@@ -35,7 +34,9 @@ export const MachineForm = () => {
     initialValues: {
       code: "",
       number: "",
+      name: "",
       machine_line_id: "",
+      machine_line_number: "",
       part1: "",
       part2: "",
       part3: "",
@@ -45,9 +46,11 @@ export const MachineForm = () => {
       let data = {
         code: values.code,
         number: values.number,
+        name: values.name,
         machine_line_id: values.machine_line_id,
         part: [values.part1],
         machine_device_id: values.machine_device_id,
+        machine_line_number: values.machine_line_number,
       };
       if (values.part2 !== "") {
         data.part = [...data.part, values.part2];
@@ -145,10 +148,24 @@ export const MachineForm = () => {
               onChange={formik.handleChange}
             />
             <InputLabel
-              label="Machine name / no"
-              placeholder="Enter your machine name / no"
+              label="Machine no"
+              placeholder="Enter your machine no"
               name="number"
               value={formik.values.number}
+              onChange={formik.handleChange}
+            />
+            <InputLabel
+              label="Machine name"
+              placeholder="Enter your machine name"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+            />
+            <InputLabel
+              label="Machine Line Number"
+              placeholder="Enter your machine line number"
+              name="machine_line_number"
+              value={formik.values.machine_line_number}
               onChange={formik.handleChange}
             />
             <SelectLabel

@@ -72,7 +72,7 @@ export const Account = () => {
             <button
               className="py-[6px] px-[31px] bg-ink-base rounded text-white-lightest text-sm font-medium"
               onClick={() => {
-                navigate(`${config.pathPrefix}account/trash`);
+                navigate(`${config.pathPrefix}user/account/trash`);
               }}
             >
               Trash
@@ -80,7 +80,7 @@ export const Account = () => {
             <button
               className="py-[6px] px-3 bg-ink-base rounded text-white-lightest text-sm font-medium"
               onClick={() => {
-                navigate(`${config.pathPrefix}account/create`);
+                navigate(`${config.pathPrefix}user/account/create`);
               }}
             >
               <div className="flex gap-2 items-center">
@@ -157,7 +157,7 @@ export const Account = () => {
                         <button
                           onClick={() => {
                             navigate(
-                              `${config.pathPrefix}account/${el.id}/detail`
+                              `${config.pathPrefix}user/account/${el.id}/detail`
                             );
                           }}
                         >
@@ -166,7 +166,7 @@ export const Account = () => {
                         <button
                           onClick={() => {
                             navigate(
-                              `${config.pathPrefix}account/${el.id}/edit`
+                              `${config.pathPrefix}user/account/${el.id}/edit`
                             );
                           }}
                         >

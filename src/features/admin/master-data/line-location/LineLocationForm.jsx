@@ -4,12 +4,17 @@ import {
   useUpdateLineMutation,
 } from "./lineLocationApiSlice.js";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
+import { SaveConfirmationDialog } from "../../../../common/components/dialog/SaveConfirmationDialog.jsx";
+import { SuccessDialog } from "../../../../common/components/dialog/SuccessDialog.jsx";
 
 export const LineLocationForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [form, setForm] = useState({});
 
   const [storeLine, storeResult] = useCreateLineMutation();
   const [updateLine, updateResult] = useUpdateLineMutation();
@@ -22,11 +27,8 @@ export const LineLocationForm = () => {
       let data = {
         name: values.name,
       };
-      if (state?.edit) {
-        updateLine({ lineId: state.data.id, form: data });
-      } else {
-        storeLine(data);
-      }
+      setForm(data);
+      setOpenConfirmation(true);
     },
   });
 
@@ -35,12 +37,6 @@ export const LineLocationForm = () => {
       formik.setFieldValue("name", state.data.name);
     }
   }, [state]);
-
-  useEffect(() => {
-    if (storeResult.isSuccess || updateResult.isSuccess) {
-      navigate(-1);
-    }
-  }, [storeResult.isSuccess, updateResult.isSuccess]);
 
   return (
     <>
@@ -74,6 +70,24 @@ export const LineLocationForm = () => {
           </div>
         </form>
       </div>
+      <SaveConfirmationDialog
+        open={openConfirmation}
+        setOpen={setOpenConfirmation}
+        form={form}
+        mutationFn={() => {
+          if (state?.edit) {
+            updateLine({ lineId: state.data.id, form: form });
+          } else {
+            storeLine(form);
+          }
+        }}
+      />
+      <SuccessDialog
+        open={storeResult.isSuccess || updateResult.isSuccess}
+        navigate={() => {
+          navigate(-1);
+        }}
+      />
     </>
   );
 };

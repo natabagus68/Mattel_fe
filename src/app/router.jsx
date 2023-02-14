@@ -16,7 +16,6 @@ import { PartMaster } from "../features/admin/master-data/part/PartMaster";
 import { PartForm } from "../features/admin/master-data/part/PartForm";
 import { DeviceMaster } from "../features/admin/master-data/device/DeviceMaster.jsx";
 import { DeviceForm } from "../features/admin/master-data/device/DeviceForm";
-import { LineLocationMaster } from "../features/admin/master-data/line-location/LineLocationMaster";
 import { LineLocationForm } from "../features/admin/master-data/line-location/LineLocationForm";
 import { GuestLayouts } from "../features/guest/GuestLayouts.jsx";
 import { AccountDetail } from "../features/admin/user/account/AccountDetail";
@@ -27,6 +26,7 @@ import { Access } from "../features/admin/user/access/Access";
 import { MappingMenu } from "../features/admin/user/access/mapping-permissions/MappingMenu.jsx";
 import { AccessForm } from "../features/admin/user/access/AccessForm";
 import { PermissionForm } from "../features/admin/user/access/mapping-permissions/PermissionForm";
+import LineLocation from "../features/admin/master-data/line-location/index.jsx";
 
 const Root = () => {
   return <Outlet />;
@@ -34,7 +34,7 @@ const Root = () => {
 
 const dashboardRouter = [
   {
-    path: "dashboard",
+    path: "dashboard/general",
     element: <General />,
   },
   {
@@ -64,7 +64,7 @@ const masterRouter = [
   },
   { path: "master/machine/create", element: <MachineForm /> },
   { path: "master/machine/edit", element: <MachineForm /> },
-  { path: "master/line-location", element: <LineLocationMaster /> },
+  { path: "master/line-location", element: <LineLocation /> },
   { path: "master/line-location/create", element: <LineLocationForm /> },
   { path: "master/line-location/edit", element: <LineLocationForm /> },
   { path: "master/machine-part", element: <PartMaster /> },
@@ -76,18 +76,18 @@ const masterRouter = [
 ];
 const accountRouter = [
   {
-    path: "account",
+    path: "user/account",
     element: <Account />,
   },
-  { path: "account/:id/detail", element: <AccountDetail /> },
-  { path: "account/:id/edit", element: <AccountForm /> },
-  { path: "account/create", element: <AccountForm /> },
-  { path: "account/trash", element: <Trash /> },
-  { path: "access", element: <Access /> },
-  { path: "access/:id/permission", element: <MappingMenu /> },
-  { path: "access/permission/create", element: <PermissionForm /> },
-  { path: "access/create", element: <AccessForm /> },
-  { path: "access/:id/edit", element: <AccessForm /> },
+  { path: "user/account/:id/detail", element: <AccountDetail /> },
+  { path: "user/account/:id/edit", element: <AccountForm /> },
+  { path: "user/account/create", element: <AccountForm /> },
+  { path: "user/account/trash", element: <Trash /> },
+  { path: "user/access", element: <Access /> },
+  { path: "user/access/:id/permission", element: <MappingMenu /> },
+  { path: "user/access/permission/create", element: <PermissionForm /> },
+  { path: "user/access/create", element: <AccessForm /> },
+  { path: "user/access/:id/edit", element: <AccessForm /> },
 ];
 
 export default createBrowserRouter([

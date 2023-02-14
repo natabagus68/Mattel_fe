@@ -5,10 +5,10 @@ import { useGetAuthenticatedUserQuery } from "../../app/services/authService";
 
 export const GuestLayouts = () => {
   const { data: auth, isLoading } = useGetAuthenticatedUserQuery();
-  if (auth?.data) return <Navigate to="dashboard" replace={true} />;
+  if (auth?.data) return <Navigate to="dashboard/general" replace={true} />;
   return (
     <>
-      {auth?.data && <Navigate to="dashboard" replace={true} />}
+      {auth?.data && <Navigate to="dashboard/general" replace={true} />}
       {isLoading && <Loader />}
       <Outlet />
     </>

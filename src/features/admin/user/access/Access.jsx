@@ -10,7 +10,7 @@ export const Access = () => {
   const navigate = useNavigate();
 
   const { data: positions = { data: [] } } = useGetPositionsQuery();
-  const [deleteAccess, result] = useDeletePositionMutation();
+  const [deleteAccess, _] = useDeletePositionMutation();
 
   return (
     <>
@@ -22,7 +22,7 @@ export const Access = () => {
           <button
             className="py-[6px] px-3 bg-ink-base rounded text-white-lightest text-sm font-medium"
             onClick={() => {
-              navigate(`${config.pathPrefix}access/create`);
+              navigate(`${config.pathPrefix}user/access/create`);
             }}
           >
             <div className="flex gap-2 items-center">
@@ -79,7 +79,7 @@ export const Access = () => {
                           label: "Mapping Menu",
                           fn: () => {
                             navigate(
-                              `${config.pathPrefix}access/${el.id}/permission`
+                              `${config.pathPrefix}user/access/${el.id}/permission`
                             );
                           },
                         },
@@ -87,7 +87,7 @@ export const Access = () => {
                           label: "Edit",
                           fn: () => {
                             navigate(
-                              `${config.pathPrefix}access/${el.id}/edit`
+                              `${config.pathPrefix}user/access/${el.id}/edit`
                             );
                           },
                         },

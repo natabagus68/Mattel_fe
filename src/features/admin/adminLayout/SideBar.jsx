@@ -33,7 +33,7 @@ export const SideBar = () => {
             label={`Dashboard`}
             icon={<DashboardIcon className="mr-3 -mb-1" />}
           >
-            <NavItem to={`dashboard`} label={`General`} />
+            <NavItem to={`dashboard/general`} label={`General`} />
             <NavItem to={`dashboard/man-power`} label={`Man Power`} />
             <NavItem
               to={`dashboard/machine-problem`}
@@ -72,8 +72,8 @@ export const SideBar = () => {
         )}
         {permission.includes("#user") && (
           <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
-            <NavItem to={`account`} label={`Account`} />
-            <NavItem to={`access`} label={`Access`} />
+            <NavItem to={`user/account`} label={`Account`} />
+            <NavItem to={`user/access`} label={`Access`} />
           </NavItem>
         )}
       </div>

@@ -47,7 +47,7 @@ export const AccessForm = () => {
 
   useEffect(() => {
     if (createResult.isSuccess || updateResult.isSuccess) {
-      navigate(`${config.pathPrefix}access`);
+      navigate(`${config.pathPrefix}user/access`);
     }
     return () => {};
   }, [createResult.isSuccess, updateResult.isSuccess]);

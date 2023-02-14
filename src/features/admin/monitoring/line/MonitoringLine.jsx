@@ -20,6 +20,15 @@ export const MonitoringLine = () => {
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <>
       <Dropdown
@@ -38,8 +47,11 @@ export const MonitoringLine = () => {
             monitoringLines.data.map((el, index) => (
               <ConditionCard
                 key={index}
-                lineNum={`${line + el.number}`}
-                status={el.condition}
+                lineNum={`${line + el.machine_line_number}`}
+                condition={el.condition}
+                isMtc={el.is_maintenance}
+                isMtr={el.is_material}
+                isQc={el.is_quality_control}
               />
             ))}
         </div>

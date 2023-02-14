@@ -40,7 +40,7 @@ export const MappingMenu = () => {
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate(`${config.pathPrefix}access`);
+      navigate(`${config.pathPrefix}user/access`);
     }
     return () => {};
   }, [result.isSuccess]);
@@ -55,7 +55,7 @@ export const MappingMenu = () => {
           <button
             className="py-[6px] px-3 bg-ink-base rounded text-white-lightest text-sm font-medium"
             onClick={() => {
-              navigate(`${config.pathPrefix}access/permission/create`);
+              navigate(`${config.pathPrefix}user/access/permission/create`);
             }}
           >
             <div className="flex gap-2 items-center">

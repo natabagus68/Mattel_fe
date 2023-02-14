@@ -1,11 +1,9 @@
-import React from 'react';
+import React from "react";
 
-export const Tr = ({children}) => {
-    return (
-        <>
-            <tr>
-                {children}
-            </tr>
-        </>
-    );
+export const Tr = ({ children, even = false }) => {
+  return (
+    <>
+      <tr className={`${even && "bg-gray-50"}`}>{children}</tr>
+    </>
+  );
 };

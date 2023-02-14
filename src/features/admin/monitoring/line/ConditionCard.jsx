@@ -1,11 +1,13 @@
 import { LightIcon } from "../../../../common/components/icons/index.js";
 import { fontSize, statusColor } from "./const.js";
 
-export const ConditionCard = ({ lineNum, status, Condition = "Condition" }) => {
-  // const [font, setFont] = useState("4xl");
-  // useEffect(() => {
-  //   setFont(fontSize(status));
-  // }, [status]);
+export const ConditionCard = ({
+  lineNum,
+  condition,
+  isMtc = false,
+  isQc = false,
+  isMtr = false,
+}) => {
   const font = fontSize(status);
 
   return (
@@ -19,28 +21,23 @@ export const ConditionCard = ({ lineNum, status, Condition = "Condition" }) => {
           <div className="bg-white-lightest w-[121.13px] h-[124.38px] p-[13px_15px] radius-[10.8155px] shadow-[0_4.32621px_21.6311px_rgba(0,0,0,0.07)] flex flex-col items-center justify-center">
             <div
               className={`text-green-400 font-bold ${statusColor(
-                status
+                condition
               )} text-${font}`}
             >
-              {status}
+              {condition}
             </div>
-            {/*<div className="mt-[6.49px] text-sm font-medium text-center text-neutral-500">*/}
-            {/*  {Condition}*/}
-            {/*</div>*/}
           </div>
           {/*Line Light*/}
           <div className="ml-[13px]">
             <LightIcon
               className="mt-[3.41px]"
-              fill={status === "QC" ? "#F59F00" : "#B3B5B7"}
+              fill={isQc ? "#F59F00" : "#B3B5B7"}
             />
             <LightIcon
               className="mt-[3.41px]"
-              fill={status === "Material" ? "#229BD8" : "#B3B5B7"}
+              fill={isMtr ? "#229BD8" : "#B3B5B7"}
             />
-            <LightIcon
-              fill={status === "Maintenance" ? "#DE1B1B" : "#B3B5B7"}
-            />
+            <LightIcon fill={isMtc ? "#DE1B1B" : "#B3B5B7"} />
           </div>
         </div>
       </div>

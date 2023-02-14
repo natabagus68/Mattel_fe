@@ -34,6 +34,7 @@ module.exports = {
                     '200': '#F8A9A3',
                     '300': '#F5827A',
                     '500': '#DE1B1B',
+                    'primary': "#DD5353",
                     'foundation-500' : '#F04438',
                 },
                 black: {
@@ -67,6 +68,7 @@ module.exports = {
                 ink: {
                     'base': "#404446",
                     'darker': "#202325",
+                    'light': "#6C7072",
                     'lighter': "#72777A"
                 },
                 graphite: {
