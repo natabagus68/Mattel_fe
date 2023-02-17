@@ -21,7 +21,8 @@ export const LogoutDialog = ({ logoutOpen, setLogoutOpen }) => {
 LogoutDialog.Modal = ({ logoutOpen, setLogoutOpen }) => {
   // const [logout, { logoutIsLoading }] = useLogoutMutation();
   const logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    sessionStorage.clear();
     window.location.reload();
   };
   return (

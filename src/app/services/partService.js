@@ -1,4 +1,4 @@
-import { apiSlice } from "../../../api/apiSlice.js";
+import { apiSlice } from "../../features/api/apiSlice.js";
 
 export const partApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,12 +13,14 @@ export const partApiSlice = apiSlice.injectEndpoints({
         body: form,
       }),
     }),
-    editPart: builder.mutation({
-      query: ({ partId, form }) => ({
-        url: `/admin/machine-part/${partId}`,
-        method: "PUT",
-        body: form,
-      }),
+    updatePart: builder.mutation({
+      query: ({ id, form }) => {
+        return {
+          url: `/admin/machine-part/${id}`,
+          method: "PUT",
+          body: form,
+        };
+      },
     }),
     deletePart: builder.mutation({
       query: (partId) => ({
@@ -33,6 +35,6 @@ export const partApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetPartsQuery,
   useCreatePartMutation,
-  useEditPartMutation,
+  useUpdatePartMutation,
   useDeletePartMutation,
 } = partApiSlice;

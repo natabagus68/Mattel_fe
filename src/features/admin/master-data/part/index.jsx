@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  useDeleteDeviceMutation,
-  useGetDevicesQuery,
-} from "./deviceApiSlice.js";
-import {
-  EditIcon,
-  EyeIcon,
-  TrashIcon,
-} from "../../../../common/components/icons/index.js";
 import { Input } from "../../../../common/components/index.js";
 import { config } from "../../../../common/utils/index.js";
+import { Table } from "../../../../common/components/table/Table.jsx";
+import { Thead } from "../../../../common/components/table/Thead.jsx";
+import { Tr } from "../../../../common/components/table/Tr.jsx";
+import { Td } from "../../../../common/components/table/Td.jsx";
+import { EyeIcon } from "../../../../common/components/icons/index.js";
+import {
+  DeleteButton,
+  EditButton,
+} from "../../../../common/components/button/index.js";
+import {
+  useDeletePartMutation,
+  useGetPartsQuery,
+} from "../../../../app/services/partService.js";
 
-export const DeviceMaster = () => {
+export default () => {
   const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
-  const { data: devices = { data: [] }, refetch } = useGetDevicesQuery(page);
-
-  const [deleteDevice, deleteResult] = useDeleteDeviceMutation();
+  const { data: parts = { data: [] }, refetch } = useGetPartsQuery(page);
+  const [deletePart, _] = useDeletePartMutation();
 
   useEffect(() => {
     refetch();
@@ -27,7 +30,7 @@ export const DeviceMaster = () => {
 
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < devices.totalPage; i++) {
+    for (let i = 0; i < parts.totalPage; i++) {
       arr.push(
         <button
           disabled={page === i + 1}
@@ -61,7 +64,7 @@ export const DeviceMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}master/machine-device/create`}>
+            <Link to={`${config.pathPrefix}master/part/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -81,58 +84,45 @@ export const DeviceMaster = () => {
           </button>
         </div>
         <div className="mt-[18px]">
-          <table className="my-[28px] table-auto w-full">
-            <thead className="bg-[#E2F1FF]">
-              <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
-                <td className="px-6">No.</td>
-                <td>Device Name</td>
-                <td align="right" className="pr-9">
-                  Option
-                </td>
-              </tr>
-            </thead>
+          <Table>
+            <Thead>
+              <Tr>
+                <Td>No.</Td>
+                <Td>Part Name</Td>
+                <Td align="right">Option</Td>
+              </Tr>
+            </Thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {devices.data.map((el, index) => (
-                <tr
-                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
-                  key={index}
-                >
-                  <td className="px-6 ">{index + 1}</td>
-                  <td>{el.name}</td>
-                  <td align="right" className="pr-3">
+              {parts.data.map((el, index) => (
+                <Tr key={index} even={!!((index + 1) % 2)}>
+                  <Td>{index + 1}</Td>
+                  <Td>{el.name}</Td>
+                  <Td align="right">
                     <div className="flex justify-end gap-[9px]">
                       <EyeIcon />
-                      <button
+                      <EditButton
                         onClick={() => {
-                          navigate(
-                            `${config.pathPrefix}master/machine-device/edit`,
-                            {
-                              state: { edit: true, data: el },
-                            }
-                          );
+                          navigate(`${config.pathPrefix}master/part/edit`, {
+                            state: { edit: true, data: el },
+                          });
                         }}
-                      >
-                        <EditIcon />
-                      </button>
-                      <button
+                      />
+                      <DeleteButton
                         onClick={() => {
-                          deleteDevice(el.id);
+                          deletePart(el.id);
                         }}
-                      >
-                        <TrashIcon />
-                      </button>
+                      />
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
             </tbody>
-          </table>
-          <div className="flex justify-between items-center">
+          </Table>
+          <div className="flex justify-between items-center mt-[28px]">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * devices.limit + 1} to ${
-                (page - 1) * devices.limit + devices.data.length
-              } of ${devices.totalRows} entries`}
-              {/*Showing 1 to 10 of 14 Entries*/}
+              {`Showing ${(page - 1) * parts.limit + 1} to ${
+                (page - 1) * parts.limit + parts.data.length
+              } of ${parts.totalRows} entries`}
             </div>
             <div className="flex justify-center">
               <nav>
@@ -149,7 +139,7 @@ export const DeviceMaster = () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === devices.totalPage}
+                    disabled={page === parts.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}

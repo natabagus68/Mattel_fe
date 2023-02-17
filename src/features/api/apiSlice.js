@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { config } from "../../common/utils";
 import { mockAxiosBaseQuery } from "../../common/utils/mockAxios";
+
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: config.mockApi
@@ -8,7 +9,8 @@ export const apiSlice = createApi({
     : fetchBaseQuery({
         baseUrl: config.apibaseUrl,
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+          // Authorization: "Bearer " + localStorage.getItem("token"),
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
           //DONT ADD CONTENT TYPE!!!
         },
       }),

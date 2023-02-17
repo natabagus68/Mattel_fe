@@ -1,23 +1,23 @@
-import { useFormik } from "formik";
-import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
 import { SaveConfirmationDialog } from "../../../../common/components/dialog/SaveConfirmationDialog.jsx";
 import { SuccessDialog } from "../../../../common/components/dialog/SuccessDialog.jsx";
 import {
-  useCreatePartMutation,
-  useUpdatePartMutation,
-} from "../../../../app/services/partService.js";
+  useCreateMachineCategoryMutation,
+  useUpdateMachineCategoryMutation,
+} from "../../../../app/services/machineCategoryService.js";
 
-export const PartForm = () => {
+export const MachineCategoryForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [form, setForm] = useState({});
 
-  const [createPart, storeResult] = useCreatePartMutation();
-  const [updatePart, updateResult] = useUpdatePartMutation();
+  const [storeCategory, storeResult] = useCreateMachineCategoryMutation();
+  const [updateCategory, updateResult] = useUpdateMachineCategoryMutation();
 
   const initialValues = {
     name: "",
@@ -50,7 +50,7 @@ export const PartForm = () => {
           <div className="flex flex-col gap-4">
             <InputLabel
               label="Name"
-              placeholder="Enter Machine Part"
+              placeholder="Enter Machine Category"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -81,10 +81,9 @@ export const PartForm = () => {
         form={form}
         mutationFn={() => {
           if (state?.edit) {
-            const id = state.data.id;
-            updatePart({ id, form: form });
+            updateCategory({ id: state.data.id, form: form });
           } else {
-            createPart(form);
+            storeCategory(form);
           }
         }}
       />

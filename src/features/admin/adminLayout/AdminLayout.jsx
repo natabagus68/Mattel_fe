@@ -21,7 +21,8 @@ export const AdminLayout = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   if (!token) {
     return <Navigate to={`login`} />;
   }

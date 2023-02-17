@@ -1,33 +1,33 @@
-import { apiSlice } from "../../../api/apiSlice.js";
+import { apiSlice } from "../../features/api/apiSlice.js";
 
 export const lineLocationApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLines: builder.query({
-      query: (page = 1) => `/admin/machine-line?page=${page}&limit=10`,
-      providesTags: ["Line-Location"],
+      query: (page = 1) => `/admin/line?page=${page}&limit=10`,
+      providesTags: ["Line"],
     }),
     createLine: builder.mutation({
       query: (form) => ({
-        url: `/admin/machine-line`,
+        url: `/admin/line`,
         method: "POST",
         body: form,
       }),
-      invalidatesTags: ["Line-Location"],
+      invalidatesTags: ["Line"],
     }),
     updateLine: builder.mutation({
       query: ({ lineId, form }) => ({
-        url: `/admin/machine-line/${lineId}`,
+        url: `/admin/line/${lineId}`,
         method: "PUT",
         body: form,
       }),
-      invalidatesTags: ["Line-Location"],
+      invalidatesTags: ["Line"],
     }),
     deleteLine: builder.mutation({
       query: (lineId) => ({
-        url: `/admin/machine-line/${lineId}`,
+        url: `/admin/line/${lineId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Line-Location"],
+      invalidatesTags: ["Line"],
     }),
   }),
 });

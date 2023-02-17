@@ -9,14 +9,10 @@ import { Report } from "../features/admin/report/Report.jsx";
 import { MachineForm } from "../features/admin/master-data/machine/MachineForm";
 import { Account } from "../features/admin/user/account/Account";
 import { Mechanic } from "../features/admin/monitoring/mechanic/Mechanic.jsx";
-import { MachineMaster } from "../features/admin/master-data/machine/MachineMaster.jsx";
 import { MachineProblem } from "../features/admin/dashboard/machine-problem/MachineProblem.jsx";
 import { MonitoringLine } from "../features/admin/monitoring/line/MonitoringLine";
-import { PartMaster } from "../features/admin/master-data/part/PartMaster";
 import { PartForm } from "../features/admin/master-data/part/PartForm";
-import { DeviceMaster } from "../features/admin/master-data/device/DeviceMaster.jsx";
-import { DeviceForm } from "../features/admin/master-data/device/DeviceForm";
-import { LineLocationForm } from "../features/admin/master-data/line-location/LineLocationForm";
+import { LineLocationForm } from "../features/admin/master-data/line/LineLocationForm";
 import { GuestLayouts } from "../features/guest/GuestLayouts.jsx";
 import { AccountDetail } from "../features/admin/user/account/AccountDetail";
 import { AccountForm } from "../features/admin/user/account/AccountForm";
@@ -26,7 +22,15 @@ import { Access } from "../features/admin/user/access/Access";
 import { MappingMenu } from "../features/admin/user/access/mapping-permissions/MappingMenu.jsx";
 import { AccessForm } from "../features/admin/user/access/AccessForm";
 import { PermissionForm } from "../features/admin/user/access/mapping-permissions/PermissionForm";
-import LineLocation from "../features/admin/master-data/line-location/index.jsx";
+import LineLocation from "../features/admin/master-data/line/index.jsx";
+import LineGroup from "../features/admin/master-data/line-group/index.jsx";
+import { LineGroupForm } from "../features/admin/master-data/line-group/LineGroupForm.jsx";
+import LineDevice from "../features/admin/master-data/line-device/index.jsx";
+import { LineDeviceForm } from "../features/admin/master-data/line-device/LineDeviceForm.jsx";
+import MachineCategory from "../features/admin/master-data/machine-category/index.jsx";
+import { MachineCategoryForm } from "../features/admin/master-data/machine-category/MachineCategoryForm.jsx";
+import Part from "../features/admin/master-data/part/index.jsx";
+import Machine from "../features/admin/master-data/machine/index.jsx";
 
 const Root = () => {
   return <Outlet />;
@@ -60,19 +64,25 @@ const reportRouter = [
 const masterRouter = [
   {
     path: "master/machine",
-    element: <MachineMaster />,
+    element: <Machine />,
   },
   { path: "master/machine/create", element: <MachineForm /> },
   { path: "master/machine/edit", element: <MachineForm /> },
-  { path: "master/line-location", element: <LineLocation /> },
-  { path: "master/line-location/create", element: <LineLocationForm /> },
-  { path: "master/line-location/edit", element: <LineLocationForm /> },
-  { path: "master/machine-part", element: <PartMaster /> },
-  { path: "master/machine-part/create", element: <PartForm /> },
-  { path: "master/machine-part/edit", element: <PartForm /> },
-  { path: "master/machine-device", element: <DeviceMaster /> },
-  { path: "master/machine-device/create", element: <DeviceForm /> },
-  { path: "master/machine-device/edit", element: <DeviceForm /> },
+  { path: "master/line", element: <LineLocation /> },
+  { path: "master/line/create", element: <LineLocationForm /> },
+  { path: "master/line/edit", element: <LineLocationForm /> },
+  { path: "master/line-group", element: <LineGroup /> },
+  { path: "master/line-group/create", element: <LineGroupForm /> },
+  { path: "master/line-group/edit", element: <LineGroupForm /> },
+  { path: "master/line-device", element: <LineDevice /> },
+  { path: "master/line-device/create", element: <LineDeviceForm /> },
+  { path: "master/line-device/edit", element: <LineDeviceForm /> },
+  { path: "master/part", element: <Part /> },
+  { path: "master/part/create", element: <PartForm /> },
+  { path: "master/part/edit", element: <PartForm /> },
+  { path: "master/machine-category", element: <MachineCategory /> },
+  { path: "master/machine-category/create", element: <MachineCategoryForm /> },
+  { path: "master/machine-category/edit", element: <MachineCategoryForm /> },
 ];
 const accountRouter = [
   {

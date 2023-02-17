@@ -1,21 +1,29 @@
-import {
-  EditIcon,
-  EyeIcon,
-  TrashIcon,
-} from "../../../../common/components/icons/index.js";
-import { Input } from "../../../../common/components/index.js";
-import { Link, useNavigate } from "react-router-dom";
-import { config } from "../../../../common/utils/index.js";
 import { useEffect, useState } from "react";
-import { useDeletePartMutation, useGetPartsQuery } from "./partApiSlice.js";
+import { Link, useNavigate } from "react-router-dom";
+import { Input } from "../../../../common/components/index.js";
+import { config } from "../../../../common/utils/index.js";
+import { Table } from "../../../../common/components/table/Table.jsx";
+import { Thead } from "../../../../common/components/table/Thead.jsx";
+import { Tr } from "../../../../common/components/table/Tr.jsx";
+import { Td } from "../../../../common/components/table/Td.jsx";
+import { EyeIcon } from "../../../../common/components/icons/index.js";
+import {
+  DeleteButton,
+  EditButton,
+} from "../../../../common/components/button/index.js";
+import {
+  useDeleteLineDeviceMutation,
+  useGetLineDevicesQuery,
+} from "../../../../app/services/lineDeviceService.js";
 
-export const PartMaster = () => {
+export default () => {
   const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
-  const { data: parts = { data: [] }, refetch } = useGetPartsQuery();
-  const [deletePart, deleteResult] = useDeletePartMutation();
+  const { data: lineDevices = { data: [] }, refetch } =
+    useGetLineDevicesQuery(page);
+  const [deleteDevice, _] = useDeleteLineDeviceMutation();
 
   useEffect(() => {
     refetch();
@@ -23,10 +31,9 @@ export const PartMaster = () => {
 
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < parts.totalPage; i++) {
+    for (let i = 0; i < lineDevices.totalPage; i++) {
       arr.push(
         <button
-          key={i}
           disabled={page === i + 1}
           onClick={() => {
             setPage(i + 1);
@@ -38,6 +45,7 @@ export const PartMaster = () => {
                 ? "bg-graphite-500 text-white-lightest"
                 : "text-neutral-500"
             }`}
+            key={i}
           >
             {i + 1}
           </li>
@@ -57,7 +65,7 @@ export const PartMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}master/machine-part/create`}>
+            <Link to={`${config.pathPrefix}master/line-device/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -77,57 +85,48 @@ export const PartMaster = () => {
           </button>
         </div>
         <div className="mt-[18px]">
-          <table className="my-[28px] table-auto w-full">
-            <thead className="bg-[#E2F1FF]">
-              <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
-                <td className="px-6">No.</td>
-                <td>Part Name</td>
-                <td align="right" className="pr-9">
-                  Option
-                </td>
-              </tr>
-            </thead>
+          <Table>
+            <Thead>
+              <Tr>
+                <Td>No.</Td>
+                <Td>Device Name</Td>
+                <Td align="right">Option</Td>
+              </Tr>
+            </Thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {parts.data.map((el, index) => (
-                <tr
-                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
-                  key={index}
-                >
-                  <td className="px-6 ">{index + 1}</td>
-                  <td>{el.name}</td>
-                  <td align="right" className="pr-3">
+              {lineDevices.data.map((el, index) => (
+                <Tr key={index} even={!!((index + 1) % 2)}>
+                  <Td>{index + 1}</Td>
+                  <Td>{el.name}</Td>
+                  <Td align="right">
                     <div className="flex justify-end gap-[9px]">
                       <EyeIcon />
-                      <button
+                      <EditButton
                         onClick={() => {
                           navigate(
-                            `${config.pathPrefix}master/machine-part/edit`,
+                            `${config.pathPrefix}master/line-device/edit`,
                             {
-                              state: { edit: true, part: el },
+                              state: { edit: true, data: el },
                             }
                           );
                         }}
-                      >
-                        <EditIcon />
-                      </button>
-                      <button
+                      />
+                      <DeleteButton
                         onClick={() => {
-                          deletePart(el.id);
+                          deleteDevice(el.id);
                         }}
-                      >
-                        <TrashIcon />
-                      </button>
+                      />
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
             </tbody>
-          </table>
-          <div className="flex justify-between items-center">
+          </Table>
+          <div className="flex justify-between items-center mt-[28px]">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * parts.limit + 1} to ${
-                (page - 1) * parts.limit + parts.data.length
-              } of ${parts.totalRows} entries`}
+              {`Showing ${(page - 1) * lineDevices.limit + 1} to ${
+                (page - 1) * lineDevices.limit + lineDevices.data.length
+              } of ${lineDevices.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>
             <div className="flex justify-center">
@@ -145,7 +144,7 @@ export const PartMaster = () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === parts.totalPage}
+                    disabled={page === lineDevices.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}

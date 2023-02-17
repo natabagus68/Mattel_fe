@@ -1,23 +1,23 @@
-import { useFormik } from "formik";
 import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useCreateLineGroupMutation,
+  useUpdateLineGroupMutation,
+} from "../../../../app/services/lineGroupService.js";
 import { SaveConfirmationDialog } from "../../../../common/components/dialog/SaveConfirmationDialog.jsx";
 import { SuccessDialog } from "../../../../common/components/dialog/SuccessDialog.jsx";
-import {
-  useCreatePartMutation,
-  useUpdatePartMutation,
-} from "../../../../app/services/partService.js";
 
-export const PartForm = () => {
+export const LineGroupForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [form, setForm] = useState({});
 
-  const [createPart, storeResult] = useCreatePartMutation();
-  const [updatePart, updateResult] = useUpdatePartMutation();
+  const [storeGroup, storeResult] = useCreateLineGroupMutation();
+  const [updateGroup, updateResult] = useUpdateLineGroupMutation();
 
   const initialValues = {
     name: "",
@@ -50,7 +50,7 @@ export const PartForm = () => {
           <div className="flex flex-col gap-4">
             <InputLabel
               label="Name"
-              placeholder="Enter Machine Part"
+              placeholder="Enter Line Group Name"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -81,10 +81,9 @@ export const PartForm = () => {
         form={form}
         mutationFn={() => {
           if (state?.edit) {
-            const id = state.data.id;
-            updatePart({ id, form: form });
+            updateGroup({ id: state.data.id, form: form });
           } else {
-            createPart(form);
+            storeGroup(form);
           }
         }}
       />

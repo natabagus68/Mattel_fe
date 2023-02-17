@@ -2,7 +2,7 @@ import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import { ConditionCard } from "./ConditionCard.jsx";
 import React, { useEffect, useState } from "react";
 import { useGetMonitoringDataQuery } from "./lineApiSlice.js";
-import { useGetLinesQuery } from "../../master-data/line-location/lineLocationApiSlice.js";
+import { useGetLinesQuery } from "../../../../app/services/lineService.js";
 
 export const MonitoringLine = () => {
   const [line, setLine] = useState("Line A");

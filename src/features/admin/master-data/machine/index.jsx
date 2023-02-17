@@ -1,24 +1,28 @@
-import { Link, useNavigate } from "react-router-dom";
-import {
-  useDeleteLineMutation,
-  useGetLinesQuery,
-} from "./lineLocationApiSlice.js";
 import { useEffect, useState } from "react";
-import {
-  EditIcon,
-  EyeIcon,
-  TrashIcon,
-} from "../../../../common/components/icons/index.js";
+import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../../../common/components/index.js";
 import { config } from "../../../../common/utils/index.js";
+import { Table } from "../../../../common/components/table/Table.jsx";
+import { Thead } from "../../../../common/components/table/Thead.jsx";
+import { Tr } from "../../../../common/components/table/Tr.jsx";
+import { Td } from "../../../../common/components/table/Td.jsx";
+import { EyeIcon } from "../../../../common/components/icons/index.js";
+import {
+  DeleteButton,
+  EditButton,
+} from "../../../../common/components/button/index.js";
+import {
+  useDeleteMachineMutation,
+  useGetMachinesQuery,
+} from "../../../../app/services/machineService.js";
 
-export const LineLocationMaster = () => {
+export default () => {
   const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
-  const { data: lines = { data: [] }, refetch } = useGetLinesQuery(page);
-  const [deleteLine, deleteResult] = useDeleteLineMutation();
+  const { data: machines = { data: [] }, refetch } = useGetMachinesQuery(page);
+  const [deleteMachine, _] = useDeleteMachineMutation();
 
   useEffect(() => {
     refetch();
@@ -26,7 +30,7 @@ export const LineLocationMaster = () => {
 
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < lines.totalPage; i++) {
+    for (let i = 0; i < machines.totalPage; i++) {
       arr.push(
         <button
           disabled={page === i + 1}
@@ -49,6 +53,7 @@ export const LineLocationMaster = () => {
     }
     return arr;
   };
+
   return (
     <>
       <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
@@ -59,7 +64,7 @@ export const LineLocationMaster = () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}master/line-location/create`}>
+            <Link to={`${config.pathPrefix}master/machine/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -79,57 +84,55 @@ export const LineLocationMaster = () => {
           </button>
         </div>
         <div className="mt-[18px]">
-          <table className="my-[28px] table-auto w-full">
-            <thead className="bg-[#E2F1FF]">
-              <tr className="font-inter text-xs font-[600] font-semibold uppercase h-[45px] text-ink-base border-y-[1px] border-gray-100">
-                <td className="px-6">No.</td>
-                <td>Line Name</td>
-                <td align="right" className="pr-9">
-                  Option
-                </td>
-              </tr>
-            </thead>
+          <Table>
+            <Thead>
+              <Tr>
+                <Td>Code</Td>
+                <Td>Machine Number</Td>
+                <Td>Line Location</Td>
+                <Td>Part</Td>
+                <Td>Part</Td>
+                <Td>Part</Td>
+                <Td>Device ID</Td>
+                <Td align="right">Option</Td>
+              </Tr>
+            </Thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {lines.data.map((el, index) => (
-                <tr
-                  className="h-[45px] border-y-[1px] border-gray-100 bg-gray-50"
-                  key={index}
-                >
-                  <td className="px-6 ">{index + 1}</td>
-                  <td>{el.name}</td>
-                  <td align="right" className="pr-3">
+              {machines.data.map((el, index) => (
+                <Tr key={index} even={!!((index + 1) % 2)}>
+                  <Td className="px-6 ">{el.code}</Td>
+                  <Td>{el.number}</Td>
+                  <Td>{el.line.name}</Td>
+                  <Td>{el.parts[0]?.name ?? "-"}</Td>
+                  <Td>{el.parts[1]?.name ?? "-"}</Td>
+                  <Td>{el.parts[2]?.name ?? "-"}</Td>
+                  <Td>{el.line.line_device.name}</Td>
+                  <Td align="right">
                     <div className="flex justify-end gap-[9px]">
                       <EyeIcon />
-                      <button
+                      <EditButton
                         onClick={() => {
-                          navigate(
-                            `${config.pathPrefix}master/line-location/edit`,
-                            {
-                              state: { edit: true, data: el },
-                            }
-                          );
+                          navigate(`${config.pathPrefix}master/machine/edit`, {
+                            state: { edit: true, data: el },
+                          });
                         }}
-                      >
-                        <EditIcon />
-                      </button>
-                      <button
+                      />
+                      <DeleteButton
                         onClick={() => {
-                          deleteLine(el.id);
+                          deleteMachine(el.id);
                         }}
-                      >
-                        <TrashIcon />
-                      </button>
+                      />
                     </div>
-                  </td>
-                </tr>
+                  </Td>
+                </Tr>
               ))}
             </tbody>
-          </table>
-          <div className="flex justify-between items-center">
+          </Table>
+          <div className="flex justify-between items-center mt-[28px]">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * lines.limit + 1} to ${
-                (page - 1) * lines.limit + lines.data.length
-              } of ${lines.totalRows} entries`}
+              {`Showing ${(page - 1) * machines.limit + 1} to ${
+                (page - 1) * machines.limit + machines.data.length
+              } of ${machines.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>
             <div className="flex justify-center">
@@ -147,7 +150,7 @@ export const LineLocationMaster = () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === lines.totalPage}
+                    disabled={page === machines.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}

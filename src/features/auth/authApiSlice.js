@@ -11,7 +11,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(payload, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          localStorage.setItem("token", data.token);
+          // localStoragesidebar.setItem("token", data.token);
+          sessionStorage.setItem("token", data.token);
           console.log(data.token);
           window.location.reload();
         } catch (e) {
@@ -26,7 +27,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
       async onQueryStarted(payload, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          localStorage.setItem(
+          // localStorage.setItem(
+          sessionStorage.setItem(
             "permission",
             JSON.stringify(
               data.data.positions[0].permissions.map((el) =>

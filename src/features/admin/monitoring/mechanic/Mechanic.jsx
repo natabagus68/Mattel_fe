@@ -3,7 +3,6 @@ import { Input } from "../../../../common/components/index.js";
 import { Status } from "./Status.jsx";
 import { useGetMechanicsQuery } from "./mechanicApiSlice.js";
 import { useEffect, useState } from "react";
-import { useDeleteMachineMutation } from "../../master-data/machine/machineSlice.js";
 
 export const Mechanic = () => {
   const [page, setPage] = useState(1);

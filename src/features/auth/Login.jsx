@@ -12,14 +12,15 @@ export const Login = () => {
     { error: authenticateError, isLoading: authenticateLoading },
   ] = useLoginMutation();
   const [form, setForm] = useState({
-    email: "admin@gmail.com",
-    password: "password",
+    email: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
 
   function onClick() {
     authenticate(form);
   }
+
   return (
     <>
       <div className="hidden md:flex md:flex-[50%] bg-[#202325] flex-col justify-center items-center p-10">
@@ -114,6 +115,7 @@ export const Login = () => {
             )}
           </div>
           <button
+            type="submit"
             className="font-body font-bold bg-ink-base rounded text-white-lightest w-full py-2 px-5"
             disabled={authenticateLoading}
             onClick={onClick}

@@ -1,28 +1,30 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  useCreateLineMutation,
-  useUpdateLineMutation,
-} from "./lineLocationApiSlice.js";
-import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 import { InputLabel } from "../../../../common/components/input/InputLabel.jsx";
 import { SaveConfirmationDialog } from "../../../../common/components/dialog/SaveConfirmationDialog.jsx";
 import { SuccessDialog } from "../../../../common/components/dialog/SuccessDialog.jsx";
+import {
+  useCreateLineDeviceMutation,
+  useUpdateLineDeviceMutation,
+} from "../../../../app/services/lineDeviceService.js";
 
-export const LineLocationForm = () => {
+export const LineDeviceForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [form, setForm] = useState({});
 
-  const [storeLine, storeResult] = useCreateLineMutation();
-  const [updateLine, updateResult] = useUpdateLineMutation();
+  const [storeDevice, storeResult] = useCreateLineDeviceMutation();
+  const [updateDevice, updateResult] = useUpdateLineDeviceMutation();
+
+  const initialValues = {
+    name: "",
+  };
 
   const formik = useFormik({
-    initialValues: {
-      name: "",
-    },
+    initialValues: initialValues,
     onSubmit: (values) => {
       let data = {
         name: values.name,
@@ -36,6 +38,9 @@ export const LineLocationForm = () => {
     if (state?.edit) {
       formik.setFieldValue("name", state.data.name);
     }
+    return () => {
+      formik.setValues(initialValues);
+    };
   }, [state]);
 
   return (
@@ -45,7 +50,7 @@ export const LineLocationForm = () => {
           <div className="flex flex-col gap-4">
             <InputLabel
               label="Name"
-              placeholder="Enter Machine Line Name"
+              placeholder="Enter Device Name"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
@@ -76,9 +81,9 @@ export const LineLocationForm = () => {
         form={form}
         mutationFn={() => {
           if (state?.edit) {
-            updateLine({ lineId: state.data.id, form: form });
+            updateDevice({ id: state.data.id, form: form });
           } else {
-            storeLine(form);
+            storeDevice(form);
           }
         }}
       />

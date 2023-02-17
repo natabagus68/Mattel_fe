@@ -1,28 +1,29 @@
-import { Input } from "../../../../common/components/index.js";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Input } from "../../../../common/components/index.js";
 import { config } from "../../../../common/utils/index.js";
 import { Table } from "../../../../common/components/table/Table.jsx";
 import { Thead } from "../../../../common/components/table/Thead.jsx";
 import { Tr } from "../../../../common/components/table/Tr.jsx";
 import { Td } from "../../../../common/components/table/Td.jsx";
-import { useEffect, useState } from "react";
-import {
-  useDeleteLineMutation,
-  useGetLinesQuery,
-} from "./lineLocationApiSlice.js";
 import { EyeIcon } from "../../../../common/components/icons/index.js";
 import {
   DeleteButton,
   EditButton,
 } from "../../../../common/components/button/index.js";
+import {
+  useDeleteMachineCategoryMutation,
+  useGetMachineCategoriesQuery,
+} from "../../../../app/services/machineCategoryService.js";
 
 export default () => {
   const [page, setPage] = useState(1);
 
   const navigate = useNavigate();
 
-  const { data: lines = { data: [] }, refetch } = useGetLinesQuery(page);
-  const [deleteLine, _] = useDeleteLineMutation();
+  const { data: categories = { data: [] }, refetch } =
+    useGetMachineCategoriesQuery(page);
+  const [deleteCategory, _] = useDeleteMachineCategoryMutation();
 
   useEffect(() => {
     refetch();
@@ -30,7 +31,7 @@ export default () => {
 
   const pagination = () => {
     let arr = [];
-    for (let i = 0; i < lines.totalPage; i++) {
+    for (let i = 0; i < categories.totalPage; i++) {
       arr.push(
         <button
           disabled={page === i + 1}
@@ -64,7 +65,7 @@ export default () => {
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
           <button className="py-[6px] px-3 bg-graphite-500 rounded text-white-lightest text-sm font-medium">
-            <Link to={`${config.pathPrefix}master/line-location/create`}>
+            <Link to={`${config.pathPrefix}master/machine-category/create`}>
               <div className="flex gap-2 items-center">
                 <svg
                   fill="#ffffff"
@@ -88,12 +89,12 @@ export default () => {
             <Thead>
               <Tr>
                 <Td>No.</Td>
-                <Td>Line Name</Td>
+                <Td>Machine Category Name</Td>
                 <Td align="right">Option</Td>
               </Tr>
             </Thead>
             <tbody className="font-inter text-sm font-medium  text-ink-lighter ">
-              {lines.data.map((el, index) => (
+              {categories.data.map((el, index) => (
                 <Tr key={index} even={!!((index + 1) % 2)}>
                   <Td>{index + 1}</Td>
                   <Td>{el.name}</Td>
@@ -103,7 +104,7 @@ export default () => {
                       <EditButton
                         onClick={() => {
                           navigate(
-                            `${config.pathPrefix}master/line-location/edit`,
+                            `${config.pathPrefix}master/machine-category/edit`,
                             {
                               state: { edit: true, data: el },
                             }
@@ -112,7 +113,7 @@ export default () => {
                       />
                       <DeleteButton
                         onClick={() => {
-                          deleteLine(el.id);
+                          deleteCategory(el.id);
                         }}
                       />
                     </div>
@@ -123,9 +124,9 @@ export default () => {
           </Table>
           <div className="flex justify-between items-center mt-[28px]">
             <div className="text-neutral-500 font-normal text-base">
-              {`Showing ${(page - 1) * lines.limit + 1} to ${
-                (page - 1) * lines.limit + lines.data.length
-              } of ${lines.totalRows} entries`}
+              {`Showing ${(page - 1) * categories.limit + 1} to ${
+                (page - 1) * categories.limit + categories.data.length
+              } of ${categories.totalRows} entries`}
               {/*Showing 1 to 10 of 14 Entries*/}
             </div>
             <div className="flex justify-center">
@@ -143,7 +144,7 @@ export default () => {
                   </button>
                   {pagination()}
                   <button
-                    disabled={page === lines.totalPage}
+                    disabled={page === categories.totalPage}
                     onClick={() => {
                       setPage((prev) => prev + 1);
                     }}
