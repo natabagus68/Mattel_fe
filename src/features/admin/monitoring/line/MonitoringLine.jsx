@@ -2,7 +2,7 @@ import { Dropdown } from "../../dashboard/Dropdown.jsx";
 import { ConditionCard } from "./ConditionCard.jsx";
 import React, { useEffect, useState } from "react";
 import { useGetMonitoringDataQuery } from "./lineApiSlice.js";
-import { useGetLinesQuery } from "../../../../app/services/lineService.js";
+import { useGetLineGroupsQuery } from "../../../../app/services/lineGroupService.js";
 
 export const MonitoringLine = () => {
   const [line, setLine] = useState("Line A");
@@ -12,7 +12,7 @@ export const MonitoringLine = () => {
     refetch,
   } = useGetMonitoringDataQuery(line);
 
-  const { data: lines = { data: [] } } = useGetLinesQuery();
+  const { data: lines = { data: [] } } = useGetLineGroupsQuery();
 
   useEffect(() => {
     if (isSuccess) {
@@ -47,7 +47,7 @@ export const MonitoringLine = () => {
             monitoringLines.data.map((el, index) => (
               <ConditionCard
                 key={index}
-                lineNum={`${line + el.machine_line_number}`}
+                lineNum={`${el.name}`}
                 condition={el.condition}
                 isMtc={el.is_maintenance}
                 isMtr={el.is_material}

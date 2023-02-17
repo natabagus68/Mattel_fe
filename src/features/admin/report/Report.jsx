@@ -1,5 +1,5 @@
 import { Dropdown } from "../dashboard/Dropdown.jsx";
-import { Input, Loader } from "../../../common/components/index.js";
+import { Input } from "../../../common/components/index.js";
 import { Status } from "./Status";
 import { useGetReportsQuery } from "./reportApiSlice.js";
 import { useState } from "react";
@@ -86,7 +86,7 @@ export const Report = () => {
             <tr className="font-inter text-xs font-[600] h-[45px] text-ink-base border-y-[1px] border-gray-100">
               <td className="px-6 ">NO</td>
               <td>MACHINE NO</td>
-              <td>LINE</td>
+              {/*<td>LINE</td>*/}
               <td align="center">STATUS</td>
               <td align="center">PROBLEM</td>
               <td>TIME START</td>
@@ -114,8 +114,8 @@ export const Report = () => {
                 key={index}
               >
                 <td className="px-6 ">{index + 1}</td>
-                <td>{el.machine.number}</td>
-                <td>{el.machine.line.name}</td>
+                <td>{el.machine?.number}</td>
+                {/*<td>{el.machine.line.name}</td>*/}
                 <td align="center">
                   <Status text={el.status} />
                 </td>
