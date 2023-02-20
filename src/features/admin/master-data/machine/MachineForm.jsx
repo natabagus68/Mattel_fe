@@ -15,7 +15,7 @@ import { useGetLinesQuery } from "../../../../app/services/lineService.js";
 import { useGetPartsQuery } from "../../../../app/services/partService.js";
 
 export const MachineForm = () => {
-  const linesQuery = useGetLinesQuery();
+  const linesQuery = useGetLinesQuery({ q: "", page: 1, limit: 100 });
   const partsQuery = useGetPartsQuery();
   const categoryQuery = useGetMachineCategoriesQuery();
   const [storeMachine, { isSuccess }] = useCreateMachineMutation();

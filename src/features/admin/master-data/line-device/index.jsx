@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../../../../common/components/index.js";
 import { config } from "../../../../common/utils/index.js";
@@ -18,16 +18,20 @@ import {
 
 export default () => {
   const [page, setPage] = useState(1);
+  const [q, setQ] = useState("");
 
   const navigate = useNavigate();
 
-  const { data: lineDevices = { data: [] }, refetch } =
-    useGetLineDevicesQuery(page);
+  const { data: lineDevices = { data: [] }, refetch } = useGetLineDevicesQuery({
+    q: q,
+    limit: 10,
+    page: 1,
+  });
   const [deleteDevice, _] = useDeleteLineDeviceMutation();
 
   useEffect(() => {
     refetch();
-  }, [page]);
+  }, [page, q]);
 
   const pagination = () => {
     let arr = [];
@@ -61,6 +65,10 @@ export default () => {
         <div className="flex justify-between">
           <Input
             type="text"
+            value={q}
+            onChange={(e) => {
+              setQ(() => e.target.value);
+            }}
             placeholder="Search..."
             className="border border-[1px] border-neutral-100 w-[191px]"
           />
@@ -85,6 +93,13 @@ export default () => {
           </button>
         </div>
         <div className="mt-[18px]">
+          {/*<div className="flex gap-2 font-body text-gray-700 items-center mb-[27px]">*/}
+          {/*  <Table.ShowFilter />*/}
+          {/*  <div className="ml-auto">*/}
+          {/*    <Input placeholder="search..." />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          {/*<ShowFilter />*/}
           <Table>
             <Thead>
               <Tr>

@@ -3,7 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 export const lineLocationApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLines: builder.query({
-      query: (page = 1) => `/admin/line?page=${page}&limit=10`,
+      query: ({ q = "", page = 1, limit = 10 }) =>
+        `/admin/line?search=${q}&page=${page}&limit=${limit}`,
       providesTags: ["Line"],
     }),
     createLine: builder.mutation({

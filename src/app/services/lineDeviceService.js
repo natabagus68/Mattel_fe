@@ -3,7 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 const lineDeviceService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLineDevices: builder.query({
-      query: () => `admin/line-device`,
+      query: ({ q = "", limit = 10, page = 1 }) =>
+        `admin/line-device?search=${q}&limit=${limit}&page=${page}`,
       providesTags: ["Line-Device"],
     }),
     getLineDeviceDetail: builder.query({
