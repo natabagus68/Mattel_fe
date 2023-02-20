@@ -55,12 +55,16 @@ export const Report = () => {
   return (
     <>
       <div className="grid grid-flow-col auto-cols-min gap-6">
-        {/*<Dropdown*/}
-        {/*  list={["Maintenance", "QC", "RUN", "Material"].map((el) => ({*/}
-        {/*    key: el,*/}
-        {/*    value: el,*/}
-        {/*  }))}*/}
-        {/*/>*/}
+        <Dropdown
+          value={params.role}
+          onChange={(e) => {
+            setParams((prev) => ({ ...prev, role: e.target.value }));
+          }}
+          list={["MTC", "QC", "MTL"].map((el) => ({
+            key: el,
+            value: el,
+          }))}
+        />
         <div className="bg-white-lightest flex gap-[11px] w-fit h-[44px] items-center rounded-lg py-2.5 px-3.5 ">
           <input
             type="date"
@@ -86,7 +90,7 @@ export const Report = () => {
             <tr className="font-inter text-xs font-[600] h-[45px] text-ink-base border-y-[1px] border-gray-100">
               <td className="px-6 ">NO</td>
               <td>MACHINE NO</td>
-              {/*<td>LINE</td>*/}
+              <td>LINE</td>
               <td align="center">STATUS</td>
               <td align="center">PROBLEM</td>
               <td>TIME START</td>
@@ -114,8 +118,8 @@ export const Report = () => {
                 key={index}
               >
                 <td className="px-6 ">{index + 1}</td>
-                <td>{el.machine?.number}</td>
-                {/*<td>{el.machine.line.name}</td>*/}
+                <td>{el.machine?.id}</td>
+                <td>{el.line.name}</td>
                 <td align="center">
                   <Status text={el.status} />
                 </td>

@@ -3,10 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 export const machineSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMachines: builder.query({
-      query: (page = 1, lineId = "") =>
-        `/admin/machine?page=${page}&limit=10${
-          lineId !== "" && `&line_id=${lineId}`
-        }`,
+      query: ({ q = "", limit = 10, page = 1 }) =>
+        `/admin/machine?search=${q}&page=${page}&limit=${limit}`,
       providesTags: ["Machines"],
     }),
     getMachine: builder.query({

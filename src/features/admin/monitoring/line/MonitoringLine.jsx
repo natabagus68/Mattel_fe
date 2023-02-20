@@ -12,7 +12,11 @@ export const MonitoringLine = () => {
     refetch,
   } = useGetMonitoringDataQuery(line);
 
-  const { data: lines = { data: [] } } = useGetLineGroupsQuery();
+  const { data: lines = { data: [] } } = useGetLineGroupsQuery({
+    q: "",
+    limit: 100,
+    page: 1,
+  });
 
   useEffect(() => {
     if (isSuccess) {

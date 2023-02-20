@@ -16,7 +16,7 @@ export const LineLocationForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const lineGroupQuery = useGetLineGroupsQuery();
+  const lineGroupQuery = useGetLineGroupsQuery({ q: "", limit: 100, page: 1 });
   const lineDeviceQuery = useGetLineDevicesQuery({
     q: "",
     limit: 100,

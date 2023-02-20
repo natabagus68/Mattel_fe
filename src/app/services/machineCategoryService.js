@@ -3,7 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 const machineCategoryService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMachineCategories: builder.query({
-      query: () => `admin/machine-category`,
+      query: ({ q = "", page = 1, limit = 10 }) =>
+        `admin/machine-category?search=${q}&page=${page}&limit=${limit}`,
       providesTags: ["Machine-Category"],
     }),
     getMachineCategoryDetail: builder.query({

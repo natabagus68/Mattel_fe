@@ -3,7 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 export const partApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getParts: builder.query({
-      query: (page = 1) => `/admin/machine-part?page${page}&limit=10`,
+      query: ({ q = "", limit = 10, page = 1 }) =>
+        `/admin/machine-part?search=${q}&page=${page}&limit=${limit}`,
       providesTags: ["Parts"],
     }),
     createPart: builder.mutation({

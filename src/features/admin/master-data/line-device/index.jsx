@@ -25,7 +25,7 @@ export default () => {
   const { data: lineDevices = { data: [] }, refetch } = useGetLineDevicesQuery({
     q: q,
     limit: 10,
-    page: 1,
+    page: page,
   });
   const [deleteDevice, _] = useDeleteLineDeviceMutation();
 

@@ -18,16 +18,17 @@ import {
 
 export default () => {
   const [page, setPage] = useState(1);
+  const [q, setQ] = useState("");
 
   const navigate = useNavigate();
 
   const { data: categories = { data: [] }, refetch } =
-    useGetMachineCategoriesQuery(page);
+    useGetMachineCategoriesQuery({ q: q, page: page, limit: 10 });
   const [deleteCategory, _] = useDeleteMachineCategoryMutation();
 
   useEffect(() => {
     refetch();
-  }, [page]);
+  }, [page, q]);
 
   const pagination = () => {
     let arr = [];
@@ -60,6 +61,10 @@ export default () => {
       <div className="bg-white-lightest px-[35px] py-[48px] rounded-[8px] shadow-[0_0_24px_rgba(12,47,57,0.08)] mt-6">
         <div className="flex justify-between">
           <Input
+            value={q}
+            onChange={(e) => {
+              setQ(e.target.value);
+            }}
             type="text"
             placeholder="Search..."
             className="border border-[1px] border-neutral-100 w-[191px]"
