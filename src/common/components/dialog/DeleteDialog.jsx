@@ -2,64 +2,62 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { TrashDialogIcon } from "./TrashDialogIcon.jsx";
 
-export const DeleteDialog = ({ onClick, open, setOpen }) => {
+export const DeleteDialog = ({ onClick, open, setClose }) => {
   return (
     <>
       <Transition appear show={open} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-10"
-          onClose={() => setOpen(false)}
+          onClose={setClose}
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
+            enter="ease-out duration-200"
+            enterFrom="opacity-0 scale-0"
+            enterTo="opacity-100 scale-100"
             leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-0"
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center">
+            <div className="flex min-h-full items-center justify-center bg-black-500/50">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
+                enter="ease-out duration-200"
+                enterFrom="opacity-0 scale-0"
                 enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
+                leaveTo="opacity-0 scale-0"
               >
-                <Dialog.Panel className="flex justify-center items-center flex-col w-11/12 transform overflow-hidden rounded-2xl bg-white-lightest align-middle shadow-xl transition-all text-center max-w-[696px] py-12">
-                  <TrashDialogIcon />
-                  <div className="mt-6 mb-14">
-                    <div className="text-ink-base font-[500] text-[40px]">
-                      Delete?
-                    </div>
-                    <div className="text-ink-light font-[24px]">
-                      You will delete this file!
-                    </div>
+                <Dialog.Panel className="flex justify-center items-center flex-col gap-8 transform overflow-hidden rounded-xl bg-white-lightest align-middle shadow-xl transition-all text-center min-w-[500px] px-6 pt-10 pb-6">
+                  <div className="bg-[#F04438] rounded-full p-6">
+                    <TrashDialogIcon />
                   </div>
-                  <div className="flex justify-center gap-4">
+                  <div className="inline-flex flex-col text-[#313030]">
+                    <span className="text-2xl font-semibold">Delete</span>
+                    <span className="text-[#514E4E]"> Are you sure you want to delete this file? </span>
+                  </div>
+                  <div className="flex justify-center gap-3 w-full">
+                    <button
+                      onClick={setClose}
+                      className="py-3 px-[20px] rounded border border-[#6F6C6C] outline-none text-sm font-semibold text-[#6F6C6C] w-full"
+                    >
+                      Cancel
+                    </button>
                     <button
                       type={`button`}
                       role={`button`}
                       onClick={() => {
                         onClick();
-                        setOpen(false);
+                        setClose();
                       }}
-                      className="text-2xl bg-red-primary text-white-lightest p-6 md:min-w-[301px] w-full whitespace-nowrap rounded-[4px] font-medium"
+                      className="py-3 px-[20px] rounded border border-[#F04438] bg-[#F04438] outline-none text-sm font-semibold text-[#FFF] w-full"
                     >
-                      Yes, Delete it
-                    </button>
-                    <button
-                      onClick={() => setOpen(false)}
-                      className=" bg-white-lightest py-3 border border-ink-lighter md:min-w-[301px] w-full whitespace-nowrap rounded-[4px] text-ink-lighter font-medium text-2xl"
-                    >
-                      Cancel
+                      Yes, Delete
                     </button>
                   </div>
                 </Dialog.Panel>

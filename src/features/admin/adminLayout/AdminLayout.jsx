@@ -58,7 +58,7 @@ export const AdminLayout = () => {
         <WarningPopUp />
         <FinishedReportModal />
         {/*<ConfirmationModal />*/}
-        <div className="w-full">
+        <div className="w-full font-body">
           <div
             className={`${navOpen == null || navOpen === true
               ? "ml-0 md:ml-[256px]"
@@ -66,12 +66,12 @@ export const AdminLayout = () => {
               }`}
           >
             <div
-              className={`fixed top-0 flex bg-white-lightest z-10 shadow-[0_1px_20px_rgba(0,0,0,0.17)] ${navOpen == null || navOpen === true
+              className={`fixed top-0 flex bg-white-lightest z-10 shadow-[0_1px_20px_rgba(0,0,0,0.17)]  ${navOpen == null || navOpen === true
                 ? "w-[calc(100%-256px)]"
                 : "w-full"
                 } h-[84px]`}
             >
-              <div className="py-[15px] px-[48px] flex-1 flex">
+              <div className="py-[15px] px-[36px] flex-1 flex">
                 <div className="flex-1 flex items-center">
                   <BurgerIcon
                     onClick={() => dispatch(toggle())}
@@ -90,8 +90,8 @@ export const AdminLayout = () => {
           <div className="relative z-0">
             <SideBar />
             <div
-              className={`${(navOpen == null || navOpen === true) && `md:ml-[274px]`
-                } transition-[margin] mt-[78px] py-6 md:py-[37px] px-2 md:px-[48px] flex-1 overflow-auto`}
+              className={`${(navOpen == null || navOpen === true) && `md:ml-[256px]`
+                } transition-[margin] mt-[78px] py-6 md:py-[37px] px-2 md:px-[36px] flex-1`}
             >
               <Outlet />
             </div>

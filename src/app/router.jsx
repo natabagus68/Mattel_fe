@@ -31,6 +31,20 @@ import MachineCategory from "../features/admin/master-data/machine-category/inde
 import { MachineCategoryForm } from "../features/admin/master-data/machine-category/MachineCategoryForm.jsx";
 import Part from "../features/admin/master-data/part/index.jsx";
 import Machine from "../features/admin/master-data/machine/index.jsx";
+import InputChangeOverView from "../features/admin/layoutMenu/inputChangeOver/InputChangeOverView";
+import ChangeOverSummaryView from "../features/admin/layoutMenu/changeoverSummary/ChangeOverSummaryView";
+import ChangeOverTicket from "../features/admin/layoutMenu/changeOverTicket/ChangeOverTicket";
+import DrawingAndMachineView from "../features/admin/layoutMenu/drawingAndMachine/view/DrawingAndMachineView";
+import DrawingAndMachineForm from "../features/admin/layoutMenu/drawingAndMachine/form/DrawingAndMachineForm";
+import DrawingAndMachineDetail from "../features/admin/layoutMenu/drawingAndMachine/detail/DrawingAndMachineDetail";
+import ManpowerNew from "../features/admin/dashboard/manpowerNew/ManpowerNew";
+import GeneralView from "../features/admin/dashboard/generalNew/GeneralView";
+import MachineProblemNew from "../features/admin/dashboard/machineProblemNew/MachineProblemNew";
+import LineView from "../features/admin/dashboard/Line/LineView";
+import ToyView from "../features/admin/master-data/toy/view/ToyView";
+import ToyForm from "../features/admin/master-data/toy/form/ToyForm";
+import LineMasterView from "../features/admin/master-data/line/view/LineView";
+import LineForm from "../features/admin/master-data/line/form/LineForm";
 
 const Root = () => {
   return <Outlet />;
@@ -39,14 +53,29 @@ const Root = () => {
 const dashboardRouter = [
   {
     path: "dashboard/general",
-    element: <General />,
+    element: <GeneralView />,
   },
   {
     path: "dashboard/man-power",
-    element: <ManPower />,
+    element: <ManpowerNew />,
   },
-  { path: "dashboard/machine-problem", element: <MachineProblem /> },
+  { 
+    path: "dashboard/machine-problem", 
+    element: <MachineProblemNew /> 
+  },
+  { 
+    path: "dashboard/line", 
+    element: <LineView /> 
+  },
 ];
+const layoutMenu = [
+  { path : 'layout-menu/input-changeover', element : <InputChangeOverView/> },
+  { path : 'layout-menu/changeover-summary', element : <ChangeOverSummaryView/> },
+  { path : 'layout-menu/changeover-ticket', element : <ChangeOverTicket/> },
+  { path : 'layout-menu/drawing-and-machine', element : <DrawingAndMachineView/> },
+  { path : 'layout-menu/drawing-and-machine/:id/add', element : <DrawingAndMachineForm/> },
+  { path : 'layout-menu/drawing-and-machine/:id/show', element : <DrawingAndMachineDetail/> },
+]
 const monitoringRouter = [
   {
     path: "monitoring/line",
@@ -62,15 +91,15 @@ const reportRouter = [
   },
 ];
 const masterRouter = [
-  {
-    path: "master/machine",
-    element: <Machine />,
-  },
+  { path: "master/toy", element: <ToyView />, },
+  { path: "master/toy/add", element: <ToyForm />, },
+  { path: "master/toy/:id/edit", element: <ToyForm />, },
+  { path: "master/machine", element: <Machine />, },
   { path: "master/machine/create", element: <MachineForm /> },
   { path: "master/machine/edit", element: <MachineForm /> },
-  { path: "master/line", element: <LineLocation /> },
-  { path: "master/line/create", element: <LineLocationForm /> },
-  { path: "master/line/edit", element: <LineLocationForm /> },
+  { path: "master/line", element: <LineMasterView /> },
+  { path: "master/line/add", element: <LineForm /> },
+  { path: "master/line/:id/edit", element: <LineForm /> },
   { path: "master/line-group", element: <LineGroup /> },
   { path: "master/line-group/create", element: <LineGroupForm /> },
   { path: "master/line-group/edit", element: <LineGroupForm /> },
@@ -126,6 +155,7 @@ export default createBrowserRouter([
       ...reportRouter,
       ...masterRouter,
       ...accountRouter,
+      ...layoutMenu,
       {
         path: "404",
         element: <Error404 text="You dont get access" />,

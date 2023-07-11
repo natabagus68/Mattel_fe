@@ -40,7 +40,7 @@ export const NavItem = ({
       >
         {icon}
         {
-          <div className={`whitespace-nowrap font-body font-semibold`}>
+          <div className={`whitespace-nowrap font-body font-semibold text-sm py-[6px]`}>
             {label}
           </div>
         }

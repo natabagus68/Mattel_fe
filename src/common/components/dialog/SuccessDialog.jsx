@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { SuccessIcon } from "./SuccessIcon.jsx";
+import { SuccessIconDialog } from "../icons/SuccessDialog.jsx";
 
 export const SuccessDialog = ({ open, navigate }) => {
   return (
@@ -23,7 +24,7 @@ export const SuccessDialog = ({ open, navigate }) => {
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center">
+            <div className="flex min-h-full items-center justify-center bg-black-500/50">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -33,19 +34,18 @@ export const SuccessDialog = ({ open, navigate }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex justify-center items-center flex-col w-11/12 transform overflow-hidden rounded-2xl bg-white-lightest align-middle shadow-xl transition-all text-center max-w-[696px] py-12">
-                  <SuccessIcon />
-                  <div className="mt-10 mb-14">
-                    <div className="text-[36px] text-ink-base font-medium">
-                      Success!
-                    </div>
+                <Dialog.Panel className="flex justify-center items-center flex-col gap-8 transform overflow-hidden rounded-xl bg-white-lightest align-middle shadow-xl transition-all text-center min-w-[500px] px-6 pt-10 pb-6">
+                  <SuccessIconDialog />
+                  <div className="inline-flex flex-col text-[#313030]">
+                    <span className="text-2xl font-semibold">Success</span>
+                    <span className="text-[#514E4E]"> your data has been successfully saved.</span>
                   </div>
                   <div className="flex w-11/12">
                     <button
                       onClick={navigate}
-                      className="bg-white-lightest p-3 w-full whitespace-nowrap rounded-md text-2xl font-medium border border-ink-lighter rounded text-ink-lighter"
+                      className="py-3 px-[20px] rounded border border-[#F04438] bg-[#F04438] outline-none text-sm font-semibold text-[#FFF] w-full"
                     >
-                      Ok
+                      Close
                     </button>
                   </div>
                 </Dialog.Panel>

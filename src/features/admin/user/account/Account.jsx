@@ -61,6 +61,8 @@ export const Account = () => {
     return arr;
   };
 
+  console.log(users)
+
   return (
     <>
       <div className="pb-9 bg-white-lightest rounded-lg shadow-[0_0_24px_rgba(12,47,57,0.08)]">

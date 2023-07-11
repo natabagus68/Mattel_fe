@@ -10,6 +10,7 @@ import {
 } from "../../../common/components/icons";
 import appLogo from "../../../assets/company-logo.png";
 import { MonitorIcon } from "../../../common/components/icons/MonitorIcon";
+import FileIconsNew from "../../../common/components/iconsNew/FileIconsNew";
 
 export const SideBar = () => {
   const { navOpen } = useSelector((state) => state.adminLayout);
@@ -31,11 +32,21 @@ export const SideBar = () => {
           icon={<DashboardIcon className="mr-3 -mb-1" />}
         >
           <NavItem to={`dashboard/general`} label={`General`} />
-          <NavItem to={`dashboard/man-power`} label={`Man Power`} />
+          <NavItem to={`dashboard/line`} label={`Line`} />
           <NavItem
             to={`dashboard/machine-problem`}
             label={`Machine Problem`}
           />
+          <NavItem to={`dashboard/man-power`} label={`Man Power`} />
+         </NavItem>
+        <NavItem 
+          label={`Layout Menu`}
+          icon={<FileIconsNew className="mr-3 -mb-1"/>}
+        >
+          <NavItem label={`Input Changeover`} to={`layout-menu/input-changeover`} />
+          <NavItem label={`Changeover Summary`} to={`layout-menu/changeover-summary`} />
+          <NavItem label={`Changeover Ticket`} to={`layout-menu/changeover-ticket`}/>
+          <NavItem label={`Drawing and Machine`} to={`layout-menu/drawing-and-machine`} />
         </NavItem>
         <NavItem
           label={`Monitoring`}
@@ -55,6 +66,7 @@ export const SideBar = () => {
           label={`Master`}
           icon={<MasterDataIcon className="mr-3 -mb-1" />}
         >
+          <NavItem to={`master/toy`} label={`Toy`} />
           <NavItem to={`master/line`} label={`Line`} />
           <NavItem to={`master/line-group`} label={`Line Group`} />
           <NavItem to={`master/line-device`} label={`Line Device`} />

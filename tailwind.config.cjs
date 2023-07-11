@@ -95,13 +95,9 @@ module.exports = {
             fontSize: {
                 '4xl': '34px',
             },
-            fontWeight: {
-                'semibold': '500',
-                '600': '600',
-            },
             fontFamily: {
                 // 'display': 'Marcellus',
-                'body': 'Poppins',
+                'body': 'Open Sans',
                 'inter' : 'Inter'
             },
         },
