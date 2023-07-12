@@ -17,7 +17,8 @@ export const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  function onClick() {
+  const onClick = (e) => {
+    e.preventDefault()
     authenticate(form);
   }
 
@@ -28,6 +29,7 @@ export const Login = () => {
         <div className="text-white-lightest text-[37px]">MATTEL APP</div>
       </div>
       <div className="flex-[50%] flex justify-center items-center md:p-10">
+      <form onSubmit={onClick}>
         <div className="bg-white-lightest shadow-[0px_0px_13px_rgba(4_67_50_0.15)] rounded-xl border-[1px] border-gray-100 py-[92px] px-10 md:px-[74px] md:w-[479px]">
           <img className="w-[47px] h-[47px]" src={companyLogo} alt="" />
           <div className=" font-bold text-ink-base text-[34px]">
@@ -116,14 +118,14 @@ export const Login = () => {
           </div>
           <button
             type="submit"
+            role="button"
             className="font-body font-bold bg-ink-base rounded text-white-lightest w-full py-2 px-5"
             disabled={authenticateLoading}
-            onClick={onClick}
           >
             Login
           </button>
         </div>
-        {/*</form>*/}
+        </form>
       </div>
     </>
   );

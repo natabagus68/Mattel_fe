@@ -3,8 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 export const machineSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMachines: builder.query({
-      query: ({ q = "", limit = 10, page = 1 }) =>
-        `/admin/machine?search=${q}&page=${page}&limit=${limit}`,
+      query: ({ q = "", limit = 10, page = 1, sort_val = 'DESC', table_name = "Id" }) =>
+        `/admin/machine?search=${q}&page=${page}&limit=${limit}&sort_val=${sort_val}&table_name=${table_name}`,
       providesTags: ["Machines"],
     }),
     getMachine: builder.query({
@@ -12,7 +12,7 @@ export const machineSlice = apiSlice.injectEndpoints({
       providesTags: ["Machine"],
     }),
     createMachine: builder.mutation({
-      query: (form) => ({
+      query: ({form}) => ({
         url: "/admin/machine",
         method: "POST",
         body: form,

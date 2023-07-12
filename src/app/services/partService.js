@@ -3,8 +3,13 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 export const partApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getParts: builder.query({
-      query: ({ q = "", limit = 10, page = 1 }) =>
-        `/admin/machine-part?search=${q}&page=${page}&limit=${limit}`,
+      query: ({ q = "", limit = 10, page = 1, sort_val = 'DESC', table_name = "Name"}) =>
+        `/admin/machine-part?search=${q}&page=${page}&limit=${limit}&sort_val=${sort_val}&table_name=${table_name}`,
+      providesTags: ["Parts"],
+    }),
+    getPartsDetail: builder.query({
+      query: (id) =>
+        `/admin/machine-part/${id}`,
       providesTags: ["Parts"],
     }),
     createPart: builder.mutation({
@@ -35,6 +40,7 @@ export const partApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetPartsQuery,
+  useGetPartsDetailQuery,
   useCreatePartMutation,
   useUpdatePartMutation,
   useDeletePartMutation,

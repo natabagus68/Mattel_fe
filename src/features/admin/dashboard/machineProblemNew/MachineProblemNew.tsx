@@ -3,11 +3,14 @@ import { Breadcrumbs } from '../../../../common/components'
 import moment from 'moment'
 import BarCharts from '../Charts/BarCharts';
 import MultipleDatasetBarChart from '../Charts/MultipleDatasetBarChart';
+import useMachineProblemModel from './MachineProblemModel';
 
 export default function MachineProblemNew() {
+    const dashboard = useMachineProblemModel()
 
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(20), (val, index) => index + year);
+    
 
     return (
         <main>
@@ -61,37 +64,42 @@ export default function MachineProblemNew() {
                     titleHeader={'Top 5 Slowest Repair Time by Downtime Reason'}
 
                     // kasih null atau string kosong untuk kasih gap antar bar charts
-                    label={["Broken Isulator", "Broken Block Heater", "Temperature Problem", "", "Overheat","Flow rate and Pressure","Unstable Process","","Overheat","Broken Cilinder","Broken Stopper","","Inverter Error","","Broken Proximity Censor","Broken Proximity Censor","Speed Unconsistency"]}
-                    color={['#4D74B2', '#4D74B2', '#4D74B2', "" , "#F9A63A", "#F9A63A", "#F9A63A", "" , "#43ADA2",'#43ADA2','#43ADA2', "", "#F36960", '', '#858D9D', '#858D9D', '#858D9D']}
-                    value={[62, 89, 53, null, 33, 45, 78, null, 73,81,44, null, 64, null, 45, 58,55]}
+                    legend={dashboard.slowestRepair?.data.map(item => { return item?.machine_name })}
+                    label={dashboard.datasetSlowestRepair?.map(item => { return item?.name })}
+                    color={dashboard.datasetSlowestRepair?.map(item => { return item?.color })}
+                    value={dashboard.datasetSlowestRepair?.map(item => { return item?.val })}
                     titleYAxes={'AVG of response time (min)'}
                     filter={false}
                 />
 
                 <div className='grid grid-cols-2 gap-6'>
+                    {/* Total Downtime */}
                     <BarCharts
                         titleHeader={'Top 5 Problematic Machine - Total Downtime'}
-                        label={['Sealing Blister', 'Spotwelding Jhook', 'Auto Blister', 'Conveyor', 'Datacode Torso', 'Others']}
+                        label={dashboard.totalDowntime?.data.map(item => {return item.machine_name})}
                         color={'#F04438'}
-                        value={[33, 53, 78, 54, 22, 17]}
+                        value={dashboard.totalDowntime?.data.map(item => {return item.sum_of_downtime})}
                         titleYAxes={'Sum of Downtime (min)'}
                         filter={false}
                     />
+
+                    {/* Avg Downtime */}
                     <BarCharts
                         titleHeader={'Top 5 Problematic Machine - Average of Downtime'}
-                        label={['Sealing Blister', 'Spotwelding Jhook', 'Auto Blister', 'Conveyor', 'Datacode Torso']}
+                        label={dashboard.avgDowntime?.data.map(item => {return item.machine_name})}
                         color={'#F79009'}
-                        value={[33, 53, 78, 54, 22]}
+                        value={dashboard.avgDowntime?.data.map(item => {return item.avg_of_downtime})}
                         titleYAxes={'Average of Downtime (min)'}
                         filter={false}
                     />
 
-
+                    
+                    {/* Slowest Response */}
                     <BarCharts
                         titleHeader={'Top 5 Slowest Response Time by Machine'}
-                        label={['Sealing Blister', 'Spotwelding Jhook', 'Auto Blister', 'Conveyor', 'Datacode Torso']}
+                        label={dashboard.slowestResponse?.data.map(item => {return item.machine_name})}
                         color={'#1BBDD4'}
-                        value={[33, 53, 78, 54, 22]}
+                        value={dashboard.slowestResponse?.data.map(item => {return item.avg_of_response})}
                         titleYAxes={''}
                         filter={false}
                     />

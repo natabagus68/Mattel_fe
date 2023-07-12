@@ -13,6 +13,7 @@ import {
 } from "../../../../common/components/button/index.js";
 import {
   useDeleteMachineMutation,
+  useGetMachineQuery,
   useGetMachinesQuery,
 } from "../../../../app/services/machineService.js";
 
@@ -22,7 +23,7 @@ export default () => {
 
   const navigate = useNavigate();
 
-  const { data: machines = { data: [] }, refetch } = useGetMachinesQuery({
+  const { data: machines = { data: [] }, refetch } = useGetMachineQuery({
     q: q,
     limit: 10,
     page: page,
@@ -111,10 +112,10 @@ export default () => {
                 <Tr key={index} even={!!((index + 1) % 2)}>
                   <Td className="px-6 ">{el.code}</Td>
                   <Td>{el.number}</Td>
-                  <Td>{el.line.name}</Td>
-                  <Td>{el.parts[0]?.name ?? "-"}</Td>
-                  <Td>{el.parts[1]?.name ?? "-"}</Td>
-                  <Td>{el.parts[2]?.name ?? "-"}</Td>
+                  <Td>{el.line?.name?? '-'}</Td>
+                  <Td>{el.parts?.name ?? "-"}</Td>
+                  <Td>{el.parts?.name ?? "-"}</Td>
+                  <Td>{el.parts?.name ?? "-"}</Td>
                   <Td>{el.line.line_device.name}</Td>
                   <Td align="right">
                     <div className="flex justify-end gap-[9px]">

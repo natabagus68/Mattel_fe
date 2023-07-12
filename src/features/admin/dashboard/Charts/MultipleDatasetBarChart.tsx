@@ -32,6 +32,7 @@ export default function MultipleDatasetBarChart({
     color,
     value,
     titleYAxes,
+    legend,
     filter = true
 }) {
     const optionsCharts = {
@@ -107,11 +108,16 @@ export default function MultipleDatasetBarChart({
                 {/* @ts-ignore */}
                 <Chart type='bar' data={data} options={optionsCharts} className='max-h-[400px]' />
                 <div className='flex items-center gap-11 text-[#514E4E]'>
-                    <div className='inline-flex items-center gap-2'>
-                        <div className='min-h-[12px] min-w-[12px] bg-[#4D74B2]'></div>
-                        <span className='text-sm'>Spotwelding Jhook</span>
-                    </div>
-                    <div className='inline-flex items-center gap-2'>
+                    {
+                        legend.map((item, i) => (
+                            <div className='inline-flex items-center gap-2'>
+                                <div className={`min-h-[12px] min-w-[12px] ${i === 0 ? 'bg-[#4D74B2]' : i === 1 ? 'bg-[#F9A63A]' : i === 2 ? 'bg-[#43ADA2]' : i === 3 ? 'bg-[#F36960]' : 'bg-[#858D9D]' }`}></div>
+                                <span className='text-sm'>{item}</span>
+                            </div>
+
+                        ))
+                    }
+                    {/* <div className='inline-flex items-center gap-2'>
                         <div className='min-h-[12px] min-w-[12px] bg-[#F9A63A]'></div>
                         <span className='text-sm'>Auto Blister</span>
                     </div>
@@ -126,7 +132,7 @@ export default function MultipleDatasetBarChart({
                     <div className='inline-flex items-center gap-2'>
                         <div className='min-h-[12px] min-w-[12px] bg-[#858D9D]'></div>
                         <span className='text-sm'>Datecode Torso</span>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

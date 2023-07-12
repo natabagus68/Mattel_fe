@@ -91,7 +91,7 @@ export const AdminLayout = () => {
             <SideBar />
             <div
               className={`${(navOpen == null || navOpen === true) && `md:ml-[256px]`
-                } transition-[margin] mt-[78px] py-6 md:py-[37px] px-2 md:px-[36px] flex-1`}
+                } transition-[margin] mt-[78px] py-6 md:py-[37px] px-2 md:px-[36px] flex-1 h-full`}
             >
               <Outlet />
             </div>

@@ -3,8 +3,8 @@ import { apiSlice } from "../../features/api/apiSlice.js";
 const lineGroupService = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getLineGroups: builder.query({
-      query: ({ q = "", page = 1, limit = 10 }) =>
-        `admin/line-group?search=${q}&page=${page}&limit=${limit}`,
+      query: ({ q = "", page = 1, limit = 10, sort_val = 'DESC', table_name = "Name"}) =>
+        `admin/line-group?search=${q}&page=${page}&limit=${limit}&sort_val=${sort_val}&table_name=${table_name}`,
       providesTags: ["Line-Group"],
     }),
     getLineGroupDetail: builder.query({

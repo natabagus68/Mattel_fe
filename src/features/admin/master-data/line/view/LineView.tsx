@@ -42,7 +42,7 @@ export default function LineMasterView() {
                         </select>
                     </div>
                 </div>
-                <div className='overflow-y-auto'>
+                <div className='overflow-x-auto'>
                     <table className='w-full'>
                         <thead className='border-y border-y-[#D0D3D9] bg-[#FAFAFB]'>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>No.</th>
@@ -59,8 +59,8 @@ export default function LineMasterView() {
                                             <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                                 <td className='px-2 py-4 text-sm w-[25%]'>{i + 1}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.name}</td>
-                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group.name}</td>
-                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_device.name}</td>
+                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group?.name}</td>
+                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_device?.name}</td>
                                                 <td className='px-2 py-2 text-sm '>
                                                     <div className='inline-flex gap-3'>
                                                         <button onClick={() => master.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>

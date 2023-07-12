@@ -48,7 +48,7 @@ export const SideBar = () => {
           <NavItem label={`Changeover Ticket`} to={`layout-menu/changeover-ticket`}/>
           <NavItem label={`Drawing and Machine`} to={`layout-menu/drawing-and-machine`} />
         </NavItem>
-        <NavItem
+        {/* <NavItem
           label={`Monitoring`}
           icon={<MonitorIcon className="mr-3 -mb-1" />}
         >
@@ -60,7 +60,7 @@ export const SideBar = () => {
           to={`report`}
           label={`Report`}
           icon={<ChartIcon className="mr-3 -mb-1" />}
-        />
+        /> */}
 
         <NavItem
           label={`Master`}
@@ -70,12 +70,10 @@ export const SideBar = () => {
           <NavItem to={`master/line`} label={`Line`} />
           <NavItem to={`master/line-group`} label={`Line Group`} />
           <NavItem to={`master/line-device`} label={`Line Device`} />
-          <NavItem to={`master/part`} label={`Machine Part`} />
-          <NavItem
-            to={`master/machine-category`}
-            label={`Machine Category`}
-          />
+          <NavItem to={`master/machine-part`} label={`Machine Part`} />
+          <NavItem to={`master/machine-category`} label={`Machine Category`} />
           <NavItem to={`master/machine`} label={`Machine`} />
+          <NavItem to={`master/downtime`} label={`Downtime`} />
         </NavItem>
         <NavItem label={`User`} icon={<UsersIcon className="mr-3 -mb-1" />}>
           <NavItem to={`user/account`} label={`Account`} />
