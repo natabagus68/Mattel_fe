@@ -1,7 +1,7 @@
 import React from 'react'
 import { ArrowIcon, FilterIcons, SearchIcon } from '../../../../../common/components/icons'
 
-export default function ManPowerTable() {
+export default function ManPowerTable({modalFilter}) {
     return (
         <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
             <div className='flex flex-col gap-1'>
@@ -13,7 +13,7 @@ export default function ManPowerTable() {
                     <SearchIcon color='#667085' />
                     <input type="text" name="" id="" className='outline-none placeholder:text-sm placeholder:text-[#D0D3D9] w-full' placeholder='Search kpk or name... ' />
                 </div>
-                <div className='inline-flex items-center py-2 px-4 gap-2 rounded bg-[#FFF]'>
+                <div onClick={modalFilter} className='inline-flex items-center py-2 px-4 gap-2 rounded bg-[#FFF] cursor-pointer'>
                     <FilterIcons />
                     <span className='text-[#667085] font-semibold'>Filters</span>
                 </div>

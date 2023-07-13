@@ -1,4 +1,6 @@
-export const ActiveToggleIcon = (props) => {
+export const ActiveToggleIcon = ({
+  color = "#617E8C" 
+}) => {
   return (
     <>
       <svg
@@ -8,7 +10,7 @@ export const ActiveToggleIcon = (props) => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <rect y="6" width="32" height="20" rx="10" fill="#617E8C" />
+        <rect y="6" width="32" height="20" rx="10" fill={color}/>
         <g filter="url(#filter0_dd_1359_2419)">
           <circle cx="22" cy="16" r="8" fill="#F6F6F6" />
         </g>
@@ -20,9 +22,9 @@ export const ActiveToggleIcon = (props) => {
             width="36"
             height="36"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feColorMatrix
               in="SourceAlpha"
               type="matrix"

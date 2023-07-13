@@ -1,7 +1,10 @@
 import React from 'react'
 import { ArrowIcon, FilterIcons, SearchIcon } from '../../../../../common/components/icons'
+import { Loader } from '../../../../../common/components'
+import moment from 'moment'
+import PaginationNew from '../../../../../common/components/table/PaginationNew'
 
-export default function RealtimeTicketTable() {
+export default function RealtimeTicketTable({data, modalFilter, isLoad, paramData, handleChange , onNext, onPrev}) {
     return (
         <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
             <div className='flex flex-col gap-1'>
@@ -10,9 +13,9 @@ export default function RealtimeTicketTable() {
             <div className='p-3 inline-flex justify-between items-center rounded w-full bg-[#F0F1F3]'>
                 <div className='inline-flex items-center p-2 gap-2 rounded bg-[#FFF] w-1/3'>
                     <SearchIcon color='#667085' />
-                    <input type="text" name="" id="" className='outline-none placeholder:text-sm placeholder:text-[#D0D3D9] w-full' placeholder='Search ticketid, machine...' />
+                    <input type="text" name="searchTicketRelease" value={paramData.searchTicketRelease} onChange={handleChange} className='outline-none placeholder:text-sm placeholder:text-[#D0D3D9] w-full' placeholder='Search ticketid, machine...' />
                 </div>
-                <div className='inline-flex items-center py-2 px-4 gap-2 rounded bg-[#FFF]'>
+                <div onClick={modalFilter} className='inline-flex items-center py-2 px-4 gap-2 rounded bg-[#FFF] cursor-pointer'>
                     <FilterIcons />
                     <span className='text-[#667085] font-semibold'>Filters</span>
                 </div>
@@ -21,15 +24,48 @@ export default function RealtimeTicketTable() {
             <div className='overflow-y-auto'>
                 <table className='w-full'>
                     <thead className='border-y border-y-[#D0D3D9] bg-[#FAFAFB]'>
-                        <th className='p-2 font-semibold text-sm text-[#667085] text-start'>TicketID</th>
-                        <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Machine</th>
-                        <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Reporting Time</th>
-                        <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Availability</th>
-                        <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Ticket Status</th>
-                        <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line</th>
+                        <tr>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>TicketID</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Machine</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Reporting Time</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Ticket Status</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line</th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr className='border-b border-b-[#D0D3D9]' >
+                    {
+                               !isLoad ?
+                                data?.length !==0 ?
+                                data.data?.map((item, i) => (
+                                    <tr className='border-b border-b-[#D0D3D9]' key={i}>
+                                        <td className='px-2 py-4 text-sm'>{item.id}</td>
+                                        <td className='px-2 py-4 text-sm'>{item.machine ?? '-'}</td>
+                                        <td className='px-2 py-4 text-sm'>{moment(item.report_at).format('hh:mm')}</td>
+                                        <td className='px-2 py-4 text-sm'>
+                                            <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
+                                                Not Started
+                                            </div>
+                                        </td>
+                                        <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
+                                        
+                                    </tr>
+                                )) : (
+                                    <tr>
+                                        <td colSpan={5} className="py-2 px-[20px] text-center bg-red-200">
+                                                Data empty
+                                        </td>
+                                    </tr>
+                                )  : (
+                                    <tr>
+                                        <td colSpan={5} className="py-2 px-[20px]">
+                                                <div className='inline-flex justify-center w-full'>
+                                                    <Loader />
+                                                </div>
+                                        </td>
+                                    </tr>
+                                )                          
+                            }
+                        {/* <tr className='border-b border-b-[#D0D3D9]' >
                             <td className='px-2 py-4 text-sm '>120-11-22</td>
                             <td className='px-2 py-4 text-sm '>Sealing Blister</td>
                             <td className='px-2 py-4 text-sm '>4:33</td>
@@ -39,20 +75,12 @@ export default function RealtimeTicketTable() {
                                 </div>
                             </td>
                             <td className='px-2 py-4 text-sm '>D02</td>
-                        </tr>
+                        </tr> */}
                         
                     </tbody>
                 </table>
             </div>
-            <div className='flex flex-row items-center self-end pr-6'>
-                <button onClick={() => { }} className='p-[10px] border border-[#D0D3D9] rounded-l-lg disabled:bg-[#D0D3D9]' disabled={true} >
-                    <ArrowIcon className='-rotate-90' />
-                </button>
-                <button className='p-[3px] px-[10px] border border-[#D0D3D9]' disabled>1</button>
-                <button onClick={() => { }} className='p-[10px] border border-[#D0D3D9] rounded-r-lg disabled:bg-[#D0D3D9]'>
-                    <ArrowIcon className='rotate-90' />
-                </button>
-            </div>
+            <PaginationNew page={paramData.pageTicketRelease} lastpage={data?.total_page} onNext={onNext} onPrev={onPrev} />
 
         </div>
     )

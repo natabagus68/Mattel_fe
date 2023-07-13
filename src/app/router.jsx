@@ -47,6 +47,8 @@ import MachineCategoryView from "../features/admin/master-data/machine-category/
 import MachineView from "../features/admin/master-data/machine/view/MachineView";
 import DowntimeView from "../features/admin/master-data/downtime/view/DowntimeView";
 import DowntimeForm from "../features/admin/master-data/downtime/form/DowntimeForm";
+import AccountView from "../features/admin/user/account/view/AccountView";
+import AccountFormView from "../features/admin/user/account/form/AccountFormView";
 
 const Root = () => {
   return <Outlet />;
@@ -122,11 +124,11 @@ const masterRouter = [
 const accountRouter = [
   {
     path: "user/account",
-    element: <Account />,
+    element: <AccountView />,
   },
   { path: "user/account/:id/detail", element: <AccountDetail /> },
-  { path: "user/account/:id/edit", element: <AccountForm /> },
-  { path: "user/account/create", element: <AccountForm /> },
+  { path: "user/account/:id/edit", element: <AccountFormView /> },
+  { path: "user/account/add", element: <AccountFormView /> },
   { path: "user/account/trash", element: <Trash /> },
   { path: "user/access", element: <Access /> },
   { path: "user/access/:id/permission", element: <MappingMenu /> },

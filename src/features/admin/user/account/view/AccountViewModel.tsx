@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import { useGetUsersQuery, useVerifyUserMutation } from '../accountApiSlice'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useDeleteLineMutation, useGetLinesQuery } from '../../../../../app/services/lineService'
 
-export default function useLineMasterModel() {
+export default function useAccountViewModel() {
     const navigate = useNavigate()
     const [modalDelete, setModalDelete] = useState(false)
     const [deleteIdSelected, setDeleteIdSelected] = useState(null)
 
     const [searchParam, setSearchparam] = useSearchParams()
-
-
     const [paramData, setParamData] = useState({
         page : Number(searchParam.get('page')) || 1,
         search : searchParam.get('search') || '',
         sort : searchParam.get('sort') || 'Name_ASC',
+        role : searchParam.get('role') || ''
     })
 
-    const {data : responDataLine = { data : [] }, isLoading, refetch : refetchLine} = useGetLinesQuery({page : paramData.page, limit : 10, q : paramData.search, sort_val : paramData.sort.split('_')[1], table_name : paramData.sort.split('_')[0]})
-    const [deleteline, resultDelete] = useDeleteLineMutation()
+    const {data : responDataUser = { data : [] }, isLoading, refetch : refetchUser} = useGetUsersQuery({page : paramData.page, limit : 10, q : paramData.search, sort_val : paramData.sort.split('_')[1], table_name : paramData.sort.split('_')[0]})
+    const [verifyUser, resultVerify] = useVerifyUserMutation()
+    // const [deleteMachineCategory, resultDelete] = useDeleteU()
 
     const handleChangeParam = (e) => {
         setParamData(prev => ({...prev, [e.target.name] : e.target.value}))
@@ -38,6 +38,11 @@ export default function useLineMasterModel() {
         navigate(`add`)
     }
 
+    const handleVerifiedUser = async(id) => {
+        await verifyUser(id)
+        await refetchUser()
+    }
+
     const handleDelete = (id) => {
         setDeleteIdSelected(id)
         setModalDelete(true)
@@ -47,31 +52,35 @@ export default function useLineMasterModel() {
         setModalDelete(false)
     }
     const onDelete = async() => {
-        deleteline(deleteIdSelected)
-        await refetchLine()
+        // deleteMachineCategory(deleteIdSelected)
+        alert(`delete`)
+        await refetchUser()
     }
 
     useEffect(()=> {
         async function refresh() {
-            await refetchLine();
+            await refetchUser();
           }
           refresh();
         
         //   @ts-ignore
           setSearchparam((prev) => ({...prev, ...paramData}))
-    }, [paramData])
-  return {
-    modalDelete,
-    handleAdd,
-    handleEdit,
-    handleDelete,
-    handleCancelDelete,
-    onDelete,
-    responDataLine,
-    handleChangeParam,
-    paramData,
-    onNextPage,
-    onPrevPage,
-    isLoading
-  }
+    }, [paramData,])
+
+    return {
+        modalDelete,
+        handleAdd,
+        handleEdit,
+        handleDelete,
+        handleCancelDelete,
+        onDelete,
+        responDataUser,
+        refetchUser,
+        handleChangeParam,
+        paramData,
+        onNextPage,
+        onPrevPage,
+        isLoading,
+        handleVerifiedUser
+      }
 }

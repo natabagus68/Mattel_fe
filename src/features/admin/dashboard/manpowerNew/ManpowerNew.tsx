@@ -6,8 +6,11 @@ import { ShowFilter } from '../../../../common/components/table/ShowFilter'
 import ManPowerTable from './Table/ManPowerTable'
 import RealtimeTicketTable from './Table/RealtimeTicketTable'
 import RealtimeWorkTable from './Table/RealtimeWorkTable'
+import useManpowerModel from './ManpowerModel'
+import ModalFilter from '../Modals/ModalFilter'
 
 export default function ManpowerNew() {
+    const dashboard = useManpowerModel()
     return (
         <main>
             <div className='flex justify-between items-center mb-6'>
@@ -45,10 +48,12 @@ export default function ManpowerNew() {
                     </div>
                 </div>
                 
-                <ManPowerTable/>
-                <RealtimeTicketTable/>
-                <RealtimeWorkTable/>
+                <ManPowerTable modalFilter={()=>dashboard.handleOpenModalFilter('manPower')}/>
+                <RealtimeTicketTable modalFilter={()=>dashboard.handleOpenModalFilter('RealtimeTicket')} isLoad={dashboard.loadDataTicketRelease} data={dashboard.responDataTicketRelease?.data} onNext={()=> dashboard.onNextPage('ticketRelease')} onPrev={()=> dashboard.onPrevPage('ticketRelease')} paramData={dashboard.paramData} handleChange = {dashboard.handleChangeParam} />
+                <RealtimeWorkTable modalFilter={()=>dashboard.handleOpenModalFilter('RealtimeWork')} isLoad={dashboard.loadDataRealtimeWork} data={dashboard.responDataRealtimeWork?.data} onNext={()=> dashboard.onNextPage('realtimeWork')} onPrev={()=> dashboard.onPrevPage('realtimeWork')} paramData={dashboard.paramData} handleChange = {dashboard.handleChangeParam}/>
             </div>
+            
+            <ModalFilter open={dashboard.modalFilter.value} setClose={dashboard.handleCloseModalFilter} onClick={dashboard.handleClickFilter}/>
             
         </main>
     )
