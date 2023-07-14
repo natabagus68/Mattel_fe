@@ -1,7 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useGetFiveAvgDowntimeQuery, useGetFiveAvgSlowestRepairQuery, useGetFiveAvgSlowestResponseQuery, useGetFiveTotalDowntimeQuery } from '../../../../app/services/dashboardservice'
+import { useGetLinesQuery } from '../../../../app/services/lineService'
+import { useGetMachinesQuery } from '../../../../app/services/machineService'
+import { useSearchParams } from 'react-router-dom'
 
 export default function useMachineProblemModel() {
+
+    const {data : responDataLine = { data : [] }, isLoading : loadLine, refetch : refetchLine} = useGetLinesQuery({page : 1, limit : 99})
+    const {data : responDataMachine = { data : [] }, isLoading : loadMachine, refetch : refetchMachine} = useGetMachinesQuery({page : 1, limit : 99})
+
+    const [searchParam, setSearchparam] = useSearchParams()
+
+
+    const [paramData, setParamData] = useState({
+        line_id : searchParam.get('line_id') || '',
+        machine_id : searchParam.get('machine_id') || '',
+        year : searchParam.get('year') || '',
+        month : searchParam.get('month') || '',
+    })
+    
 
     const { data: slowestRepair = { data: [] }, refetch : refetchSlowestRepair} =  useGetFiveAvgSlowestRepairQuery({})
     const { data: slowestResponse = { data: [] }, refetch : refetchSlowestResponse} =  useGetFiveAvgSlowestResponseQuery({})
@@ -9,6 +26,7 @@ export default function useMachineProblemModel() {
     const { data: totalDowntime = { data: [] }, refetch : refetchTotalDowntime } =  useGetFiveTotalDowntimeQuery({})
 
     const [datasetSlowestRepair, setDatasetSlowestRepair] = useState<any>([])
+    const color = ['#4D74B2', "#F9A63A", "#43ADA2","#F36960", '#858D9D']
 
 
     const insertToDatasetRepair = (data = slowestRepair?.data) => {
@@ -31,119 +49,18 @@ export default function useMachineProblemModel() {
         })
     }
 
-    const dumyData = [
-        {
-            machine_name: "A1",
-            donwtime_duration: [
-                {
-                    downtime_name: "Pin Panjang Pendek",
-                    avg_of_repair_time: 1
-                },
-                {
-                    downtime_name: "Pin Panjang Pendek",
-                    avg_of_repair_time: 1
-                },
-                {
-                    downtime_name: "Pin Panjang Pendek",
-                    avg_of_repair_time: 2
-                }
-            ]
-        },
-        {
-            machine_name: "A2",
-            donwtime_duration: [
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-                {
-                    downtime_name: "Bla blaa",
-                    avg_of_repair_time: 6
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 4
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 5
-                },
-            ]
-        },
-        {
-            machine_name: "A2",
-            donwtime_duration: [
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-                {
-                    downtime_name: "Bla blaa",
-                    avg_of_repair_time: 6
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 4
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 5
-                },
-            ]
-        },
-        {
-            machine_name: "A2",
-            donwtime_duration: [
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-            ]
-        },
-        {
-            machine_name: "A2",
-            donwtime_duration: [
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-                {
-                    downtime_name: "Over Heat",
-                    avg_of_repair_time: 3
-                },
-            ]
-        }
-    ]
+    const handleChangeParam = (e) => {
+        setParamData(prev => ({...prev, [e.target.name] : e.target.value}))
+    }
 
 
-const arrDumy : any[] = []
-const color = ['#4D74B2', "#F9A63A", "#43ADA2","#F36960", '#858D9D']
-
-
-dumyData.forEach((item,i) => {
-    item.donwtime_duration.map(value => {
-        arrDumy.push({
-            name : value.downtime_name,
-            val : value.avg_of_repair_time,
-            color : color[i]
-        })
-    })
-    dumyData.length-1 !== i ?
-        arrDumy.push({
-            name : '',
-            val : null,
-            color :''
-        })
-    : null
-})
+useEffect(()=> {
+    async function refresh() {
+        await refetchLine();
+        await refetchMachine()
+      }
+      refresh();
+}, [])
 
 useEffect(()=> {
     insertToDatasetRepair()
@@ -157,15 +74,21 @@ useEffect(()=> {
         await refetchTotalDowntime()
       }
       refresh();
-},[])
+
+      setSearchparam((prev) => ({...prev, ...paramData}))
+},[paramData])
 
   return {
     slowestRepair,
     slowestResponse,
     avgDowntime,
     totalDowntime,
-    dumyData,
-    arrDumy,
-    datasetSlowestRepair
+    datasetSlowestRepair,
+    responDataLine,
+    loadLine,
+    responDataMachine,
+    loadMachine,
+    paramData,
+    handleChangeParam
   }
 }

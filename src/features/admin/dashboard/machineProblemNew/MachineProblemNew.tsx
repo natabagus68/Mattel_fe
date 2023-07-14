@@ -9,7 +9,7 @@ export default function MachineProblemNew() {
     const dashboard = useMachineProblemModel()
 
     const year = (new Date()).getFullYear();
-    const years = Array.from(new Array(20), (val, index) => index + year);
+    const years = Array.from(new Array(20), (val, index) => year - index);
     
 
     return (
@@ -22,25 +22,35 @@ export default function MachineProblemNew() {
                 <div className='grid grid-cols-5 items-center gap-6'>
                     <div className='inline-flex flex-col gap-1 w-full'>
                         <span className='text-sm font-semibold'>Line</span>
-                        <select className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
+                        <select name='line_id' value={dashboard.paramData.line_id} onChange={dashboard.handleChangeParam} className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
                             <option value="" selected disabled>Choose Line</option>
-                            <option value="B01">B01</option>
-                            <option value="B01">B01</option>
-                            <option value="B01">B01</option>
+                            {
+                                !dashboard.loadLine ?
+                                dashboard.responDataLine?.data.map((item,i) => (
+                                    <option value={item.id} key={i}>{item.name}</option>
+                                )) 
+                                :
+                                    <option value="" disabled>Load Data . . .</option>
+                            }
                         </select>
                     </div>
                     <div className='inline-flex flex-col gap-1 w-full'>
                         <span className='text-sm font-semibold'>Machine</span>
-                        <select className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
+                        <select name='machine_id' value={dashboard.paramData.machine_id} onChange={dashboard.handleChangeParam} className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
                             <option value="" selected disabled>Choose Machine</option>
-                            <option value="B01">B01</option>
-                            <option value="B01">B01</option>
-                            <option value="B01">B01</option>
+                            {
+                                !dashboard.loadMachine ?
+                                dashboard.responDataMachine?.data.map((item,i) => (
+                                    <option value={item.id} key={i}>{item.code}</option>
+                                )) 
+                                :
+                                    <option value="" disabled>Load Data . . .</option>
+                            }
                         </select>
                     </div>
                     <div className='inline-flex flex-col gap-1 w-full'>
                         <span className='text-sm font-semibold'>Year</span>
-                        <select className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
+                        <select name='year' value={dashboard.paramData.year} onChange={dashboard.handleChangeParam} className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
                             <option value="" selected disabled>Choose Year</option>
                             {
                                 years?.map((year, index) => {
@@ -51,11 +61,20 @@ export default function MachineProblemNew() {
                     </div>
                     <div className='inline-flex flex-col gap-1 w-full'>
                         <span className='text-sm font-semibold'>Month</span>
-                        <select className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
+                        <select name='month' value={dashboard.paramData.month} onChange={dashboard.handleChangeParam} className='py-[8px] px-[10px] rounded-md border border-[#D0D3D9] text-xs'>
                             <option value="" selected disabled>Choose Month</option>
                             <option value="1">Januari</option>
                             <option value="2">Februari</option>
                             <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
                         </select>
                     </div>
                 </div>

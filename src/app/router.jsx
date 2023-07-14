@@ -14,7 +14,7 @@ import { MonitoringLine } from "../features/admin/monitoring/line/MonitoringLine
 import { PartForm } from "../features/admin/master-data/machine-part/PartForm";
 import { LineLocationForm } from "../features/admin/master-data/line/LineLocationForm";
 import { GuestLayouts } from "../features/guest/GuestLayouts.jsx";
-import { AccountDetail } from "../features/admin/user/account/AccountDetail";
+import AccountDetail  from "../features/admin/user/account/detail/AccountDetail";
 import { AccountForm } from "../features/admin/user/account/AccountForm";
 import { Layout } from "../features/admin/monitoring/layout/Layout.jsx";
 import { Trash } from "../features/admin/user/account/Trash.jsx";

@@ -46,3 +46,4 @@ export * from "./FiltersIcons";
 export * from "./FileIconsDashboard";
 export * from "./SuccessDialog";
 export * from "./ConfirmIconDialog";
+export * from "./ChangePasswordIcons";

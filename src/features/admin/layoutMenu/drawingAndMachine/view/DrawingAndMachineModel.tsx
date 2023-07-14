@@ -14,6 +14,11 @@ export default function useDrawingAndMachineModel() {
         preparation_shift: searchParam.get("preparation_shift") || "",
     }
     )
+
+    const handleChangeParam = (e) => {
+        setLayoutParam(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
     const handleProductionSchDate = (value) => {
         setLayoutParam(prev => ({ ...prev, production_sch: value }))
     }
@@ -60,6 +65,7 @@ export default function useDrawingAndMachineModel() {
         handleProductionSchDate,
         handleProductionShift,
         onNextPage,
-        onPrevPage
+        onPrevPage,
+        handleChangeParam
     }
 }

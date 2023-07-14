@@ -22,24 +22,26 @@ export default function DrawingAndMachineView() {
                     <div className='flex flex-row gap-6 text-sm font-semibold w-[80%]'>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Production Sch Date</span>
-                            <input type="date" className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs placeholder:font' />
+                            <input name='production_sch' onChange={data.handleChangeParam} value={data.layoutParam.production_sch} type="date" className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs placeholder:font' />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Week Ending</span>
-                            <input type="date" className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
+                            <input name='week_ending' onChange={data.handleChangeParam} value={data.layoutParam.week_ending} type="date" className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Production Shift</span>
-                            <select name="" id="" className='py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E]'>
-                                <option value="1">Shift 1</option>
-                                <option value="1">Shift 2</option>
+                            <select name='production_shift' onChange={data.handleChangeParam} value={data.layoutParam.production_shift} className='py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E]'>
+                                <option value="Shift 1">Shift 1</option>
+                                <option value="Shift 2">Shift 2</option>
+                                <option value="Shift 3">Shift 3</option>
                             </select>
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Preparation Shift</span>
-                            <select name="" id="" className='py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E]'>
-                                <option value="1">Shift 1</option>
-                                <option value="1">Shift 2</option>
+                            <select name='preparation_shift' onChange={data.handleChangeParam} value={data.layoutParam.preparation_shift} className='py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E]'>
+                                <option value="Shift 1">Shift 1</option>
+                                <option value="Shift 2">Shift 2</option>
+                                <option value="Shift 3">Shift 3</option>
                             </select>
                         </div>
                     </div>

@@ -9,7 +9,7 @@ export default function LineView() {
     return (
         <main>
             <div className='flex justify-between items-center mb-6'>
-                <Breadcrumbs items={['General']} />
+                <Breadcrumbs items={['Line']} />
                 <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='py-6 px-8 rounded-md border border-[#D0D3D9] bg-[#FFF] inline-flex flex-col gap-[16px] w-full'>

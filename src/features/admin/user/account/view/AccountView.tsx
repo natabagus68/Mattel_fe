@@ -99,7 +99,7 @@ export default function AccountView() {
                                         <td className='px-2 py-4 text-sm'>{item.roles?.map(item => {return item.name}).join(',')}</td>
                                         <td className='px-2 py-2 text-sm w-[10%]'>
                                             <div className='inline-flex gap-3'>
-                                                <button onClick={()=>user.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#20519F] h-[48px] w-[48px]'>
+                                                <button onClick={()=>user.handleDetail(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#20519F] h-[48px] w-[48px]'>
                                                     <EyeIcon height={24} width={24} color='#20519F' className='scale-150'/>
                                                 </button>
                                                 <button onClick={()=>user.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>

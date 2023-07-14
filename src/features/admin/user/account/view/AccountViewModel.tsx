@@ -30,6 +30,10 @@ export default function useAccountViewModel() {
         setParamData(prev => ({...prev, page : prev.page - 1}))
     }
 
+    const handleDetail = (id) => {
+        navigate(`${id}/detail`)
+    } 
+
     const handleEdit = (id) => {
         navigate(`${id}/edit`)
     } 
@@ -65,7 +69,7 @@ export default function useAccountViewModel() {
         
         //   @ts-ignore
           setSearchparam((prev) => ({...prev, ...paramData}))
-    }, [paramData,])
+    }, [paramData])
 
     return {
         modalDelete,
@@ -81,6 +85,7 @@ export default function useAccountViewModel() {
         onNextPage,
         onPrevPage,
         isLoading,
-        handleVerifiedUser
+        handleVerifiedUser,
+        handleDetail
       }
 }

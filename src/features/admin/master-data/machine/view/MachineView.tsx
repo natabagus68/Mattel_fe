@@ -67,7 +67,7 @@ export default function MachineView() {
                                                 item.machine_parts?.map((item) => item.name).join(', ')
                                             }
                                         </td>
-                                        <td className='px-2 py-4 text-sm'>{item.line?.line_device.name}</td>
+                                        <td className='px-2 py-4 text-sm'>{item.line?.line_device.name ?? '-'}</td>
                                         <td className='px-2 py-2 text-sm w-[10%]'>
                                             <div className='inline-flex gap-3'>
                                                 <button onClick={()=>master.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>

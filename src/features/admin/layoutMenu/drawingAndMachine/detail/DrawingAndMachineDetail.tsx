@@ -30,7 +30,7 @@ export default function DrawingAndMachineDetail() {
                         <div className='max-w-[600px]'>
                             <img src={`${config.storageBaseUrl}${data.LayoutDataById?.data.drawing}`} alt="" />
                         </div>
-                        <span className='text-[#9A9898]'>Drawing_HKT67.Jpg</span>
+                        {/* <span className='text-[#9A9898]'>Drawing_HKT67.Jpg</span> */}
                     </div>
                     <button onClick={data.onUpdate} className='flex items-center justify-center gap-2 rounded py-3 px-5 bg-[#F04438] text-[#FFF] text-sm font-semibold w-[25%]'>
                         <SaveIcons />
