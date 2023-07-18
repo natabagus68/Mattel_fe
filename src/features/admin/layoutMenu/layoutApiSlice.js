@@ -3,7 +3,7 @@ import { apiSlice } from "../../api/apiSlice";
 export const layoutApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getLayouts : builder.query({
-            query : (page = 1, production_sch = '', week_ending = '', production_shift = '', preparation_shift = '') => `admin/layout?production_sch_date=${production_sch}&week_ending=${week_ending}&production_shift=${production_shift}&preparation_shift=${preparation_shift}&page=${page}&limit=10`,
+            query : ({page = 1, production_sch = '', week_ending = '', production_shift = '', preparation_shift = ''}) => `admin/layout?production_sch_date=${production_sch}&week_ending=${week_ending}&production_shift=${production_shift}&preparation_shift=${preparation_shift}&page=${page}&limit=10`,
             providesTags: ['Layouts']
         }),
         updateDrawing : builder.mutation({
