@@ -25,7 +25,7 @@ export default function useChangeOverTicketModel() {
     setLayoutParam(prev => ({ ...prev, preparation_shift: value }))
   }
 
-  const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery(layoutParam.page, layoutParam.week_ending, layoutParam.production_sch, layoutParam.production_shift, layoutParam.preparation_shift)
+  const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery({ page: layoutParam.page, production_sch: layoutParam.production_sch, week_ending: layoutParam.week_ending, production_shift: layoutParam.production_shift, preparation_shift: layoutParam.preparation_shift })
 
   const onPrevPage = () => {
     setLayoutParam(prev => ({ ...prev, page: prev.page - 1 }))
