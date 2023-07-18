@@ -26,7 +26,7 @@ export default function DrawingAndMachineView() {
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Week Ending</span>
-                            <input name='week_ending' onChange={data.handleChangeParam} value={data.layoutParam.week_ending} type="date" className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
+                            <input name='week_ending' onChange={data.handleChangeParam} value={moment(data.layoutParam.production_sch).endOf('week').format('YYYY-MM-DD')} type="date" className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Production Shift</span>
@@ -105,7 +105,7 @@ export default function DrawingAndMachineView() {
 
                                 ))
                             }
-                           
+
                         </tbody>
                     </table>
                 </div>

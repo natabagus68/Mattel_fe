@@ -42,13 +42,13 @@ export default function LineForm() {
                             >
                                 <option value="" selected disabled>Select</option>
                                 {
-                                    !form.loadLineGroup ? 
-                                        form.responLineGroup?.data.map((item,i)=> (
+                                    !form.loadLineGroup ?
+                                        form.responLineGroup?.data.map((item, i) => (
                                             <option value={item.id} key={i}>{item.name}</option>
                                         ))
-                                    : (
-                                        <option value="" disabled>Load data . . .</option>
-                                    )
+                                        : (
+                                            <option value="" disabled>Load data . . .</option>
+                                        )
                                 }
                             </select>
                         </div>
@@ -61,13 +61,13 @@ export default function LineForm() {
                             >
                                 <option value="" selected disabled>Select</option>
                                 {
-                                    !form.loadLineDevice ? 
-                                        form.responLineDevice?.data.map((item,i)=> (
+                                    !form.loadLineDevice ?
+                                        form.responLineDevice?.data.map((item, i) => (
                                             <option value={item.id} key={i}>{item.name}</option>
                                         ))
-                                    : (
-                                        <option value="" disabled>Load data . . .</option>
-                                    )
+                                        : (
+                                            <option value="" disabled>Load data . . .</option>
+                                        )
                                 }
                             </select>
                         </div>
@@ -80,8 +80,8 @@ export default function LineForm() {
                     </form>
                 </div>
             </div>
-            <SaveConfirmationDialog open={form.modalConfirm} setClose={form.handleCloseModal} onSave={form.onConfirm}/>
-            <SuccessDialog open={form.modalSuccess} navigate={()=>{form.handleCloseModal(); form.handleBack()}}/>
+            <SaveConfirmationDialog open={form.modalConfirm} setClose={form.handleCloseModal} onSave={form.onConfirm} />
+            <SuccessDialog open={form.modalSuccess} navigate={() => { form.handleCloseModal(); form.handleBack() }} />
         </main>
     )
 }

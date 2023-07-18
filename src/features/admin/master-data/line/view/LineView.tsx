@@ -93,7 +93,7 @@ export default function LineMasterView() {
                 </div>
                 <PaginationNew page={master.paramData.page} lastpage={master.responDataLine?.total_page} onNext={master.onNextPage} onPrev={master.onPrevPage} />
             </div>
-            <DeleteDialog onClick={master.onDelete} open={master.modalDelete} setClose={master.handleCancelDelete}/>
+            <DeleteDialog onClick={master.onDelete} open={master.modalDelete} setClose={master.handleCancelDelete} />
         </main>
     )
 }

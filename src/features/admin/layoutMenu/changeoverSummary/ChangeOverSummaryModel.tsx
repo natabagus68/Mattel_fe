@@ -1,50 +1,50 @@
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetLayoutsQuery } from '../layoutApiSlice';
 import { useSearchParams } from 'react-router-dom';
 import moment from 'moment'
 
 
 export default function useChangeOverSummaryModel() {
-  
-  const [searchParam, setSearchparam] = useSearchParams() 
+
+  const [searchParam, setSearchparam] = useSearchParams()
   const [layoutParam, setLayoutParam] = useState({
-    page : Number(searchParam.get("page")) || 1,
-    production_sch : searchParam.get("production_sch") || "",
-    week_ending : moment().endOf('week').format('YYYY-MM-DD'),
-    production_shift : searchParam.get("production_shift") || "",
-    preparation_shift : searchParam.get("preparation_shift") || "",
+    page: Number(searchParam.get("page")) || 1,
+    production_sch: searchParam.get("production_sch") || "",
+    week_ending: moment().endOf('week').format('YYYY-MM-DD'),
+    production_shift: searchParam.get("production_shift") || "",
+    preparation_shift: searchParam.get("preparation_shift") || "",
   }
-  ) 
+  )
   const handleProductionSchDate = (value) => {
-    setLayoutParam(prev => ({...prev, production_sch : value}))
+    setLayoutParam(prev => ({ ...prev, production_sch: value }))
   }
 
   const handleProductionShift = (value) => {
-    setLayoutParam(prev => ({...prev, production_shift : value}))
+    setLayoutParam(prev => ({ ...prev, production_shift: value }))
   }
 
   const handlePreparationShift = (value) => {
-    setLayoutParam(prev => ({...prev, preparation_shift : value}))
+    setLayoutParam(prev => ({ ...prev, preparation_shift: value }))
   }
-  
-  const {data : LayoutData = {data : [] }, refetch} = useGetLayoutsQuery(layoutParam.page, layoutParam.week_ending, layoutParam.production_shift, layoutParam.preparation_shift)
-  
+
+  const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery(layoutParam.page, layoutParam.production_sch, layoutParam.week_ending, layoutParam.production_shift, layoutParam.preparation_shift)
+
   const onPrevPage = () => {
-    setLayoutParam(prev => ({...prev, page : prev.page - 1}))
+    setLayoutParam(prev => ({ ...prev, page: prev.page - 1 }))
   }
 
   const onNextPage = () => {
-      setLayoutParam(prev => ({...prev, page : prev.page + 1}))
+    setLayoutParam(prev => ({ ...prev, page: prev.page + 1 }))
   }
 
   useEffect(() => {
-        async function refresh() {
-          await refetch();
-        }
-        refresh();
-        setSearchparam((prev) => ({...prev, ...layoutParam}))
-      }, [layoutParam]);
+    async function refresh() {
+      await refetch();
+    }
+    refresh();
+    setSearchparam((prev) => ({ ...prev, ...layoutParam }))
+  }, [layoutParam]);
   return {
     LayoutData,
     layoutParam,

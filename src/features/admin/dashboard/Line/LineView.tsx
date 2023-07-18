@@ -51,8 +51,8 @@ export default function LineView() {
                                     {
                                         item.lines?.map((itemLines, i) => (
 
-                                               <div className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance ? 'bg-[#F04438] text-[#FFF]' : itemLines.is_maintenance_changeover ? 'bg-[#12B569] text-[#FFF]' : itemLines.is_material ? 'bg-[#F79009] text-[#FFF]' : 'bg-[#D0D3D9] text-[#514E4E]'}`}>
-                                                {i + 1 < 10 ? `0${i + 1}` : i + 1}
+                                            <div className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance ? 'bg-[#F04438] text-[#FFF]' : itemLines.is_maintenance_changeover ? 'bg-[#12B569] text-[#FFF]' : itemLines.is_material ? 'bg-[#F79009] text-[#FFF]' : 'bg-[#D0D3D9] text-[#514E4E]'}`}>
+                                                {itemLines.name}
                                             </div>
 
                                         ))

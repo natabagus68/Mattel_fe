@@ -1,6 +1,6 @@
 import React from 'react'
 import { Breadcrumbs } from '../../../../common/components'
-import Select, {StylesConfig } from 'react-select'
+import Select, { StylesConfig } from 'react-select'
 import { PlusIcon, RecycleSubmitIcon, TrashIcon } from '../../../../common/components/icons'
 import useInputChangeOverModel from './InputChangeOverModel'
 import moment from 'moment'
@@ -15,7 +15,7 @@ export default function InputChangeOverView() {
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Input Changeover Sch']} />
                 <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
-            </div>  
+            </div>
             <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
                 <span className='text-2xl font-bold'>Input Changeover Schedule</span>
                 <div className='flex flex-col gap-[10px] p-3 rounded bg-[#F0F1F3]'>
@@ -27,7 +27,7 @@ export default function InputChangeOverView() {
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Week Ending</span>
-                            <input type="date" value={moment().endOf('week').format('YYYY-MM-DD')} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
+                            <input type="date" value={moment(changeOver.changeOverSchedule.production_sch_date).endOf('week').format('YYYY-MM-DD')} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Production Shift</span>
@@ -54,16 +54,16 @@ export default function InputChangeOverView() {
                     </div>
 
                     {
-                          changeOver?.toyChangover?.map((item, i) => (
-                                <div key={i} className='flex items-center gap-3 w-1/2'>
-                                    <button onClick={()=> changeOver.handleDeleteToyNumber(item.id)} className='p-4 rounded bg-[#F04438]'>
-                                        <TrashIcon className='scale-110'/>
-                                    </button>
-                                    <div className='w-full'>
-                                        <Select  isClearable={false} value={item} onChange={(value)=>changeOver.handleChangeToyNumber(item.id,value)} options={changeOver.dataToys} classNamePrefix="Search Line" styles={changeOver.selectStyles} placeholder='Choose Toy Number' />
-                                    </div>
+                        changeOver?.toyChangover?.map((item, i) => (
+                            <div key={i} className='flex items-center gap-3 w-1/2'>
+                                <button onClick={() => changeOver.handleDeleteToyNumber(item.id)} className='p-4 rounded bg-[#F04438]'>
+                                    <TrashIcon className='scale-110' />
+                                </button>
+                                <div className='w-full'>
+                                    <Select isClearable={false} value={item} onChange={(value) => changeOver.handleChangeToyNumber(item.id, value)} options={changeOver.dataToys} classNamePrefix="Search Line" styles={changeOver.selectStyles} placeholder='Choose Toy Number' />
                                 </div>
-                          ))
+                            </div>
+                        ))
                     }
 
                     <button onClick={changeOver.handleAddAnotherToy} className='flex items-center gap-2 py-3 px-5 rounded bg-[#F79009] w-fit text-sm font-semibold text-[#FFF]'>

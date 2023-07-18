@@ -31,7 +31,7 @@ export default function useDrawingAndMachineModel() {
         setLayoutParam(prev => ({ ...prev, preparation_shift: value }))
     }
 
-    const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery(layoutParam.page, layoutParam.week_ending, layoutParam.production_shift, layoutParam.preparation_shift)
+    const { data: LayoutData = { data: [] }, isLoading, refetch: refetchLayout } = useGetLayoutsQuery({ page: layoutParam.page, production_sch: layoutParam.production_sch, production_shift: layoutParam.production_shift, preparation_shift: layoutParam.preparation_shift })
 
     const handleInputDrawing = (id) => {
         navigate(`${id}/add`)
@@ -41,16 +41,16 @@ export default function useDrawingAndMachineModel() {
     }
 
     const onPrevPage = () => {
-        setLayoutParam(prev => ({...prev, page : prev.page - 1}))
+        setLayoutParam(prev => ({ ...prev, page: prev.page - 1 }))
     }
 
     const onNextPage = () => {
-        setLayoutParam(prev => ({...prev, page : prev.page + 1}))
+        setLayoutParam(prev => ({ ...prev, page: prev.page + 1 }))
     }
 
     useEffect(() => {
         async function refresh() {
-            await refetch();
+            await refetchLayout();
         }
         refresh();
         setSearchparam((prev) => ({ ...prev, ...layoutParam }))
@@ -66,6 +66,7 @@ export default function useDrawingAndMachineModel() {
         handleProductionShift,
         onNextPage,
         onPrevPage,
-        handleChangeParam
+        handleChangeParam,
+        isLoading
     }
 }

@@ -8,7 +8,7 @@ export default function useLineDeviceFormModel() {
     const [modalConfirm, setModalConfirm] = useState(false)
     const [modalSuccess, setModalSuccess] = useState(false)
 
-    const { data: responDataLineDevice = { data: [] }, refetch} =  useGetLineDeviceDetailQuery(id, {skip : id ? false : true})
+    const { data: responDataLineDevice = { data: [] }, refetch } = useGetLineDeviceDetailQuery(id, { skip: id ? false : true })
 
     const [storeLine, resultStore] = useCreateLineDeviceMutation()
     const [updateLine, resultUpdate] = useUpdateLineDeviceMutation()
@@ -26,8 +26,8 @@ export default function useLineDeviceFormModel() {
     const handleBack = () => {
         navigate(-1)
     }
-    const onConfirm = async() => {
-        updateLine({id : id, form : formData})
+    const onConfirm = async () => {
+        updateLine({ id: id, form: formData })
         await refetch()
         setModalConfirm(false)
         setModalSuccess(true)
@@ -46,20 +46,20 @@ export default function useLineDeviceFormModel() {
         setModalSuccess(false)
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         async function refresh() {
             id ?
-            await refetch()
-            : null
-          }
-          refresh();
-    },[id])
+                await refetch()
+                : null
+        }
+        refresh();
+    }, [id])
 
     useEffect(() => {
-        responDataLineDevice? 
-            setFormData({"name": responDataLineDevice.data.name})
-        : setFormData(initialValue)
-    },[responDataLineDevice.data.name])
+        responDataLineDevice ?
+            setFormData({ "name": responDataLineDevice.data.name })
+            : setFormData(initialValue)
+    }, [responDataLineDevice.data.name])
 
     return {
         id,
