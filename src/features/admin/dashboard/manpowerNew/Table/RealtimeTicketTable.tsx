@@ -26,7 +26,7 @@ export default function RealtimeTicketTable({ data, modalFilter, isLoad, paramDa
                     <thead className='border-y border-y-[#D0D3D9] bg-[#FAFAFB]'>
                         <tr>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>TicketID</th>
-                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Machine</th>
+                            {/* <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Machine</th> */}
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Reporting Time</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Ticket Status</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line</th>
@@ -39,14 +39,14 @@ export default function RealtimeTicketTable({ data, modalFilter, isLoad, paramDa
                                     data.data?.map((item, i) => (
                                         <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                             <td className='px-2 py-4 text-sm'>{item.id}</td>
-                                            <td className='px-2 py-4 text-sm'>{item.machine ?? '-'}</td>
+                                            {/* <td className='px-2 py-4 text-sm'>{item.machine ?? '-'}</td> */}
                                             <td className='px-2 py-4 text-sm'>{moment(item.report_at).format('hh:mm')}</td>
                                             <td className='px-2 py-4 text-sm'>
                                                 <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
                                                     Not Started
                                                 </div>
                                             </td>
-                                            <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.line?.line_group?.name} - {item.line?.name}</td>
 
                                         </tr>
                                     )) : (

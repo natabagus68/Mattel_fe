@@ -40,7 +40,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                                             <td className='px-2 py-4 text-sm'>{item.id}</td>
                                             <td className='px-2 py-4 text-sm'>{item.machine?.machine_code_id ?? '-'}</td>
                                             <td className='px-2 py-4 text-sm'>{moment(item.report_at).format('hh:mm')}</td>
-                                            <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.line?.line_group?.name} - {item.line?.name}</td>
                                             <td className='px-2 py-4 text-sm'>
                                                 {
                                                     item.status === 'Not Started' ? (
@@ -60,7 +60,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                                                             ) : null
                                                 }
                                             </td>
-                                            <td className='px-2 py-4 text-sm'>{item.assign?.name ?? '-'}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.ticket_users[0]?.user?.name ?? '-'}</td>
                                         </tr>
                                     )) : (
                                         <tr>
