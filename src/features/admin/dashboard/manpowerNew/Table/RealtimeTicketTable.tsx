@@ -4,7 +4,7 @@ import { Loader } from '../../../../../common/components'
 import moment from 'moment'
 import PaginationNew from '../../../../../common/components/table/PaginationNew'
 
-export default function RealtimeTicketTable({data, modalFilter, isLoad, paramData, handleChange , onNext, onPrev}) {
+export default function RealtimeTicketTable({ data, modalFilter, isLoad, paramData, handleChange, onNext, onPrev }) {
     return (
         <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
             <div className='flex flex-col gap-1'>
@@ -33,38 +33,38 @@ export default function RealtimeTicketTable({data, modalFilter, isLoad, paramDat
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                               !isLoad ?
-                                data?.length !==0 ?
-                                data.data?.map((item, i) => (
-                                    <tr className='border-b border-b-[#D0D3D9]' key={i}>
-                                        <td className='px-2 py-4 text-sm'>{item.id}</td>
-                                        <td className='px-2 py-4 text-sm'>{item.machine ?? '-'}</td>
-                                        <td className='px-2 py-4 text-sm'>{moment(item.report_at).format('hh:mm')}</td>
-                                        <td className='px-2 py-4 text-sm'>
-                                            <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
-                                                Not Started
-                                            </div>
-                                        </td>
-                                        <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
-                                        
-                                    </tr>
-                                )) : (
-                                    <tr>
-                                        <td colSpan={5} className="py-2 px-[20px] text-center bg-red-200">
+                        {
+                            !isLoad ?
+                                data?.length !== 0 ?
+                                    data.data?.map((item, i) => (
+                                        <tr className='border-b border-b-[#D0D3D9]' key={i}>
+                                            <td className='px-2 py-4 text-sm'>{item.id}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.machine ?? '-'}</td>
+                                            <td className='px-2 py-4 text-sm'>{moment(item.report_at).format('hh:mm')}</td>
+                                            <td className='px-2 py-4 text-sm'>
+                                                <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
+                                                    Not Started
+                                                </div>
+                                            </td>
+                                            <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
+
+                                        </tr>
+                                    )) : (
+                                        <tr>
+                                            <td colSpan={5} className="py-2 px-[20px] text-center bg-red-200">
                                                 Data empty
-                                        </td>
-                                    </tr>
-                                )  : (
+                                            </td>
+                                        </tr>
+                                    ) : (
                                     <tr>
                                         <td colSpan={5} className="py-2 px-[20px]">
-                                                <div className='inline-flex justify-center w-full'>
-                                                    <Loader />
-                                                </div>
+                                            <div className='inline-flex justify-center w-full'>
+                                                <Loader />
+                                            </div>
                                         </td>
                                     </tr>
-                                )                          
-                            }
+                                )
+                        }
                         {/* <tr className='border-b border-b-[#D0D3D9]' >
                             <td className='px-2 py-4 text-sm '>120-11-22</td>
                             <td className='px-2 py-4 text-sm '>Sealing Blister</td>
@@ -76,7 +76,7 @@ export default function RealtimeTicketTable({data, modalFilter, isLoad, paramDat
                             </td>
                             <td className='px-2 py-4 text-sm '>D02</td>
                         </tr> */}
-                        
+
                     </tbody>
                 </table>
             </div>

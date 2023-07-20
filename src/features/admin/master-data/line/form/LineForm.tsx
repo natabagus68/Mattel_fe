@@ -25,15 +25,6 @@ export default function LineForm() {
                 <div className='px-6 flex flex-col gap-5'>
                     <form onSubmit={form.handleSave} className='flex flex-col w-[85%] gap-6'>
                         <div className='inline-flex flex-col gap-2'>
-                            <label htmlFor="name" className='font-bold'>Name</label>
-                            <input type="text" name='name'
-                                value={form.formData.name}
-                                onChange={form.handleChangeForm}
-                                className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]'
-                                placeholder='Input Line name'
-                            />
-                        </div>
-                        <div className='inline-flex flex-col gap-2'>
                             <label htmlFor="line_group_id" className='font-bold'>Line Group</label>
                             <select name="line_group_id"
                                 value={form.formData.line_group_id}
@@ -51,6 +42,15 @@ export default function LineForm() {
                                         )
                                 }
                             </select>
+                        </div>
+                        <div className='inline-flex flex-col gap-2'>
+                            <label htmlFor="name" className='font-bold'>Number</label>
+                            <input type="text" name='name'
+                                value={form.formData.name}
+                                onChange={form.handleChangeForm}
+                                className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]'
+                                placeholder='Input Line Number'
+                            />
                         </div>
                         <div className='inline-flex flex-col gap-2'>
                             <label htmlFor="line_device_id" className='font-bold'>Line Device</label>

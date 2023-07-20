@@ -35,7 +35,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                     <tbody>
                         {
                             !isLoad ?
-                                data?.length !== 0 ?
+                                data.data.length !== 0 ?
                                     data.data?.map((item, i) => (
                                         <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                             <td className='px-2 py-4 text-sm'>{item.id}</td>

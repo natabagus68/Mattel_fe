@@ -8,9 +8,9 @@ import useMachineCategoryModel from './MachineCategoryModel'
 
 export default function MachineCategoryView() {
     const master = useMachineCategoryModel()
-  return (
-    <main>
-        <div className='flex justify-between items-center mb-6'>
+    return (
+        <main>
+            <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Machine Category']} />
                 <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
@@ -48,49 +48,51 @@ export default function MachineCategoryView() {
                         <thead className='border-y border-y-[#D0D3D9] bg-[#FAFAFB]'>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>No.</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>MACHINE CATEGORY NAME</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>MACHINE CATEGORY ABBREVIATION</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Actions</th>
                         </thead>
                         <tbody>
                             {
-                               !master.isLoading ?
-                                master.responDataMachineCategory?.data.length !==0 ?
-                                master.responDataMachineCategory?.data.map((item, i) => (
-                                    <tr className='border-b border-b-[#D0D3D9]' key={i}>
-                                        <td className='px-2 py-4 text-sm'>{i+1}</td>
-                                        <td className='px-2 py-4 text-sm'>{item.name}</td>
-                                        <td className='px-2 py-2 text-sm w-[10%]'>
-                                            <div className='inline-flex gap-3'>
-                                                <button onClick={()=>master.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>
-                                                    <PenIcon height={24} width={24}/>
-                                                </button>
-                                                <button onClick={()=> master.handleDelete(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F04438] h-[48px] w-[48px]'>
-                                                    <TrashIcon height={16} width={16}/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )) : (
-                                    <tr>
-                                        <td colSpan={3} className="py-2 px-[20px] text-center bg-red-200">
-                                                Data empty
-                                        </td>
-                                    </tr>
-                                )  : (
-                                    <tr>
-                                        <td colSpan={3} className="py-2 px-[20px]">
+                                !master.isLoading ?
+                                    master.responDataMachineCategory?.data.length !== 0 ?
+                                        master.responDataMachineCategory?.data.map((item, i) => (
+                                            <tr className='border-b border-b-[#D0D3D9]' key={i}>
+                                                <td className='px-2 py-4 text-sm'>{i + 1}</td>
+                                                <td className='px-2 py-4 text-sm'>{item.name}</td>
+                                                <td className='px-2 py-4 text-sm'>{item.abbreviation}</td>
+                                                <td className='px-2 py-2 text-sm w-[10%]'>
+                                                    <div className='inline-flex gap-3'>
+                                                        <button onClick={() => master.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>
+                                                            <PenIcon height={24} width={24} />
+                                                        </button>
+                                                        <button onClick={() => master.handleDelete(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F04438] h-[48px] w-[48px]'>
+                                                            <TrashIcon height={16} width={16} />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )) : (
+                                            <tr>
+                                                <td colSpan={3} className="py-2 px-[20px] text-center bg-red-200">
+                                                    Data empty
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                        <tr>
+                                            <td colSpan={3} className="py-2 px-[20px]">
                                                 <div className='inline-flex justify-center w-full'>
                                                     <Loader />
                                                 </div>
-                                        </td>
-                                    </tr>
-                                )                          
+                                            </td>
+                                        </tr>
+                                    )
                             }
                         </tbody>
                     </table>
                 </div>
                 <PaginationNew page={master.paramData.page} lastpage={master.responDataMachineCategory?.total_page} onNext={master.onNextPage} onPrev={master.onPrevPage} />
             </div>
-            <DeleteDialog onClick={master.onDelete} open={master.modalDelete} setClose={master.handleCancelDelete}/>
-    </main>
-  )
+            <DeleteDialog onClick={master.onDelete} open={master.modalDelete} setClose={master.handleCancelDelete} />
+        </main>
+    )
 }
