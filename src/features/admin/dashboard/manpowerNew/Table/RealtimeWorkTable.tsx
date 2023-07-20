@@ -5,7 +5,6 @@ import { Loader } from '../../../../../common/components'
 import PaginationNew from '../../../../../common/components/table/PaginationNew'
 
 export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData, handleChange, onNext, onPrev }) {
-    console.log(data)
     return (
         <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
             <div className='flex flex-col gap-1'>
@@ -35,7 +34,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                     <tbody>
                         {
                             !isLoad ?
-                                data.data.length !== 0 ?
+                                data.data?.length !== 0 ?
                                     data.data?.map((item, i) => (
                                         <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                             <td className='px-2 py-4 text-sm'>{item.id}</td>

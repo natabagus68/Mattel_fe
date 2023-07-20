@@ -11,7 +11,6 @@ import ModalFilter from '../Modals/ModalFilter'
 
 export default function ManpowerNew() {
     const dashboard = useManpowerModel()
-    console.log(dashboard.responDataTicketRelease.data)
     return (
         <main>
             <div className='flex justify-between items-center mb-6'>
