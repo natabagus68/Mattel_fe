@@ -5,6 +5,7 @@ import { Loader } from '../../../../../common/components'
 import PaginationNew from '../../../../../common/components/table/PaginationNew'
 
 export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData, handleChange, onNext, onPrev }) {
+    console.log(data)
     return (
         <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
             <div className='flex flex-col gap-1'>
@@ -38,15 +39,29 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                                     data.data?.map((item, i) => (
                                         <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                             <td className='px-2 py-4 text-sm'>{item.id}</td>
-                                            <td className='px-2 py-4 text-sm'>{item.machine ?? '-'}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.machine?.machine_code_id ?? '-'}</td>
                                             <td className='px-2 py-4 text-sm'>{moment(item.report_at).format('hh:mm')}</td>
                                             <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
                                             <td className='px-2 py-4 text-sm'>
-                                                <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
-                                                    Not Started
-                                                </div>
+                                                {
+                                                    item.status === 'Not Started' ? (
+                                                        <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
+                                                            Not Started
+                                                        </div>
+                                                    ) :
+                                                        item.status === 'On Progress' ? (
+                                                            <div className='p-[10px] rounded-xl p-auto bg-[#F79009] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
+                                                                On Progress
+                                                            </div>
+                                                        ) :
+                                                            item.status === 'Closed' ? (
+                                                                <div className='p-[10px] rounded-xl p-auto bg-[#12B569] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
+                                                                    Finished
+                                                                </div>
+                                                            ) : null
+                                                }
                                             </td>
-                                            <td className='px-2 py-4 text-sm'>{item.assign?.name}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.assign?.name ?? '-'}</td>
                                         </tr>
                                     )) : (
                                         <tr>
@@ -70,9 +85,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                             <td className='px-2 py-4 text-sm '>4:33</td>
                             <td className='px-2 py-4 text-sm '>H12</td>
                             <td className='px-2 py-4 text-sm '>
-                                <div className='p-[10px] rounded-xl p-auto bg-[#F79009] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
-                                    On Progress
-                                </div>
+                                
                             </td>
                             <td className='px-2 py-4 text-sm '>Tommy Susanto</td>
                         </tr>
@@ -82,9 +95,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                             <td className='px-2 py-4 text-sm '>4:33</td>
                             <td className='px-2 py-4 text-sm '>H12</td>
                             <td className='px-2 py-4 text-sm '>
-                                <div className='p-[10px] rounded-xl p-auto bg-[#12B569] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
-                                    Finished
-                                </div>
+                               
                             </td>
                             <td className='px-2 py-4 text-sm '>Wahyu Purnomo</td>
                         </tr> */}
@@ -92,7 +103,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                 </table>
             </div>
             <PaginationNew page={paramData.pageRealtimeWork} lastpage={data?.total_page} onNext={onNext} onPrev={onPrev} />
-           
+
 
         </div>
     )
