@@ -34,7 +34,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                     <tbody>
                         {
                             !isLoad ?
-                                data?.length !== 0 ?
+                                data.data.length !== 0 ?
                                     data.data?.map((item, i) => (
                                         <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                             <td className='px-2 py-4 text-sm'>{item.id}</td>
@@ -43,10 +43,10 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                                             <td className='px-2 py-4 text-sm'>{item.line?.name}</td>
                                             <td className='px-2 py-4 text-sm'>
                                                 <div className='p-[10px] rounded-xl p-auto bg-[#F04438] w-fit text-sm font-semibold text-[#FFF] min-w-[115px] text-center'>
-                                                    Not Started
+                                                    {item.status}
                                                 </div>
                                             </td>
-                                            <td className='px-2 py-4 text-sm'>{item.assign?.name}</td>
+                                            <td className='px-2 py-4 text-sm'>{item.ticket_users[0]?.user?.name}</td>
                                         </tr>
                                     )) : (
                                         <tr>
@@ -92,7 +92,7 @@ export default function RealtimeWorkTable({ data, modalFilter, isLoad, paramData
                 </table>
             </div>
             <PaginationNew page={paramData.pageRealtimeWork} lastpage={data?.total_page} onNext={onNext} onPrev={onPrev} />
-           
+
 
         </div>
     )

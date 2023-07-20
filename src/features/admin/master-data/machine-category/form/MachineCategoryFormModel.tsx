@@ -8,13 +8,14 @@ export default function useMachineCategoryFormModel() {
     const [modalConfirm, setModalConfirm] = useState(false)
     const [modalSuccess, setModalSuccess] = useState(false)
 
-    const { data: responDataMachineCategory = { data: [] }, refetch} =  useGetMachineCategoryDetailQuery(id, {skip : id ? false : true})
+    const { data: responDataMachineCategory = { data: [] }, refetch } = useGetMachineCategoryDetailQuery(id, { skip: id ? false : true })
 
     const [storeMachineCategory, resultStore] = useCreateMachineCategoryMutation()
     const [updateMachineCategory, resultUpdate] = useUpdateMachineCategoryMutation()
 
     const initialValue = {
-        name: ''
+        name: '',
+        abbreviation: ''
     }
 
     const [formData, setFormData] = useState(initialValue)
@@ -26,8 +27,8 @@ export default function useMachineCategoryFormModel() {
     const handleBack = () => {
         navigate(-1)
     }
-    const onConfirm = async() => {
-        updateMachineCategory({id : id, form : formData})
+    const onConfirm = async () => {
+        updateMachineCategory({ id: id, form: formData })
         await refetch()
         setModalConfirm(false)
         setModalSuccess(true)
@@ -46,20 +47,23 @@ export default function useMachineCategoryFormModel() {
         setModalSuccess(false)
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         async function refresh() {
             id ?
-            await refetch()
-            : null
-          }
-          refresh();
-    },[id])
+                await refetch()
+                : null
+        }
+        refresh();
+    }, [id])
 
     useEffect(() => {
-        responDataMachineCategory? 
-            setFormData({"name": responDataMachineCategory.data.name})
-        : setFormData(initialValue)
-    },[responDataMachineCategory.data.name])
+        responDataMachineCategory ?
+            setFormData({
+                "name": responDataMachineCategory.data.name,
+                "abbreviation": responDataMachineCategory.data.abbreviation
+            })
+            : setFormData(initialValue)
+    }, [responDataMachineCategory.data.name, responDataMachineCategory.data.abbreviation])
 
     return {
         id,

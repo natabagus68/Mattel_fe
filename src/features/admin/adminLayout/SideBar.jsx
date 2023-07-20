@@ -38,14 +38,14 @@ export const SideBar = () => {
             label={`Machine Problem`}
           />
           <NavItem to={`dashboard/man-power`} label={`Man Power`} />
-         </NavItem>
-        <NavItem 
+        </NavItem>
+        <NavItem
           label={`Layout Menu`}
-          icon={<FileIconsNew className="mr-3 -mb-1"/>}
+          icon={<FileIconsNew className="mr-3 -mb-1" />}
         >
           <NavItem label={`Input Changeover`} to={`layout-menu/input-changeover`} />
           <NavItem label={`Changeover Summary`} to={`layout-menu/changeover-summary`} />
-          <NavItem label={`Changeover Ticket`} to={`layout-menu/changeover-ticket`}/>
+          <NavItem label={`Changeover Ticket`} to={`layout-menu/changeover-ticket`} />
           <NavItem label={`Drawing and Machine`} to={`layout-menu/drawing-and-machine`} />
         </NavItem>
         {/* <NavItem
@@ -67,9 +67,9 @@ export const SideBar = () => {
           icon={<MasterDataIcon className="mr-3 -mb-1" />}
         >
           <NavItem to={`master/toy`} label={`Toy`} />
-          <NavItem to={`master/line`} label={`Line`} />
           <NavItem to={`master/line-group`} label={`Line Group`} />
           <NavItem to={`master/line-device`} label={`Line Device`} />
+          <NavItem to={`master/line`} label={`Line`} />
           <NavItem to={`master/machine-part`} label={`Machine Part`} />
           <NavItem to={`master/machine-category`} label={`Machine Category`} />
           <NavItem to={`master/machine`} label={`Machine`} />
