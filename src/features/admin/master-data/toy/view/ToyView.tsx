@@ -13,7 +13,7 @@ export default function ToyView() {
         <main>
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Toy']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{master.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
                 <div className='flex justify-between items-center'>
@@ -53,44 +53,44 @@ export default function ToyView() {
                         </thead>
                         <tbody>
                             {
-                               !master.isLoading ?
-                                master.responDataToys?.data.length !==0 ?
-                                master.responDataToys?.data.map((item, i) => (
-                                    <tr className='border-b border-b-[#D0D3D9]' key={i}>
-                                        <td className='px-2 py-4 text-sm w-full'>{item.number}</td>
-                                        <td className='px-2 py-2 text-sm '>
-                                            <div className='inline-flex gap-3'>
-                                                <button onClick={()=>master.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>
-                                                    <PenIcon height={24} width={24}/>
-                                                </button>
-                                                <button onClick={()=> master.handleDelete(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F04438] h-[48px] w-[48px]'>
-                                                    <TrashIcon height={16} width={16}/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )) : (
-                                    <tr>
-                                        <td colSpan={2} className="py-2 px-[20px] text-center bg-red-200">
-                                                Data empty
-                                        </td>
-                                    </tr>
-                                )  : (
-                                    <tr>
-                                        <td colSpan={2} className="py-2 px-[20px]">
+                                !master.isLoading ?
+                                    master.responDataToys?.data.length !== 0 ?
+                                        master.responDataToys?.data.map((item, i) => (
+                                            <tr className='border-b border-b-[#D0D3D9]' key={i}>
+                                                <td className='px-2 py-4 text-sm w-full'>{item.number}</td>
+                                                <td className='px-2 py-2 text-sm '>
+                                                    <div className='inline-flex gap-3'>
+                                                        <button onClick={() => master.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>
+                                                            <PenIcon height={24} width={24} />
+                                                        </button>
+                                                        <button onClick={() => master.handleDelete(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F04438] h-[48px] w-[48px]'>
+                                                            <TrashIcon height={16} width={16} />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )) : (
+                                            <tr>
+                                                <td colSpan={2} className="py-2 px-[20px] text-center bg-red-200">
+                                                    Data empty
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                        <tr>
+                                            <td colSpan={2} className="py-2 px-[20px]">
                                                 <div className='inline-flex justify-center w-full'>
                                                     <Loader />
                                                 </div>
-                                        </td>
-                                    </tr>
-                                )                          
+                                            </td>
+                                        </tr>
+                                    )
                             }
                         </tbody>
                     </table>
                 </div>
                 <PaginationNew page={master.paramData.page} lastpage={master.responDataToys?.total_page} onNext={master.onNextPage} onPrev={master.onPrevPage} />
             </div>
-            <DeleteDialog onClick={master.onDelete} open={master.modalDelete} setClose={master.handleCancelDelete}/>
+            <DeleteDialog onClick={master.onDelete} open={master.modalDelete} setClose={master.handleCancelDelete} />
         </main>
     )
 }

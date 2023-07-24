@@ -12,7 +12,7 @@ export default function LineForm() {
         <main>
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Line']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{form.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030] min-h-[600px]'>
                 <div className='py-[20px] px-6 flex justify-between items-center border-b border-b-[#D0D3D9]'>

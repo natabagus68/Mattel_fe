@@ -19,7 +19,7 @@ export default function MachineForm() {
             <div className="flex justify-between items-center mb-6">
                 <Breadcrumbs items={["Machine"]} />
                 <span className="font-semibold text-[#6F6C6C]">
-                    Shift 1 | {moment().format("h:mm A")} -{" "}
+                    {form.shiftData} | {moment().format("h:mm A")} -{" "}
                     {moment().format("L")}
                 </span>
             </div>

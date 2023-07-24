@@ -5,6 +5,7 @@ export default function useLineMonitoringModel() {
     const { data: responLineMonitoring = { data: [] }, refetch } =
         useGetLineMonitoringQuery();
 
+
     useEffect(() => {
         async function refresh() {
             await refetch();

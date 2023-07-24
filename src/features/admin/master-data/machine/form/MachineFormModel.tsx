@@ -8,6 +8,7 @@ import {
 import { useGetLinesQuery } from "../../../../../app/services/lineService";
 import { useGetMachineCategoriesQuery } from "../../../../../app/services/machineCategoryService";
 import { useGetPartsQuery } from "../../../../../app/services/partService";
+import moment from "moment";
 
 export default function useMachineFormModel() {
     let { id } = useParams();
@@ -43,6 +44,26 @@ export default function useMachineFormModel() {
             value: "",
         },
     ]);
+
+    const [shiftData, setShiftData] = useState("")
+
+    const handleShift = () => {
+        const currentTime = moment();
+        const shift1Start = moment().set({ hour: 22, minute: 40 });
+        const shift2Start = moment().set({ hour: 7, minute: 10 });
+        const shift3Start = moment().set({ hour: 15, minute: 40 });
+
+        if (currentTime.isAfter(shift1Start) || currentTime.isSame(shift1Start)) {
+            setShiftData("Shift 1");
+        } else if (currentTime.isAfter(shift2Start) || currentTime.isSame(shift2Start)) {
+            setShiftData("Shift 2");
+        } else if (currentTime.isAfter(shift3Start) || currentTime.isSame(shift3Start)) {
+            setShiftData("Shift 3");
+        } else {
+            // If none of the shifts match, return a default value
+            setShiftData("Unknown Shift");
+        }
+    };
 
     const handleChangeMachinePart = (id, value) => {
         const newState = machineParts.map((obj) => {
@@ -114,14 +135,14 @@ export default function useMachineFormModel() {
         id
             ? setModalConfirm(true)
             : (storeLine({
-                  form: {
-                      ...formData,
-                      part: machineParts.map((item) => {
-                          return item.value;
-                      }),
-                  },
-              }),
-              setModalSuccess(true));
+                form: {
+                    ...formData,
+                    part: machineParts.map((item) => {
+                        return item.value;
+                    }),
+                },
+            }),
+                setModalSuccess(true));
     };
     const handleCloseModal = () => {
         setModalConfirm(false);
@@ -138,14 +159,14 @@ export default function useMachineFormModel() {
     useEffect(() => {
         responDataMachine
             ? (setFormData({
-                  code: responDataMachine?.data.code,
-                  number: responDataMachine?.data.number,
-                  line_id: responDataMachine?.data.line_id,
-                  machine_category_id:
-                      responDataMachine?.data.machine_category_id,
-              }),
-              responDataMachine?.data.machine_parts
-                  ? setMachineParts(
+                code: responDataMachine?.data.code,
+                number: responDataMachine?.data.number,
+                line_id: responDataMachine?.data.line_id,
+                machine_category_id:
+                    responDataMachine?.data.machine_category_id,
+            }),
+                responDataMachine?.data.machine_parts
+                    ? setMachineParts(
                         responDataMachine?.data.machine_parts?.map(
                             (item, i) => {
                                 return {
@@ -155,9 +176,13 @@ export default function useMachineFormModel() {
                             }
                         )
                     )
-                  : setMachineParts([{ id: 1, value: "" }]))
+                    : setMachineParts([{ id: 1, value: "" }]))
             : null;
     }, [responDataMachine.data.code]);
+
+    useEffect(() => {
+        handleShift()
+    }, [])
 
     return {
         id,
@@ -180,5 +205,6 @@ export default function useMachineFormModel() {
         handleDeleteMachineParts,
         handleAddMachineParts,
         handleChangeMachinePart,
+        shiftData
     };
 }

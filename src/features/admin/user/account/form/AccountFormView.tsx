@@ -16,7 +16,7 @@ export default function AccountFormView() {
       </div>
       <div className=' rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
         <div className='py-[20px] px-6 flex justify-between items-center border-b border-b-[#D0D3D9]'>
-          <span className='text-2xl font-bold'>{user.id? 'Edit User' :'Add User'}</span>
+          <span className='text-2xl font-bold'>{user.id ? 'Edit User' : 'Add User'}</span>
           <button onClick={user.onPageBack} className='rounded py-3 px-5 inline-flex gap-2 items-center border border-[#514E4E] text-sm font-semibold '>
             <ArrowIcon color='#14988B' className='-rotate-90' />
             Back
@@ -33,7 +33,7 @@ export default function AccountFormView() {
             />
           </div>
           <div className='inline-flex flex-col gap-2'>
-            <label htmlFor="name" className='font-bold'>NPK</label>
+            <label htmlFor="name" className='font-bold'>KPK</label>
             <input type="text" name='kpk'
               className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]'
               placeholder='Input KPK'
@@ -51,7 +51,7 @@ export default function AccountFormView() {
             />
           </div>
           {
-            !user.id ?(
+            !user.id ? (
               <div className='inline-flex flex-col gap-2'>
                 <label htmlFor="name" className='font-bold'>Password</label>
                 <input type="password" name='password'
@@ -66,7 +66,7 @@ export default function AccountFormView() {
               null
             )
           }
-          <div className='inline-flex flex-col gap-2'>
+          {/* <div className='inline-flex flex-col gap-2'>
             <label htmlFor="role" className='font-bold'>Role</label>
             <select name="role"
               className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]'
@@ -74,9 +74,9 @@ export default function AccountFormView() {
               onChange={user.handleChangeForm}
             >
               <option value="" selected disabled>Select</option>
-              
+
             </select>
-          </div>
+          </div> */}
           <div className='inline-flex flex-col gap-2'>
             <label htmlFor="role" className='font-bold'>Position</label>
             <select name="position"
@@ -85,7 +85,7 @@ export default function AccountFormView() {
               onChange={user.handleChangeForm}
             >
               <option value="" selected disabled>Select</option>
-              
+
             </select>
           </div>
           {/* Input Field Photo */}
@@ -122,8 +122,8 @@ export default function AccountFormView() {
           </div>
         </form>
       </div>
-      <SaveConfirmationDialog open={user.modalConfirm} setClose={user.handleCloseModal} onSave={user.onConfirm}/>
-      <SuccessDialog open={user.modalSuccess} navigate={()=>{user.handleCloseModal(); user.onPageBack()}}/>
+      <SaveConfirmationDialog open={user.modalConfirm} setClose={user.handleCloseModal} onSave={user.onConfirm} />
+      <SuccessDialog open={user.modalSuccess} navigate={() => { user.handleCloseModal(); user.onPageBack() }} />
     </main>
   )
 }
