@@ -23,7 +23,7 @@
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.4",
         "react-router-dom": "^6.4.2",
-        "react-select": "^5.7.3",
+        "react-select": "^5.7.4",
         "select2": "^4.1.0-rc.0"
     },
     "devDependencies": {

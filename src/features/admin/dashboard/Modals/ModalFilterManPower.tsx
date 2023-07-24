@@ -3,7 +3,7 @@ import React, { Fragment, useEffect } from "react";
 import { FilterIcons } from "../../../../common/components/icons";
 import { useGetLinesQuery } from "../../../../app/services/lineService";
 
-export default function ModalFilter({ onClick, open, setClose }) {
+export default function ModalFilterManPower({ onClick, open, setClose }) {
     const {
         data: responDataLine = { data: [] },
         isLoading,
@@ -80,14 +80,14 @@ export default function ModalFilter({ onClick, open, setClose }) {
                                             </div>
                                             <div className="inline-flex flex-col gap-1 items-start">
                                                 <span className="text-sm font-semibold">
-                                                    Ticket Status
+                                                    Assigned
                                                 </span>
                                                 <select
-                                                    name="ticket_status"
+                                                    name="assigned"
                                                     className="w-full px-[10px] py-[8px] rounded-md border border-[#D0D3D9] text-xs text-[#514E4E]"
                                                 >
                                                     <option value="" disabled>
-                                                        Choose Ticket Status
+                                                        Choose Assigned
                                                     </option>
                                                     <option value="Not Started">
                                                         Not Started
@@ -105,10 +105,33 @@ export default function ModalFilter({ onClick, open, setClose }) {
                                             </div>
                                             <div className="inline-flex flex-col gap-1 items-start">
                                                 <span className="text-sm font-semibold">
+                                                    Status
+                                                </span>
+                                                <select
+                                                    name="status"
+                                                    className="w-full px-[10px] py-[8px] rounded-md border border-[#D0D3D9] text-xs text-[#514E4E]"
+                                                >
+                                                    <option value="">
+                                                        Choose Status
+                                                    </option>
+                                                    {[
+                                                        "In",
+                                                        "Out",
+                                                        "Not",
+                                                        "Logged",
+                                                    ].map((item) => (
+                                                        <option value={item}>
+                                                            {item}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            <div className="inline-flex flex-col gap-1 items-start">
+                                                <span className="text-sm font-semibold">
                                                     Line
                                                 </span>
                                                 <select
-                                                    name="line_id"
+                                                    name="line"
                                                     className="w-full px-[10px] py-[8px] rounded-md border border-[#D0D3D9] text-xs text-[#514E4E]"
                                                 >
                                                     <option value="">
@@ -125,8 +148,9 @@ export default function ModalFilter({ onClick, open, setClose }) {
                                                         responDataLine?.data.map(
                                                             (item, i) => (
                                                                 <option
+                                                                    key={i}
                                                                     value={
-                                                                        item.id
+                                                                        item.name
                                                                     }
                                                                 >
                                                                     {item.name}
@@ -136,8 +160,20 @@ export default function ModalFilter({ onClick, open, setClose }) {
                                                     )}
                                                 </select>
                                             </div>
+                                            <div className="inline-flex flex-col gap-1 items-start">
+                                                <span className="text-sm font-semibold">
+                                                    Availability
+                                                </span>
+                                                <select
+                                                    name="availability"
+                                                    className="w-full px-[10px] py-[8px] rounded-md border border-[#D0D3D9] text-xs text-[#514E4E]"
+                                                >
+                                                    <option value="">
+                                                        Choose Availability
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-
                                         <div className="inline-flex items-center gap-3 w-full">
                                             <button
                                                 type="button"

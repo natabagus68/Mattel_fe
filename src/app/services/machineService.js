@@ -11,8 +11,11 @@ export const machineSlice = apiSlice.injectEndpoints({
       query: (machineId) => `/admin/machine/${machineId}`,
       providesTags: ["Machine"],
     }),
+    getMachineCatogorySelect: builder.query({
+      query: () => `admin/machine-category/?page=1&limit=99999&search=&sort_val=DESC&table_name=Name`
+    }),
     createMachine: builder.mutation({
-      query: ({form}) => ({
+      query: ({ form }) => ({
         url: "/admin/machine",
         method: "POST",
         body: form,
@@ -43,4 +46,5 @@ export const {
   useGetMachineQuery,
   useUpdateMachineMutation,
   useDeleteMachineMutation,
+  useGetMachineCatogorySelectQuery
 } = machineSlice;
