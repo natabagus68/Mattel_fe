@@ -24,21 +24,59 @@ export default function LineView() {
                 <div className="flex flex-col px-6 py-4 gap-[8px] rounded-md border border-[#D0D3D9] w-fit">
                     <span className="font-semibold">Legend</span>
                     <div className="flex items-center gap-6 text-[#514E4E]">
-                        <div className="inline-flex items-center gap-2">
-                            <div className="min-h-[12px] min-w-[12px] bg-[#D0D3D9] rounded-full"></div>
-                            <span className="text-sm">Normal</span>
+                        <div
+                            className="inline-flex cursor-pointer items-center gap-2"
+                            onClick={() =>
+                                dashboard.filterHanlde({
+                                    ...dashboard.legen,
+                                    maintenance: !dashboard.legen.maintenance,
+                                })
+                            }
+                        >
+                            <div className="min-h-[12px] min-w-[12px] bg-[#F00] rounded-full"></div>
+                            <span className="text-sm">
+                                Machine & Line Tooling Issue
+                            </span>
                         </div>
-                        <div className="inline-flex items-center gap-2">
-                            <div className="min-h-[12px] min-w-[12px] bg-[#F04438] rounded-full"></div>
-                            <span className="text-sm">Machine Problem</span>
+                        <div
+                            className="inline-flex cursor-pointer items-center gap-2"
+                            onClick={() =>
+                                dashboard.filterHanlde({
+                                    ...dashboard.legen,
+                                    material: !dashboard.legen.material,
+                                })
+                            }
+                        >
+                            <div className="min-h-[12px] min-w-[12px] bg-[#FF0] rounded-full"></div>
+                            <span className="text-sm">
+                                Material Issue (Packaging & Costume)
+                            </span>
                         </div>
-                        <div className="inline-flex items-center gap-2">
+                        <div
+                            className="inline-flex cursor-pointer items-center gap-2"
+                            onClick={() =>
+                                dashboard.filterHanlde({
+                                    ...dashboard.legen,
+                                    material2: !dashboard.legen.material2,
+                                })
+                            }
+                        >
                             <div className="min-h-[12px] min-w-[12px] bg-[#12B569] rounded-full"></div>
-                            <span className="text-sm">Layout Problem</span>
+                            <span className="text-sm">
+                                Material Issue (In House & Store)
+                            </span>
                         </div>
-                        <div className="inline-flex items-center gap-2">
-                            <div className="min-h-[12px] min-w-[12px] bg-[#F79009] rounded-full"></div>
-                            <span className="text-sm">Material Problem</span>
+                        <div
+                            className="inline-flex cursor-pointer items-center gap-2"
+                            onClick={() =>
+                                dashboard.filterHanlde({
+                                    ...dashboard.legen,
+                                    layout: !dashboard.legen.layout,
+                                })
+                            }
+                        >
+                            <div className="min-h-[12px] min-w-[12px] bg-[#00B0F0] rounded-full"></div>
+                            <span className="text-sm">Layout Issue</span>
                         </div>
                     </div>
                 </div>
