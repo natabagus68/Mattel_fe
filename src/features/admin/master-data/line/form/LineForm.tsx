@@ -5,6 +5,7 @@ import { ArrowIcon, SaveIcons } from "../../../../../common/components/icons";
 import useLineFormModel from "./LineFormModel";
 import { SaveConfirmationDialog } from "../../../../../common/components/dialog/SaveConfirmationDialog";
 import { SuccessDialog } from "../../../../../common/components/dialog/SuccessDialog";
+import Select from "react-select";
 
 export default function LineForm() {
     const form = useLineFormModel();
@@ -42,53 +43,44 @@ export default function LineForm() {
                             >
                                 Line Group
                             </label>
-                            <select
-                                name="line_group_id"
-                                value={form.formData.line_group_id}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                            >
-                                <option value="" selected disabled>
-                                    Select
-                                </option>
-                                {!form.loadLineGroup ? (
-                                    form.responLineGroup?.data.map(
-                                        (item, i) => (
-                                            <option value={item.id} key={i}>
-                                                {item.name}
-                                            </option>
-                                        )
-                                    )
-                                ) : (
-                                    <option value="" disabled>
-                                        Load data . . .
-                                    </option>
+
+                            <Select
+                                onChange={form.handleChangeLineGroup}
+                                options={form.responLineGroup?.data.map(
+                                    (item, i) => {
+                                        return {
+                                            value: item,
+                                            label: item.name,
+                                        };
+                                    }
                                 )}
-                            </select>
+                            />
                         </div>
                         <div className="inline-flex flex-col gap-2">
                             <label htmlFor="name" className="font-bold">
                                 Line Number
                             </label>
                             <input
-                                type="text"
-                                name="name"
+                                type="number"
                                 value={form.formData.name}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                onChange={form.onChangeNumber}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9] cursor-default"
                                 placeholder="Input Line Number"
                             />
                         </div>
+
                         <div className="inline-flex flex-col gap-2">
                             <label htmlFor="name" className="font-bold">
                                 Line Location
                             </label>
                             <input
-                                type="text"
-                                name="name"
-                                value={form.formData.name}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                readOnly
+                                value={`${form.tempLocation.line_group} ${
+                                    form.formData.name
+                                        ? " - " + form.formData.name
+                                        : ""
+                                }`}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9] cursor-default"
                                 placeholder="Input Line Number"
                             />
                         </div>
@@ -99,30 +91,19 @@ export default function LineForm() {
                             >
                                 Line Device
                             </label>
-                            <select
-                                name="line_device_id"
-                                value={form.formData.line_device_id}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                            >
-                                <option value="" selected disabled>
-                                    Select
-                                </option>
-                                {!form.loadLineDevice ? (
-                                    form.responLineDevice?.data.map(
-                                        (item, i) => (
-                                            <option value={item.id} key={i}>
-                                                {item.name}
-                                            </option>
-                                        )
-                                    )
-                                ) : (
-                                    <option value="" disabled>
-                                        Load data . . .
-                                    </option>
+                            <Select
+                                onChange={form.handleChangeLineDevice}
+                                options={form.responLineDevice?.data.map(
+                                    (item, i) => {
+                                        return {
+                                            value: item,
+                                            label: item.name,
+                                        };
+                                    }
                                 )}
-                            </select>
+                            />
                         </div>
+
                         <div className="flex items-center gap-3 w-[50%] pt-6">
                             <button
                                 className="px-[20px] py-3 inline-flex items-center justify-center rounded bg-[#F04438] gap-2 w-1/2 text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50"

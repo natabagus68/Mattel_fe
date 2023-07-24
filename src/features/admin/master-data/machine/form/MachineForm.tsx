@@ -77,7 +77,6 @@ export default function MachineForm() {
                                 )}
                             </select> */}
                             <Select
-                                value={form.formData.machine_category_id}
                                 onChange={(e) =>
                                     form.handleChangeForm(
                                         e,
