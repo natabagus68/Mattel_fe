@@ -14,7 +14,7 @@ export default function InputChangeOverView() {
         <main>
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Input Changeover Sch']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{changeOver.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
                 <span className='text-2xl font-bold'>Input Changeover Schedule</span>

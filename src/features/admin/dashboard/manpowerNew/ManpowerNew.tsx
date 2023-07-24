@@ -23,7 +23,7 @@ export default function ManpowerNew() {
             <div className="flex justify-between items-center mb-6">
                 <Breadcrumbs items={["Manpower"]} />
                 <span className="font-semibold text-[#6F6C6C]">
-                    Shift 1 | {moment().format("h:mm A")} -{" "}
+                    {dashboard.shiftData} | {moment().format("h:mm A")} -{" "}
                     {moment().format("L")}
                 </span>
             </div>
@@ -37,7 +37,7 @@ export default function ManpowerNew() {
                             />
                         </div>
                         <div className="inline-flex flex-col text-[#514E4E]">
-                            <span className="text-[32px] font-bold ">32</span>
+                            <span className="text-[32px] font-bold ">{dashboard.responsManPowerCount?.data.logged_in}</span>
                             <span>In</span>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ export default function ManpowerNew() {
                             />
                         </div>
                         <div className="inline-flex flex-col text-[#514E4E]">
-                            <span className="text-[32px] font-bold ">12</span>
+                            <span className="text-[32px] font-bold ">{dashboard.responsManPowerCount?.data.logged_out}</span>
                             <span>Out</span>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ export default function ManpowerNew() {
                             />
                         </div>
                         <div className="inline-flex flex-col text-[#514E4E]">
-                            <span className="text-[32px] font-bold ">3</span>
+                            <span className="text-[32px] font-bold ">{dashboard.responsManPowerCount?.data.not_logged}</span>
                             <span>Not Logged</span>
                         </div>
                     </div>

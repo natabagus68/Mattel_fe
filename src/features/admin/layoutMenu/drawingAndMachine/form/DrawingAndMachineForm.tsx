@@ -10,7 +10,7 @@ export default function DrawingAndMachineForm() {
         <main>
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Drawing and Machine']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{data.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className=' rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
                 <div className='py-[20px] px-6 flex justify-between items-center border-b border-b-[#D0D3D9]'>
@@ -28,16 +28,16 @@ export default function DrawingAndMachineForm() {
                     <div className='inline-flex flex-col gap-6'>
                         <span className='text-base font-bold'>Uplad Drawing</span>
                         <div className='flex flex-row gap-2 items-center px-[6px] justify-start border border-[#D0D3D9] rounded-lg w-full bg-[#D0D3D9]'>
-                            <label htmlFor="image"  className={`
+                            <label htmlFor="image" className={`
                             w-fit py-2 flex justify-center rounded-tl rounded-bl font-[600] text-sm cursor-pointer  transition-colors delay-100 z-30`}>
                                 <div className='inline-flex gap-2 items-center py-1 px-3 rounded-lg bg-[#B9BDC7] text-base font-semibold text-[#667085] whitespace-nowrap'>
-                                    <DownloadIcon  className='rotate-180 scale-125'/>
+                                    <DownloadIcon className='rotate-180 scale-125' />
                                     Upload File
                                 </div>
                             </label>
                             <div>
                                 {!!data.chooseImage ? (
-                                        <p className=" text-[#9A9898] font-normal truncate overflow-y-hidden w-[80%]">{data.layoutName}</p>
+                                    <p className=" text-[#9A9898] font-normal truncate overflow-y-hidden w-[80%]">{data.layoutName}</p>
                                 ) : <p className=" text-[#9A9898] font-normal">Max file size 5MB.</p>}
                                 <input
                                     id="image"
@@ -50,7 +50,7 @@ export default function DrawingAndMachineForm() {
                             </div>
                         </div>
                         <div className='inline-flex gap-4 items-center'>
-                            <button onClick={data.onSave} className='flex items-center justify-center gap-2 w-full rounded py-3 px-5 bg-[#F04438] text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50' disabled={data.fileUrl ? false : true }>
+                            <button onClick={data.onSave} className='flex items-center justify-center gap-2 w-full rounded py-3 px-5 bg-[#F04438] text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50' disabled={data.fileUrl ? false : true}>
                                 <SaveIcons />
                                 Save
                             </button>

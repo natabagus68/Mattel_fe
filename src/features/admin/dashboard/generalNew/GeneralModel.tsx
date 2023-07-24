@@ -1,21 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useGetLineMonitoringQuery } from "../../../../app/services/dashboardservice";
 import moment from "moment";
+import { useEffect, useState } from "react";
 
-export default function useLineMonitoringModel() {
-    const [legen, setlegen] = useState({
-        maintenance: false,
-        material: false,
-        material2: false,
-        layout: false,
-    });
-    const { data: responLineMonitoring = { data: [] }, refetch } =
-        useGetLineMonitoringQuery(legen);
-
-
-    const filterHanlde = (props) => {
-        setlegen(props);
-    };
+export default function useGeneralModel() {
 
     const [shiftData, setShiftData] = useState("")
 
@@ -40,26 +26,11 @@ export default function useLineMonitoringModel() {
         }
     };
 
-
-    useEffect(() => {
-        const inter = setInterval(() => {
-
-            async function refresh() {
-                await refetch();
-            }
-            refresh();
-        }, 1000)
-        return () => clearInterval(inter)
-    }, []);
-
     useEffect(() => {
         handleShift()
     }, [])
 
     return {
-        filterHanlde,
-        responLineMonitoring,
-        legen,
         shiftData
     };
 }

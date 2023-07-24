@@ -11,7 +11,7 @@ export default function LineView() {
             <div className="flex justify-between items-center mb-6">
                 <Breadcrumbs items={["Line"]} />
                 <span className="font-semibold text-[#6F6C6C]">
-                    Shift 1 | {moment().format("h:mm A")} -{" "}
+                    {dashboard.shiftData} | {moment().format("h:mm A")} -{" "}
                     {moment().format("L")}
                 </span>
             </div>
@@ -94,15 +94,15 @@ export default function LineView() {
                             <div className="flex flex-wrap gap-2 text-[#514E4E]">
                                 {item.lines?.map((itemLines, i) => (
                                     <div
-                                        className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${
-                                            itemLines.is_maintenance
-                                                ? "bg-[#F04438] text-[#FFF]"
-                                                : itemLines.is_maintenance_changeover
-                                                ? "bg-[#12B569] text-[#FFF]"
-                                                : itemLines.is_material
-                                                ? "bg-[#F79009] text-[#FFF]"
-                                                : "bg-[#D0D3D9] text-[#514E4E]"
-                                        }`}
+                                        className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance
+                                            ? "bg-[#FF0000] text-[#514E4E]"
+                                            : itemLines.is_material
+                                                ? "bg-[#FFFF00] text-[#514E4E]"
+                                                : itemLines.is_material2
+                                                    ? "bg-[#00B050] text-[#514E4E]"
+                                                    : itemLines.is_maintenance_changeover
+                                                        ? "bg-[#00B0F0] text-[#514E4E]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                            }`}
                                     >
                                         <p className="text-[14px] font-[600]">
                                             {itemLines.name}

@@ -11,7 +11,7 @@ export default function AccountDetail() {
         <main>
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['User']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{detail.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='rounded-[6px] py-[24px] px-8 flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030] min-h-[600px]'>
                 <div className='flex justify-between items-center border-b border-b-[#D0D3D9] pb-6'>
@@ -48,9 +48,9 @@ export default function AccountDetail() {
                                         <span className='text-sm font-semibold text-[#989FAD]'>Name</span>
                                         <span className='font-semibold text-[#514E4E]'>{detail.responDataUser?.data.name}</span>
                                     </td>
-                                    <td  className='inline-flex flex-col w-1/2 pb-6'>
+                                    <td className='inline-flex flex-col w-1/2 pb-6'>
                                         <span className='text-sm font-semibold text-[#989FAD]'>Role</span>
-                                        <span className='font-semibold text-[#514E4E]'>{detail.responDataUser?.data.roles?.map(item => {return item.name}).join(',')}</span>
+                                        <span className='font-semibold text-[#514E4E]'>{detail.responDataUser?.data.roles?.map(item => { return item.name }).join(',')}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -58,9 +58,9 @@ export default function AccountDetail() {
                                         <span className='text-sm font-semibold text-[#989FAD]'>KPK</span>
                                         <span className='font-semibold text-[#514E4E]'>{detail.responDataUser?.data.employee?.kpk}</span>
                                     </td>
-                                    <td  className='inline-flex flex-col w-1/2 pb-6'>
+                                    <td className='inline-flex flex-col w-1/2 pb-6'>
                                         <span className='text-sm font-semibold text-[#989FAD]'>Status</span>
-                                        <span className={`font-semibold ${detail.responDataUser?.data.is_verified? 'text-[#12B569]' : 'text-[#F04438]'}`}>{detail.responDataUser?.data.is_verified? 'Active' : 'Inactive'}</span>
+                                        <span className={`font-semibold ${detail.responDataUser?.data.is_verified ? 'text-[#12B569]' : 'text-[#F04438]'}`}>{detail.responDataUser?.data.is_verified ? 'Active' : 'Inactive'}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -68,7 +68,7 @@ export default function AccountDetail() {
                                         <span className='text-sm font-semibold text-[#989FAD]'>Email</span>
                                         <span className='font-semibold text-[#514E4E]'>{detail.responDataUser?.data.email}</span>
                                     </td>
-                                    <td  className='inline-flex flex-col w-1/2 pb-6'>
+                                    <td className='inline-flex flex-col w-1/2 pb-6'>
                                         <span className='text-sm font-semibold text-[#989FAD]'>Password</span>
                                         <div className='inline-flex flex-col gap-2 py-2'>
                                             <button onClick={detail.handleOpenModal} className="w-fit font-semibold py-3 px-5 rounded inline-flex items-center gap-2 bg-[#F04438] text-sm text-[#FFF]">
@@ -84,7 +84,7 @@ export default function AccountDetail() {
                     </div>
                 </div>
             </div>
-            <ModalChangePassword onClick={detail.onUpdatePassword} open={detail.modalChangePassword} setClose={detail.handleCloseModal} handleChange={detail.handleChangeForm} value={detail.formPassword}/>
+            <ModalChangePassword onClick={detail.onUpdatePassword} open={detail.modalChangePassword} setClose={detail.handleCloseModal} handleChange={detail.handleChangeForm} value={detail.formPassword} />
         </main>
     )
 }

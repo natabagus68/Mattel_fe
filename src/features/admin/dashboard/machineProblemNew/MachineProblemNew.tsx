@@ -10,13 +10,13 @@ export default function MachineProblemNew() {
 
     const year = (new Date()).getFullYear();
     const years = Array.from(new Array(20), (val, index) => year - index);
-    
+
 
     return (
         <main>
             <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['Machine Problem']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{dashboard.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='flex flex-col gap-6'>
                 <div className='grid grid-cols-5 items-center gap-6'>
@@ -26,10 +26,10 @@ export default function MachineProblemNew() {
                             <option value="" selected disabled>Choose Line</option>
                             {
                                 !dashboard.loadLine ?
-                                dashboard.responDataLine?.data.map((item,i) => (
-                                    <option value={item.id} key={i}>{item.name}</option>
-                                )) 
-                                :
+                                    dashboard.responDataLine?.data.map((item, i) => (
+                                        <option value={item.id} key={i}>{item.name}</option>
+                                    ))
+                                    :
                                     <option value="" disabled>Load Data . . .</option>
                             }
                         </select>
@@ -40,10 +40,10 @@ export default function MachineProblemNew() {
                             <option value="" selected disabled>Choose Machine</option>
                             {
                                 !dashboard.loadMachine ?
-                                dashboard.responDataMachine?.data.map((item,i) => (
-                                    <option value={item.id} key={i}>{item.code}</option>
-                                )) 
-                                :
+                                    dashboard.responDataMachine?.data.map((item, i) => (
+                                        <option value={item.id} key={i}>{item.code}</option>
+                                    ))
+                                    :
                                     <option value="" disabled>Load Data . . .</option>
                             }
                         </select>
@@ -95,9 +95,9 @@ export default function MachineProblemNew() {
                     {/* Total Downtime */}
                     <BarCharts
                         titleHeader={'Top 5 Problematic Machine - Total Downtime'}
-                        label={dashboard.totalDowntime?.data.map(item => {return item.machine_name})}
+                        label={dashboard.totalDowntime?.data.map(item => { return item.machine_name })}
                         color={'#F04438'}
-                        value={dashboard.totalDowntime?.data.map(item => {return item.sum_of_downtime})}
+                        value={dashboard.totalDowntime?.data.map(item => { return item.sum_of_downtime })}
                         titleYAxes={'Sum of Downtime (min)'}
                         filter={false}
                     />
@@ -105,20 +105,20 @@ export default function MachineProblemNew() {
                     {/* Avg Downtime */}
                     <BarCharts
                         titleHeader={'Top 5 Problematic Machine - Average of Downtime'}
-                        label={dashboard.avgDowntime?.data.map(item => {return item.machine_name})}
+                        label={dashboard.avgDowntime?.data.map(item => { return item.machine_name })}
                         color={'#F79009'}
-                        value={dashboard.avgDowntime?.data.map(item => {return item.avg_of_downtime})}
+                        value={dashboard.avgDowntime?.data.map(item => { return item.avg_of_downtime })}
                         titleYAxes={'Average of Downtime (min)'}
                         filter={false}
                     />
 
-                    
+
                     {/* Slowest Response */}
                     <BarCharts
                         titleHeader={'Top 5 Slowest Response Time by Machine'}
-                        label={dashboard.slowestResponse?.data.map(item => {return item.machine_name})}
+                        label={dashboard.slowestResponse?.data.map(item => { return item.machine_name })}
                         color={'#1BBDD4'}
-                        value={dashboard.slowestResponse?.data.map(item => {return item.avg_of_response})}
+                        value={dashboard.slowestResponse?.data.map(item => { return item.avg_of_response })}
                         titleYAxes={''}
                         filter={false}
                     />

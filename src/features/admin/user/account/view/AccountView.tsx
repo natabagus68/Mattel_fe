@@ -8,11 +8,11 @@ import PaginationNew from '../../../../../common/components/table/PaginationNew'
 
 export default function AccountView() {
     const user = useAccountViewModel()
-  return (
-    <main>
-        <div className='flex justify-between items-center mb-6'>
+    return (
+        <main>
+            <div className='flex justify-between items-center mb-6'>
                 <Breadcrumbs items={['User']} />
-                <span className='font-semibold text-[#6F6C6C]'>Shift 1 | {moment().format('h:mm A')} - {moment().format('L')}</span>
+                <span className='font-semibold text-[#6F6C6C]'>{user.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
             </div>
             <div className='py-6 px-8 rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030]'>
                 <div className='flex justify-between items-center'>
@@ -72,67 +72,67 @@ export default function AccountView() {
                         </thead>
                         <tbody>
                             {
-                               !user.isLoading ?
-                                user.responDataUser?.data.length !==0 ?
-                                user.responDataUser?.data.map((item, i) => (
-                                    <tr className='border-b border-b-[#D0D3D9]' key={i}>
-                                        <td className='px-2 py-4 text-sm'>
-                                        <div className="flex gap-2 items-center">
-                                            <button
-                                            onClick={() => {
-                                                user.handleVerifiedUser(item.id)
-                                            }}
-                                            >
-                                            {item.is_verified ? (
-                                                <ActiveToggleIcon color='#F04438' />
-                                            ) : (
-                                                <InactiveToggleIcon />
-                                            )}
-                                            </button>
-                                            <div className="text-center">
-                                            {item.is_verified ? "Active" : "Inactive"}
-                                            </div>
-                                        </div>
-                                        </td>
-                                        <td className='px-2 py-4 text-sm'>{item.name}</td>
-                                        <td className='px-2 py-4 text-sm'>{item.employee?.kpk}</td>
-                                        <td className='px-2 py-4 text-sm'>{item.roles?.map(item => {return item.name}).join(',')}</td>
-                                        <td className='px-2 py-2 text-sm w-[10%]'>
-                                            <div className='inline-flex gap-3'>
-                                                <button onClick={()=>user.handleDetail(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#20519F] h-[48px] w-[48px]'>
-                                                    <EyeIcon height={24} width={24} color='#20519F' className='scale-150'/>
-                                                </button>
-                                                <button onClick={()=>user.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>
-                                                    <PenIcon height={24} width={24}/>
-                                                </button>
-                                                <button onClick={()=> user.handleDelete(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F04438] h-[48px] w-[48px]'>
-                                                    <TrashIcon height={16} width={16}/>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )) : (
-                                    <tr>
-                                        <td colSpan={5} className="py-2 px-[20px] text-center bg-red-200">
-                                                Data empty
-                                        </td>
-                                    </tr>
-                                )  : (
-                                    <tr>
-                                        <td colSpan={5} className="py-2 px-[20px]">
+                                !user.isLoading ?
+                                    user.responDataUser?.data.length !== 0 ?
+                                        user.responDataUser?.data.map((item, i) => (
+                                            <tr className='border-b border-b-[#D0D3D9]' key={i}>
+                                                <td className='px-2 py-4 text-sm'>
+                                                    <div className="flex gap-2 items-center">
+                                                        <button
+                                                            onClick={() => {
+                                                                user.handleVerifiedUser(item.id)
+                                                            }}
+                                                        >
+                                                            {item.is_verified ? (
+                                                                <ActiveToggleIcon color='#F04438' />
+                                                            ) : (
+                                                                <InactiveToggleIcon />
+                                                            )}
+                                                        </button>
+                                                        <div className="text-center">
+                                                            {item.is_verified ? "Active" : "Inactive"}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className='px-2 py-4 text-sm'>{item.name}</td>
+                                                <td className='px-2 py-4 text-sm'>{item.employee?.kpk}</td>
+                                                <td className='px-2 py-4 text-sm'>{item.roles?.map(item => { return item.name }).join(',')}</td>
+                                                <td className='px-2 py-2 text-sm w-[10%]'>
+                                                    <div className='inline-flex gap-3'>
+                                                        <button onClick={() => user.handleDetail(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#20519F] h-[48px] w-[48px]'>
+                                                            <EyeIcon height={24} width={24} color='#20519F' className='scale-150' />
+                                                        </button>
+                                                        <button onClick={() => user.handleEdit(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F79009] h-[48px] w-[48px]'>
+                                                            <PenIcon height={24} width={24} />
+                                                        </button>
+                                                        <button onClick={() => user.handleDelete(item.id)} className='inline-flex items-center justify-center p-[16px] rounded bg-[#F04438] h-[48px] w-[48px]'>
+                                                            <TrashIcon height={16} width={16} />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )) : (
+                                            <tr>
+                                                <td colSpan={5} className="py-2 px-[20px] text-center bg-red-200">
+                                                    Data empty
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                        <tr>
+                                            <td colSpan={5} className="py-2 px-[20px]">
                                                 <div className='inline-flex justify-center w-full'>
                                                     <Loader />
                                                 </div>
-                                        </td>
-                                    </tr>
-                                )                          
+                                            </td>
+                                        </tr>
+                                    )
                             }
                         </tbody>
                     </table>
                 </div>
                 <PaginationNew page={user.paramData.page} lastpage={user.responDataUser?.total_page} onNext={user.onNextPage} onPrev={user.onPrevPage} />
             </div>
-            <DeleteDialog onClick={user.onDelete} open={user.modalDelete} setClose={user.handleCancelDelete}/>
-    </main>
-  )
+            <DeleteDialog onClick={user.onDelete} open={user.modalDelete} setClose={user.handleCancelDelete} />
+        </main>
+    )
 }
