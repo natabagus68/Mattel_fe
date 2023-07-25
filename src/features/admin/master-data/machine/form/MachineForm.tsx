@@ -48,35 +48,12 @@ export default function MachineForm() {
                             >
                                 Machine Category
                             </label>
-                            {/* <select
-                                name="machine_category_id"
-                                value={form.formData.machine_category_id}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                            >
-                                <option value="" selected disabled>
-                                    Select
-                                </option>
-                                {!form.loadMachineCategory ? (
-                                    form.responMachineCategory?.data.map(
-                                        (item, i) => (
-                                            <>
-                                                <option
-                                                    value={JSON.stringify(item)}
-                                                    key={i}
-                                                >
-                                                    {item.name}
-                                                </option>
-                                            </>
-                                        )
-                                    )
-                                ) : (
-                                    <option value="" disabled>
-                                        Load data . . .
-                                    </option>
-                                )}
-                            </select> */}
+
                             <Select
+                                value={{
+                                    value: form.tempForm,
+                                    label: form.tempForm.machine_name,
+                                }}
                                 onChange={(e) =>
                                     form.handleChangeForm(
                                         e,
@@ -115,7 +92,6 @@ export default function MachineForm() {
                                 name="code"
                                 readOnly
                                 value={form.formData.code}
-                                onChange={form.handleChangeForm}
                                 className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
                                 placeholder="Will Automatically Filled"
                                 disabled
@@ -128,31 +104,23 @@ export default function MachineForm() {
                             >
                                 Line Location
                             </label>
-                            <select
-                                name="line_id"
-                                value={form.formData.line_id}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                            >
-                                <option value="" selected disabled>
-                                    Select
-                                </option>
-                                {!form.loadLine ? (
-                                    form.responLine?.data.map((item, i) => (
-                                        <>
-                                            <option value={item.id} key={i}>
-                                                {item.name}
-                                            </option>
-                                        </>
-                                    ))
-                                ) : (
-                                    <option value="" disabled>
-                                        Load data . . .
-                                    </option>
-                                )}
-                            </select>
                         </div>
 
+                        <Select
+                            value={{
+                                value: form.tempForm,
+                                label: form.tempForm.line_name,
+                            }}
+                            onChange={(e) =>
+                                form.handleChangeForm(e, "line_id")
+                            }
+                            options={form.responLine?.data?.map((item, i) => {
+                                return {
+                                    value: item,
+                                    label: item.name,
+                                };
+                            })}
+                        />
                         <div className="flex items-center gap-3 w-[50%] pt-6">
                             <button
                                 className="px-[20px] py-3 inline-flex items-center justify-center rounded bg-[#F04438] gap-2 w-1/2 text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50"

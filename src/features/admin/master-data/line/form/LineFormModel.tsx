@@ -147,7 +147,7 @@ export default function useLineFormModel() {
             });
             setTempLocation({
                 line_group: responDataLine?.data?.line_group?.name,
-                line_device: responDataLine?.data?.line_group?.name,
+                line_device: responDataLine?.data?.line_device?.name,
             });
         } else setFormData(initialValue);
     }, [responDataLine.data.id]);

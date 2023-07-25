@@ -45,15 +45,10 @@ export default function LineForm() {
                             </label>
 
                             <Select
-                                value={
-                                    form.id
-                                        ? {
-                                              value: form.tempLocation,
-                                              label: form.tempLocation
-                                                  .line_group,
-                                          }
-                                        : null
-                                }
+                                value={{
+                                    value: form.tempLocation,
+                                    label: form.tempLocation.line_group,
+                                }}
                                 onChange={form.handleChangeLineGroup}
                                 options={form.responLineGroup?.data.map(
                                     (item, i) => {
@@ -102,15 +97,10 @@ export default function LineForm() {
                                 Line Device
                             </label>
                             <Select
-                                value={
-                                    form.id
-                                        ? {
-                                              value: form.tempLocation,
-                                              label: form.tempLocation
-                                                  .line_device,
-                                          }
-                                        : null
-                                }
+                                value={{
+                                    value: form.tempLocation,
+                                    label: form.tempLocation.line_device,
+                                }}
                                 onChange={form.handleChangeLineDevice}
                                 options={form.responLineDevice?.data.map(
                                     (item, i) => {

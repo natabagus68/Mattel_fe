@@ -36,6 +36,10 @@ export default function useMachineFormModel() {
         machine_category_id: "",
     };
 
+    const [tempForm, setTempForm] = useState({
+        machine_name: "",
+        line_name: "",
+    });
     const [formData, setFormData] = useState(initialValue);
 
     const [machineParts, setMachineParts] = useState([
@@ -45,7 +49,7 @@ export default function useMachineFormModel() {
         },
     ]);
 
-    const [shiftData, setShiftData] = useState("")
+    const [shiftData, setShiftData] = useState("");
 
     const handleShift = () => {
         const currentTime = moment();
@@ -54,12 +58,25 @@ export default function useMachineFormModel() {
         const shift2Start = moment().set({ hour: 7, minute: 10 });
         const shift3Start = moment().set({ hour: 15, minute: 40 });
 
-
-        if (currentTime.isAfter(shift1Start) && currentTime.isBefore(shift2Start) || currentTime.isAfter(shift1Continues) && currentTime.isBefore(shift2Start) || currentTime.isSame(shift1Start)) {
+        if (
+            (currentTime.isAfter(shift1Start) &&
+                currentTime.isBefore(shift2Start)) ||
+            (currentTime.isAfter(shift1Continues) &&
+                currentTime.isBefore(shift2Start)) ||
+            currentTime.isSame(shift1Start)
+        ) {
             setShiftData("Shift 1");
-        } else if (currentTime.isAfter(shift2Start) && currentTime.isBefore(shift3Start) || currentTime.isSame(shift2Start)) {
+        } else if (
+            (currentTime.isAfter(shift2Start) &&
+                currentTime.isBefore(shift3Start)) ||
+            currentTime.isSame(shift2Start)
+        ) {
             setShiftData("Shift 2");
-        } else if (currentTime.isAfter(shift3Start) && currentTime.isBefore(shift1Start) || currentTime.isSame(shift3Start)) {
+        } else if (
+            (currentTime.isAfter(shift3Start) &&
+                currentTime.isBefore(shift1Start)) ||
+            currentTime.isSame(shift3Start)
+        ) {
             setShiftData("Shift 3");
         } else {
             // If none of the shifts match, return a default value
@@ -99,14 +116,30 @@ export default function useMachineFormModel() {
     };
 
     const handleChangeForm = (e, type?) => {
+        const obj = e.value;
         if (type === "machine_category_id") {
-            const obj = e.value;
-            console.log(obj);
             setFormData((prev) => ({
                 ...prev,
                 machine_category_id: obj.id,
                 code: obj.abbreviation,
             }));
+            setTempForm((prev) => {
+                return {
+                    ...prev,
+                    machine_name: obj.name,
+                };
+            });
+        } else if (type === "line_id") {
+            setFormData((prev) => ({
+                ...prev,
+                line_id: obj.id,
+            }));
+            setTempForm((prev) => {
+                return {
+                    ...prev,
+                    line_name: obj.name,
+                };
+            });
         } else {
             setFormData((prev) => ({
                 ...prev,
@@ -137,14 +170,14 @@ export default function useMachineFormModel() {
         id
             ? setModalConfirm(true)
             : (storeLine({
-                form: {
-                    ...formData,
-                    part: machineParts.map((item) => {
-                        return item.value;
-                    }),
-                },
-            }),
-                setModalSuccess(true));
+                  form: {
+                      ...formData,
+                      part: machineParts.map((item) => {
+                          return item.value;
+                      }),
+                  },
+              }),
+              setModalSuccess(true));
     };
     const handleCloseModal = () => {
         setModalConfirm(false);
@@ -161,14 +194,18 @@ export default function useMachineFormModel() {
     useEffect(() => {
         responDataMachine
             ? (setFormData({
-                code: responDataMachine?.data.code,
-                number: responDataMachine?.data.number,
-                line_id: responDataMachine?.data.line_id,
-                machine_category_id:
-                    responDataMachine?.data.machine_category_id,
-            }),
-                responDataMachine?.data.machine_parts
-                    ? setMachineParts(
+                  code: responDataMachine?.data.code,
+                  number: responDataMachine?.data.number,
+                  line_id: responDataMachine?.data.line_id,
+                  machine_category_id:
+                      responDataMachine?.data.machine_category_id,
+              }),
+              setTempForm({
+                  machine_name: responDataMachine?.data?.machine_category?.name,
+                  line_name: responDataMachine?.data?.line?.name,
+              }),
+              responDataMachine?.data.machine_parts
+                  ? setMachineParts(
                         responDataMachine?.data.machine_parts?.map(
                             (item, i) => {
                                 return {
@@ -178,13 +215,13 @@ export default function useMachineFormModel() {
                             }
                         )
                     )
-                    : setMachineParts([{ id: 1, value: "" }]))
+                  : setMachineParts([{ id: 1, value: "" }]))
             : null;
     }, [responDataMachine.data.code]);
 
     useEffect(() => {
-        handleShift()
-    }, [])
+        handleShift();
+    }, []);
 
     return {
         id,
@@ -207,6 +244,7 @@ export default function useMachineFormModel() {
         handleDeleteMachineParts,
         handleAddMachineParts,
         handleChangeMachinePart,
-        shiftData
+        shiftData,
+        tempForm,
     };
 }
