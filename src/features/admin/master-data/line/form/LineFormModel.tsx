@@ -7,7 +7,7 @@ import {
     useGetLinesDetailQuery,
     useUpdateLineMutation,
 } from "../../../../../app/services/lineService";
-import moment from 'moment'
+import moment from "moment";
 
 export default function useLineFormModel() {
     let { id } = useParams();
@@ -76,7 +76,7 @@ export default function useLineFormModel() {
         });
     };
 
-    const [shiftData, setShiftData] = useState("")
+    const [shiftData, setShiftData] = useState("");
 
     const handleShift = () => {
         const currentTime = moment();
@@ -85,12 +85,25 @@ export default function useLineFormModel() {
         const shift2Start = moment().set({ hour: 7, minute: 10 });
         const shift3Start = moment().set({ hour: 15, minute: 40 });
 
-
-        if (currentTime.isAfter(shift1Start) && currentTime.isBefore(shift2Start) || currentTime.isAfter(shift1Continues) && currentTime.isBefore(shift2Start) || currentTime.isSame(shift1Start)) {
+        if (
+            (currentTime.isAfter(shift1Start) &&
+                currentTime.isBefore(shift2Start)) ||
+            (currentTime.isAfter(shift1Continues) &&
+                currentTime.isBefore(shift2Start)) ||
+            currentTime.isSame(shift1Start)
+        ) {
             setShiftData("Shift 1");
-        } else if (currentTime.isAfter(shift2Start) && currentTime.isBefore(shift3Start) || currentTime.isSame(shift2Start)) {
+        } else if (
+            (currentTime.isAfter(shift2Start) &&
+                currentTime.isBefore(shift3Start)) ||
+            currentTime.isSame(shift2Start)
+        ) {
             setShiftData("Shift 2");
-        } else if (currentTime.isAfter(shift3Start) && currentTime.isBefore(shift1Start) || currentTime.isSame(shift3Start)) {
+        } else if (
+            (currentTime.isAfter(shift3Start) &&
+                currentTime.isBefore(shift1Start)) ||
+            currentTime.isSame(shift3Start)
+        ) {
             setShiftData("Shift 3");
         } else {
             // If none of the shifts match, return a default value
@@ -119,25 +132,29 @@ export default function useLineFormModel() {
 
     useEffect(() => {
         async function refresh() {
+            console.log(responDataLine);
             id ? await refetch() : null;
         }
         refresh();
     }, []);
 
-
     useEffect(() => {
-        responDataLine
-            ? setFormData({
+        if (responDataLine) {
+            setFormData({
                 name: responDataLine?.data.name,
                 line_device_id: responDataLine?.data.line_device_id,
                 line_group_id: responDataLine?.data.line_group_id,
-            })
-            : setFormData(initialValue);
+            });
+            setTempLocation({
+                line_group: responDataLine?.data?.line_group?.name,
+                line_device: responDataLine?.data?.line_group?.name,
+            });
+        } else setFormData(initialValue);
     }, [responDataLine.data.id]);
 
     useEffect(() => {
-        handleShift()
-    }, [])
+        handleShift();
+    }, []);
 
     return {
         id,

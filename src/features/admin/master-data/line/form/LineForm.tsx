@@ -11,9 +11,12 @@ export default function LineForm() {
     const form = useLineFormModel();
     return (
         <main>
-            <div className='flex justify-between items-center mb-6'>
-                <Breadcrumbs items={['Line']} />
-                <span className='font-semibold text-[#6F6C6C]'>{form.shiftData} | {moment().format('h:mm A')} - {moment().format('L')}</span>
+            <div className="flex justify-between items-center mb-6">
+                <Breadcrumbs items={["Line"]} />
+                <span className="font-semibold text-[#6F6C6C]">
+                    {form.shiftData} | {moment().format("h:mm A")} -{" "}
+                    {moment().format("L")}
+                </span>
             </div>
             <div className="rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030] min-h-[600px]">
                 <div className="py-[20px] px-6 flex justify-between items-center border-b border-b-[#D0D3D9]">
@@ -42,11 +45,19 @@ export default function LineForm() {
                             </label>
 
                             <Select
-
+                                value={
+                                    form.id
+                                        ? {
+                                              value: form.tempLocation,
+                                              label: form.tempLocation
+                                                  .line_group,
+                                          }
+                                        : null
+                                }
                                 onChange={form.handleChangeLineGroup}
                                 options={form.responLineGroup?.data.map(
                                     (item, i) => {
-                                        console.log('item', item);
+                                        console.log("item", item);
                                         return {
                                             value: item,
                                             label: item.name,
@@ -74,10 +85,11 @@ export default function LineForm() {
                             </label>
                             <input
                                 readOnly
-                                value={`${form.tempLocation.line_group} ${form.formData.name
-                                    ? " - " + form.formData.name
-                                    : ""
-                                    }`}
+                                value={`${form.tempLocation.line_group} ${
+                                    form.formData.name
+                                        ? " - " + form.formData.name
+                                        : ""
+                                }`}
                                 className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9] cursor-default"
                                 placeholder="Input Line Number"
                             />
@@ -90,6 +102,15 @@ export default function LineForm() {
                                 Line Device
                             </label>
                             <Select
+                                value={
+                                    form.id
+                                        ? {
+                                              value: form.tempLocation,
+                                              label: form.tempLocation
+                                                  .line_device,
+                                          }
+                                        : null
+                                }
                                 onChange={form.handleChangeLineDevice}
                                 options={form.responLineDevice?.data.map(
                                     (item, i) => {
