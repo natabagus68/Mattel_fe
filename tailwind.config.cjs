@@ -3,6 +3,7 @@ module.exports = {
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
+        "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
     ],
     theme: {
         extend: {
@@ -35,7 +36,7 @@ module.exports = {
                     '300': '#F5827A',
                     '500': '#DE1B1B',
                     'primary': "#DD5353",
-                    'foundation-500' : '#F04438',
+                    'foundation-500': '#F04438',
                 },
                 black: {
                     'base': '#1A1A27',
@@ -75,11 +76,11 @@ module.exports = {
                     "500": "#617E8C",
                     "800": "#35454D"
                 },
-                success : '#74B816',
+                success: '#74B816',
                 warning: '#F59F00',
                 info: '#229BD8',
                 danger: '#DE1B1B',
-                error:{
+                error: {
                     'light': "#FCEAEA",
                     'primary': "#DD5353"
                 },
@@ -98,7 +99,7 @@ module.exports = {
             fontFamily: {
                 // 'display': 'Marcellus',
                 'body': 'Open Sans',
-                'inter' : 'Inter'
+                'inter': 'Inter'
             },
         },
     },
