@@ -23,9 +23,9 @@ export default function LineView() {
                 </div>
                 <div className="flex flex-col px-6 py-4 gap-[8px] rounded-md border border-[#D0D3D9] w-fit">
                     <span className="font-semibold">Legend</span>
-                    <div className="flex items-center gap-6 text-[#514E4E]">
+                    <div className="flex items-center gap-6 text-[#514E4E] ">
                         <div
-                            className="inline-flex cursor-pointer items-center gap-2"
+                            className={`inline-flex cursor-pointer items-center gap-2 p-2 ${dashboard.legen.maintenance ? ' rounded-xl bg-[#F0F1F3]' : null}`}
                             onClick={() =>
                                 dashboard.filterHanlde({
                                     ...dashboard.legen,
@@ -39,7 +39,7 @@ export default function LineView() {
                             </span>
                         </div>
                         <div
-                            className="inline-flex cursor-pointer items-center gap-2"
+                            className={`inline-flex cursor-pointer items-center gap-2 p-2 ${dashboard.legen.material ? ' rounded-xl bg-[#F0F1F3]' : null}`}
                             onClick={() =>
                                 dashboard.filterHanlde({
                                     ...dashboard.legen,
@@ -53,7 +53,7 @@ export default function LineView() {
                             </span>
                         </div>
                         <div
-                            className="inline-flex cursor-pointer items-center gap-2"
+                            className={`inline-flex cursor-pointer items-center gap-2 p-2 ${dashboard.legen.material2 ? 'rounded-xl bg-[#F0F1F3]' : null}`}
                             onClick={() =>
                                 dashboard.filterHanlde({
                                     ...dashboard.legen,
@@ -67,7 +67,7 @@ export default function LineView() {
                             </span>
                         </div>
                         <div
-                            className="inline-flex cursor-pointer items-center gap-2"
+                            className={`inline-flex cursor-pointer items-center gap-2 p-2 ${dashboard.legen.layout ? ' rounded-xl bg-[#F0F1F3]' : null}`}
                             onClick={() =>
                                 dashboard.filterHanlde({
                                     ...dashboard.legen,
@@ -95,13 +95,13 @@ export default function LineView() {
                                 {item.lines?.map((itemLines, i) => (
                                     <div
                                         className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance
-                                            ? "bg-[#FF0000] text-[#514E4E]"
+                                            ? "bg-[#F04438] text-[#FFFFFF]"
                                             : itemLines.is_material
-                                                ? "bg-[#FFFF00] text-[#514E4E]"
+                                                ? "bg-[#F79009] text-[#FFFFFF]"
                                                 : itemLines.is_material2
-                                                    ? "bg-[#00B050] text-[#514E4E]"
+                                                    ? "bg-[#12B569] text-[#FFFFFF]"
                                                     : itemLines.is_maintenance_changeover
-                                                        ? "bg-[#00B0F0] text-[#514E4E]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                                        ? "bg-[#00B0F0] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
                                             }`}
                                     >
                                         <p className="text-[14px] font-[600]">

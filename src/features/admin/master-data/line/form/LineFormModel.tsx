@@ -81,10 +81,12 @@ export default function useLineFormModel() {
     const handleShift = () => {
         const currentTime = moment();
         const shift1Start = moment().set({ hour: 22, minute: 40 });
+        const shift1Continues = moment().set({ hour: 0, minute: 0 });
         const shift2Start = moment().set({ hour: 7, minute: 10 });
         const shift3Start = moment().set({ hour: 15, minute: 40 });
 
-        if (currentTime.isAfter(shift1Start) && currentTime.isBefore(shift2Start) || currentTime.isSame(shift1Start)) {
+
+        if (currentTime.isAfter(shift1Start) && currentTime.isBefore(shift2Start) || currentTime.isAfter(shift1Continues) && currentTime.isBefore(shift2Start) || currentTime.isSame(shift1Start)) {
             setShiftData("Shift 1");
         } else if (currentTime.isAfter(shift2Start) && currentTime.isBefore(shift3Start) || currentTime.isSame(shift2Start)) {
             setShiftData("Shift 2");
@@ -95,7 +97,6 @@ export default function useLineFormModel() {
             setShiftData("Unknown Shift");
         }
     };
-
     const handleBack = () => {
         navigate(-1);
     };
@@ -121,7 +122,8 @@ export default function useLineFormModel() {
             id ? await refetch() : null;
         }
         refresh();
-    }, [id]);
+    }, []);
+
 
     useEffect(() => {
         responDataLine
@@ -132,6 +134,10 @@ export default function useLineFormModel() {
             })
             : setFormData(initialValue);
     }, [responDataLine.data.id]);
+
+    useEffect(() => {
+        handleShift()
+    }, [])
 
     return {
         id,
