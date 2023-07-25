@@ -37,32 +37,6 @@ export default function DowntimeForm() {
                         className="flex flex-col w-[85%] gap-3"
                     >
                         <div className="inline-flex flex-col gap-2">
-                            <label htmlFor="name" className="font-bold">
-                                Downtime Reason
-                            </label>
-                            <input
-                                type="text"
-                                name="downtime_reason"
-                                value={form.formData.downtime_reason}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                                placeholder="Input downtime reason"
-                            />
-                        </div>
-                        <div className="inline-flex flex-col gap-2">
-                            <label htmlFor="name" className="font-bold">
-                                Repair Time by minutes
-                            </label>
-                            <input
-                                type="number"
-                                name="standard_repair_time"
-                                value={form.formData.standard_repair_time}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                                placeholder="Input minutes number"
-                            />
-                        </div>
-                        <div className="inline-flex flex-col gap-2">
                             <label
                                 htmlFor="machine_category_id"
                                 className="font-bold"
@@ -88,6 +62,46 @@ export default function DowntimeForm() {
                                         };
                                     }
                                 )}
+                            />
+                        </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
+                                Abbreviation
+                            </label>
+                            <input
+                                type="text"
+                                name="abbreviation"
+                                readOnly
+                                value={form.formData.abbreviation}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Will Automatically Filled"
+                                disabled
+                            />
+                        </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
+                                Downtime Reason
+                            </label>
+                            <input
+                                type="text"
+                                name="downtime_reason"
+                                value={form.formData.downtime_reason}
+                                onChange={form.handleChangeForm}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Input downtime reason"
+                            />
+                        </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
+                                Repair Time by minutes
+                            </label>
+                            <input
+                                type="number"
+                                name="standard_repair_time"
+                                value={form.formData.standard_repair_time}
+                                onChange={form.handleChangeForm}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Input minutes number"
                             />
                         </div>
                         <div className="flex items-center gap-3 w-[50%] pt-6">

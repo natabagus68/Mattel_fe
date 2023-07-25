@@ -47,6 +47,7 @@ export default function DowntimeView() {
                     <table className='w-full'>
                         <thead className='border-y border-y-[#D0D3D9] bg-[#FAFAFB]'>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Machine Category</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Abbreviation</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Downtime Reason</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Repair Time</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Actions</th>
@@ -58,6 +59,7 @@ export default function DowntimeView() {
                                         master.responDataDowntime?.data.map((item, i) => (
                                             <tr className='border-b border-b-[#D0D3D9]' key={i}>
                                                 <td className='px-2 py-4 text-sm'>{item?.machine_category?.name}</td>
+                                                <td className='px-2 py-4 text-sm'>{item?.machine_category?.abbreviation}</td>
                                                 <td className='px-2 py-4 text-sm'>{item.downtime_reason}</td>
                                                 <td className='px-2 py-4 text-sm'>{item.standard_repair_time}</td>
                                                 <td className='px-2 py-2 text-sm w-[10%]'>

@@ -27,6 +27,7 @@ export default function useDowntimeFormModel() {
         downtime_reason: "",
         standard_repair_time: "",
         machine_category_id: "",
+        abbreviation: "",
     };
     const [machineCategory, setMachineCategory] = useState({
         name: "",
@@ -75,6 +76,8 @@ export default function useDowntimeFormModel() {
                 return {
                     ...prev,
                     machine_category_id: value.id,
+                    abbreviation: value.abbreviation,
+
                 };
             });
             setMachineCategory({
@@ -118,14 +121,17 @@ export default function useDowntimeFormModel() {
     useEffect(() => {
         if (responDataDowntime) {
             setFormData({
+                machine_category_id:
+                    responDataDowntime.data.machine_category_id,
+                abbreviation:
+                    responDataDowntime.data.machine_category?.abbreviation,
                 downtime_reason: responDataDowntime.data.downtime_reason,
                 standard_repair_time:
                     responDataDowntime.data.standard_repair_time,
-                machine_category_id:
-                    responDataDowntime.data.machine_category_id,
+
             });
             setMachineCategory({
-                name: responDataDowntime?.data?.machine_category?.name ?? "",
+                name: responDataDowntime?.data?.machine_category?.name ?? "Choose Machine Category",
             });
         } else {
             setFormData(initialValue);

@@ -101,7 +101,7 @@ export default function MachineView() {
                                                     {item.number}
                                                 </td>
                                                 <td className="px-2 py-4 text-sm">
-                                                    {item.line?.name ?? "-"}
+                                                    {item.line?.line_group?.name != undefined || item.line?.name != undefined ? item.line?.line_group?.name + ' - ' + item.line?.name : "-"}
                                                 </td>
                                                 {/* <td className='px-2 py-4 text-sm'>
                                             {

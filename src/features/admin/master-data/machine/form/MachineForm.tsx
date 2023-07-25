@@ -72,20 +72,7 @@ export default function MachineForm() {
                         </div>
                         <div className="inline-flex flex-col gap-2">
                             <label htmlFor="name" className="font-bold">
-                                Machine No
-                            </label>
-                            <input
-                                type="number"
-                                name="number"
-                                value={form.formData.number}
-                                onChange={form.handleChangeForm}
-                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                                placeholder="Input Machine no"
-                            />
-                        </div>
-                        <div className="inline-flex flex-col gap-2">
-                            <label htmlFor="name" className="font-bold">
-                                Code
+                                Abbreviation
                             </label>
                             <input
                                 type="text"
@@ -97,6 +84,20 @@ export default function MachineForm() {
                                 disabled
                             />
                         </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
+                                Machine No
+                            </label>
+                            <input
+                                type="number"
+                                name="number"
+                                value={form.formData.number}
+                                onChange={form.handleChangeForm}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Input Machine no"
+                            />
+                        </div>
+
                         <div className="inline-flex flex-col gap-2">
                             <label
                                 htmlFor="line_group_id"
@@ -115,9 +116,10 @@ export default function MachineForm() {
                                 form.handleChangeForm(e, "line_id")
                             }
                             options={form.responLine?.data?.map((item, i) => {
+                                console.log("item = ", item)
                                 return {
                                     value: item,
-                                    label: item.name,
+                                    label: item.line_group.name + ' - ' + item.name
                                 };
                             })}
                         />
