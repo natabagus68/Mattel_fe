@@ -1,6 +1,7 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 import {
+    useGetHourlytrendQuery,
     useGetTopFiveRepairSumQuery,
     useGetTopFiveResponseAVGQuery,
     useGetTopFiveResponseSUMQuery,
@@ -24,7 +25,7 @@ export default function useGeneralModel() {
     const { data: getRepairSUM } = useGetTopFiveRepairSumQuery(repairSUM);
     const { data: getResponseAVG } = useGetTopFiveResponseAVGQuery(responseAVG);
     const { data: getRepairAVG } = useGetTopFiveResponseAVGQuery(repairAVG);
-
+    const { data: getDownTimeTrend } = useGetHourlytrendQuery();
     const changeDateResponseAVG = (value: IinitialObject) =>
         setResponseAVG(value);
     const changeDateResponseSUM = (value: IinitialObject) =>
@@ -75,6 +76,7 @@ export default function useGeneralModel() {
         getRepairSUM,
         getResponseAVG,
         getRepairAVG,
+        getDownTimeTrend,
         changeDateResponseAVG,
         changeDateResponseSUM,
         changeDateRepairAVG,

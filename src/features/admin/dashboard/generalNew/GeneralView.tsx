@@ -44,7 +44,9 @@ export default function GeneralView() {
                     </div>
                 </div>
 
-                <HoursCharts />
+                <HoursCharts
+                    items={dashboard.getDownTimeTrend?.data.map((item) => item)}
+                />
 
                 <div className="grid grid-cols-2 gap-6">
                     <PieCharts

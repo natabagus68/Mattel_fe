@@ -81,4 +81,5 @@ export const {
     useGetTopFiveResponseAVGQuery,
     useGetTopFiveRepairSumQuery,
     useGetFiveTopRepairAVGQuery,
+    useGetHourlytrendQuery
 } = dashboardApiSlice
