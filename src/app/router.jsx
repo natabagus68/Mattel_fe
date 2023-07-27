@@ -20,7 +20,6 @@ import { Layout } from "../features/admin/monitoring/layout/Layout.jsx";
 import { Trash } from "../features/admin/user/account/Trash.jsx";
 import { Access } from "../features/admin/user/access/Access";
 import { MappingMenu } from "../features/admin/user/access/mapping-permissions/MappingMenu.jsx";
-import { AccessForm } from "../features/admin/user/access/AccessForm";
 import { PermissionForm } from "../features/admin/user/access/mapping-permissions/PermissionForm";
 import LineGroupForm from "../features/admin/master-data/line-group/form/LineGroupForm";
 import LineDeviceForm from "../features/admin/master-data/line-device/form/LineDeviceForm";
@@ -49,6 +48,8 @@ import DowntimeView from "../features/admin/master-data/downtime/view/DowntimeVi
 import DowntimeForm from "../features/admin/master-data/downtime/form/DowntimeForm";
 import AccountView from "../features/admin/user/account/view/AccountView";
 import AccountFormView from "../features/admin/user/account/form/AccountFormView";
+import AccessUser from "../features/admin/user/access/view/access-view";
+import AccessForm from "../features/admin/user/access/form/access-form-view";
 
 const Root = () => {
   return <Outlet />;
@@ -65,21 +66,33 @@ const dashboardRouter = [
   },
   {
     path: "dashboard/machine-problem",
-    element: <MachineProblemNew />
+    element: <MachineProblemNew />,
   },
   {
     path: "dashboard/line",
-    element: <LineView />
+    element: <LineView />,
   },
 ];
 const layoutMenu = [
-  { path: 'layout-menu/input-changeover', element: <InputChangeOverView /> },
-  { path: 'layout-menu/changeover-summary', element: <ChangeOverSummaryView /> },
-  { path: 'layout-menu/changeover-ticket', element: <ChangeOverTicket /> },
-  { path: 'layout-menu/drawing-and-machine', element: <DrawingAndMachineView /> },
-  { path: 'layout-menu/drawing-and-machine/:id/add', element: <DrawingAndMachineForm /> },
-  { path: 'layout-menu/drawing-and-machine/:id/show', element: <DrawingAndMachineDetail /> },
-]
+  { path: "layout-menu/input-changeover", element: <InputChangeOverView /> },
+  {
+    path: "layout-menu/changeover-summary",
+    element: <ChangeOverSummaryView />,
+  },
+  { path: "layout-menu/changeover-ticket", element: <ChangeOverTicket /> },
+  {
+    path: "layout-menu/drawing-and-machine",
+    element: <DrawingAndMachineView />,
+  },
+  {
+    path: "layout-menu/drawing-and-machine/:id/add",
+    element: <DrawingAndMachineForm />,
+  },
+  {
+    path: "layout-menu/drawing-and-machine/:id/show",
+    element: <DrawingAndMachineDetail />,
+  },
+];
 const monitoringRouter = [
   {
     path: "monitoring/line",
@@ -95,10 +108,10 @@ const reportRouter = [
   },
 ];
 const masterRouter = [
-  { path: "master/toy", element: <ToyView />, },
-  { path: "master/toy/add", element: <ToyForm />, },
-  { path: "master/toy/:id/edit", element: <ToyForm />, },
-  { path: "master/machine", element: <MachineView />, },
+  { path: "master/toy", element: <ToyView /> },
+  { path: "master/toy/add", element: <ToyForm /> },
+  { path: "master/toy/:id/edit", element: <ToyForm /> },
+  { path: "master/machine", element: <MachineView /> },
   { path: "master/machine/add", element: <MachineForm /> },
   { path: "master/machine/:id/edit", element: <MachineForm /> },
   { path: "master/line", element: <LineMasterView /> },
@@ -115,11 +128,13 @@ const masterRouter = [
   { path: "master/machine-part/:id/edit", element: <MachinePartForm /> },
   { path: "master/machine-category", element: <MachineCategoryView /> },
   { path: "master/machine-category/add", element: <MachineCategoryForm /> },
-  { path: "master/machine-category/:id/edit", element: <MachineCategoryForm /> },
+  {
+    path: "master/machine-category/:id/edit",
+    element: <MachineCategoryForm />,
+  },
   { path: "master/downtime", element: <DowntimeView /> },
   { path: "master/downtime/add", element: <DowntimeForm /> },
   { path: "master/downtime/:id/edit", element: <DowntimeForm /> },
-
 ];
 const accountRouter = [
   {
@@ -130,7 +145,7 @@ const accountRouter = [
   { path: "user/account/:id/edit", element: <AccountFormView /> },
   { path: "user/account/add", element: <AccountFormView /> },
   { path: "user/account/trash", element: <Trash /> },
-  { path: "user/access", element: <Access /> },
+  { path: "user/access", element: <AccessUser /> },
   { path: "user/access/:id/permission", element: <MappingMenu /> },
   { path: "user/access/permission/create", element: <PermissionForm /> },
   { path: "user/access/create", element: <AccessForm /> },
