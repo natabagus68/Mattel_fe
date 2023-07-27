@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import {
+    useGetDetailDataAccessQuery,
     useGetPermissionDataQuery,
     useUpdatePermissionDataMutation,
 } from "../../../../../app/services/userService";
@@ -11,18 +12,22 @@ export const usePermission = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const { data, refetch } = useGetPermissionDataQuery(id);
+    const { data: detailAccess } = useGetDetailDataAccessQuery(id);
     const [updatePermission, resultUpdate] = useUpdatePermissionDataMutation();
     const [temp, setTemp] = useState<Permission[]>([]);
-    const updateChecklist = (
+
+
+    const updateChecklist = async (
         module_id: string,
         permission_id: string | undefined
     ) => {
-        updatePermission({ position_id: id, module_id, permission_id });
-        refetch();
+        await updatePermission({ position_id: id, module_id, permission_id });
+        await refetch();
     };
     const toBack = () => {
         navigate(-1);
     };
+
     useEffect(() => {
         if (data) {
             const arr = data?.data?.map((item) => {
@@ -57,11 +62,23 @@ export const usePermission = () => {
 
             setTemp(arr);
         }
+
     }, [data]);
+
+    useEffect(() => {
+        async function refresh() {
+            await refetch();
+        }
+        refresh();
+
+        //   @ts-ignore
+        // setSearchparam((prev) => ({ ...prev, ...paramData }))
+    }, [])
 
     return {
         temp,
         updateChecklist,
         toBack,
+        detailAccess
     };
 };

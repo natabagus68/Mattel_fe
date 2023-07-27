@@ -15,7 +15,7 @@ export const Permission = () => {
                 <div className="flex justify-between items-center">
                     <div className="inline-flex flex-col">
                         <span className="text-2xl font-bold">
-                            Mechanic Role
+                            {model.detailAccess?.data.name} Role
                         </span>
                         <span className="text-[#667085]">
                             Information account & access
@@ -77,9 +77,7 @@ export const Permission = () => {
                                                         <input
                                                             type="checkbox"
                                                             checked={el.active}
-                                                            disabled={
-                                                                el.disable
-                                                            }
+                                                            hidden={el.disable}
                                                             onChange={() =>
                                                                 model.updateChecklist(
                                                                     element.id,
@@ -108,12 +106,10 @@ export const Permission = () => {
                                                                             checked={
                                                                                 el.active
                                                                             }
-                                                                            disabled={
-                                                                                el.disable
-                                                                            }
+                                                                            hidden={el.disable}
                                                                             onChange={() =>
                                                                                 model.updateChecklist(
-                                                                                    element.id,
+                                                                                    item.id,
                                                                                     el.id
                                                                                 )
                                                                             }
