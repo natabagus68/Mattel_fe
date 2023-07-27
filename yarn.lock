@@ -1664,7 +1664,7 @@ csstype@^3.0.2:
 
 dayjs@^1.11.9:
   version "1.11.9"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.9.tgz#9ca491933fadd0a60a2c19f6c237c03517d71d1a"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.9.tgz"
   integrity sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==
 
 debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.4:
@@ -2906,7 +2906,7 @@ react-router@6.4.3:
 
 react-select@^5.7.4:
   version "5.7.4"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.7.4.tgz#d8cad96e7bc9d6c8e2709bdda8f4363c5dd7ea7d"
+  resolved "https://registry.npmjs.org/react-select/-/react-select-5.7.4.tgz"
   integrity sha512-NhuE56X+p9QDFh4BgeygHFIvJJszO1i1KSkg/JPcIJrbovyRtI+GuOEa4XzFCEpZRAEoEI8u/cAHK+jG/PgUzQ==
   dependencies:
     "@babel/runtime" "^7.12.0"
@@ -2921,7 +2921,7 @@ react-select@^5.7.4:
 
 react-tailwindcss-datepicker@^1.6.5:
   version "1.6.5"
-  resolved "https://registry.yarnpkg.com/react-tailwindcss-datepicker/-/react-tailwindcss-datepicker-1.6.5.tgz#fddaf5716d62a1b2f07ce1e85608fbcc2342276c"
+  resolved "https://registry.npmjs.org/react-tailwindcss-datepicker/-/react-tailwindcss-datepicker-1.6.5.tgz"
   integrity sha512-OxtzJnTi1n9ScKWoIVYB/SgLOEJSZ6hZZqEvfk6xecRwxfo0AyBzRpy3Ah3RZUoCOoxEAciVedlZvgLKSpOypA==
 
 react-transition-group@^4.3.0:

@@ -61,7 +61,7 @@ export default function LineMasterView() {
                                                 <td className='px-2 py-4 text-sm w-[25%]'>{i + 1}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group?.name}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.name}</td>
-                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group?.name + ' - ' + item.name}</td>
+                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group?.name + item.name}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_device?.name}</td>
                                                 <td className='px-2 py-2 text-sm '>
                                                     <div className='inline-flex gap-3'>

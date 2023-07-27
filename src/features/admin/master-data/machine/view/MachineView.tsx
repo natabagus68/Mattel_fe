@@ -78,9 +78,9 @@ export default function MachineView() {
                                 LINE LOCATION
                             </th>
                             {/* <th className='p-2 font-semibold text-sm text-[#667085] text-start'>PART</th> */}
-                            <th className="p-2 font-semibold text-sm text-[#667085] text-start">
+                            {/* <th className="p-2 font-semibold text-sm text-[#667085] text-start">
                                 DEVICE ID
-                            </th>
+                            </th> */}
                             <th className="p-2 font-semibold text-sm text-[#667085] text-start">
                                 Actions
                             </th>
@@ -101,17 +101,17 @@ export default function MachineView() {
                                                     {item.number}
                                                 </td>
                                                 <td className="px-2 py-4 text-sm">
-                                                    {item.line?.line_group?.name != undefined || item.line?.name != undefined ? item.line?.line_group?.name + ' - ' + item.line?.name : "-"}
+                                                    {item.line?.line_group?.name != undefined || item.line?.name != undefined ? item.line?.line_group?.name + item.line?.name : "-"}
                                                 </td>
                                                 {/* <td className='px-2 py-4 text-sm'>
                                             {
                                                 item.machine_parts?.map((item) => item.name).join(', ')
                                             }
                                         </td> */}
-                                                <td className="px-2 py-4 text-sm">
+                                                {/* <td className="px-2 py-4 text-sm">
                                                     {item.line?.line_device
                                                         .name ?? "-"}
-                                                </td>
+                                                </td> */}
                                                 <td className="px-2 py-2 text-sm w-[10%]">
                                                     <div className="inline-flex gap-3">
                                                         <button

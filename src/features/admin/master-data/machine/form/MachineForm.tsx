@@ -52,7 +52,7 @@ export default function MachineForm() {
                             <Select
                                 value={{
                                     value: form.tempForm,
-                                    label: form.tempForm.machine_name,
+                                    label: form.tempForm.machine_name ?? "Choose Machine Category",
                                 }}
                                 onChange={(e) =>
                                     form.handleChangeForm(
@@ -119,7 +119,7 @@ export default function MachineForm() {
                                 console.log("item = ", item)
                                 return {
                                     value: item,
-                                    label: item.line_group.name + ' - ' + item.name
+                                    label: item.line_group.name + item.name
                                 };
                             })}
                         />

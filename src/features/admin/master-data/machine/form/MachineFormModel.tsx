@@ -202,7 +202,7 @@ export default function useMachineFormModel() {
             }),
                 setTempForm({
                     machine_name: responDataMachine?.data?.machine_category?.name,
-                    line_name: responDataMachine?.data?.line?.line_group?.name != undefined || responDataMachine?.data?.line?.name != undefined ? responDataMachine?.data?.line?.line_group?.name + ' - ' + responDataMachine?.data?.line?.name : 'Choose Line Location',
+                    line_name: responDataMachine?.data?.line?.line_group?.name != undefined || responDataMachine?.data?.line?.name != undefined ? responDataMachine?.data?.line?.line_group?.name + responDataMachine?.data?.line?.name : 'Choose Line Location',
                 }),
                 responDataMachine?.data.machine_parts
                     ? setMachineParts(

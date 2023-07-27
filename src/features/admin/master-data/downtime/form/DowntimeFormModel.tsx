@@ -131,7 +131,7 @@ export default function useDowntimeFormModel() {
 
             });
             setMachineCategory({
-                name: responDataDowntime?.data?.machine_category?.name ?? "Choose Machine Category",
+                name: responDataDowntime?.data?.machine_category?.name,
             });
         } else {
             setFormData(initialValue);

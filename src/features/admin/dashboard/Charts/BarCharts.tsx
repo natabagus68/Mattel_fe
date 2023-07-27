@@ -34,7 +34,7 @@ export default function BarCharts({
     value,
     titleYAxes,
     filter = true,
-    handleDate = (val) => {},
+    handleDate = (val) => { },
     dateValue = null,
 }) {
     const optionsCharts = {

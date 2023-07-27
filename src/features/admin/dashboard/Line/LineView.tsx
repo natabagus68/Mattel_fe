@@ -93,15 +93,72 @@ export default function LineView() {
                             </span>
                             <div className="flex flex-wrap gap-2 text-[#514E4E]">
                                 {item.lines?.map((itemLines, i) => (
-                                    <div
+
+                                    dashboard.legen.maintenance ? <div
                                         className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance
                                             ? "bg-[#F04438] text-[#FFFFFF]"
-                                            : itemLines.is_material
-                                                ? "bg-[#F79009] text-[#FFFFFF]"
-                                                : itemLines.is_material2
-                                                    ? "bg-[#12B569] text-[#FFFFFF]"
-                                                    : itemLines.is_maintenance_changeover
-                                                        ? "bg-[#00B0F0] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                            : itemLines.is_maintenance_changeover
+                                                ? "bg-[#00B0F0] text-[#FFFFFF]"
+                                                : itemLines.is_material
+                                                    ? "bg-[#F79009] text-[#FFFFFF]"
+                                                    : itemLines.is_material2
+                                                        ? "bg-[#12B569] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                            }`}
+                                    >
+                                        <p className="text-[14px] font-[600]">
+                                            {itemLines.name}
+                                        </p>
+                                    </div> : dashboard.legen.layout ? <div
+                                        className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance_changeover
+                                            ? "bg-[#00B0F0] text-[#FFFFFF]"
+                                            : itemLines.is_maintenance
+                                                ? "bg-[#F04438] text-[#FFFFFF]"
+                                                : itemLines.is_material
+                                                    ? "bg-[#F79009] text-[#FFFFFF]"
+                                                    : itemLines.is_material2
+                                                        ? "bg-[#12B569] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                            }`}
+                                    >
+                                        <p className="text-[14px] font-[600]">
+                                            {itemLines.name}
+                                        </p>
+                                    </div> : dashboard.legen.material ? <div
+                                        className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_material
+                                            ? "bg-[#F79009] text-[#FFFFFF]"
+                                            : itemLines.is_maintenance_changeover
+                                                ? "bg-[#00B0F0] text-[#FFFFFF]"
+                                                : itemLines.is_maintenance
+                                                    ? "bg-[#F04438] text-[#FFFFFF]"
+                                                    : itemLines.is_material2
+                                                        ? "bg-[#12B569] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                            }`}
+                                    >
+                                        <p className="text-[14px] font-[600]">
+                                            {itemLines.name}
+                                        </p>
+                                    </div> : dashboard.legen.material2 ? <div
+                                        className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_material2
+                                            ? "bg-[#12B569] text-[#FFFFFF]"
+                                            : itemLines.is_maintenance_changeover
+                                                ? "bg-[#00B0F0] text-[#FFFFFF]"
+                                                : itemLines.is_material
+                                                    ? "bg-[#F79009] text-[#FFFFFF]"
+                                                    : itemLines.is_maintenance
+                                                        ? "bg-[#F04438] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
+                                            }`}
+                                    >
+                                        <p className="text-[14px] font-[600]">
+                                            {itemLines.name}
+                                        </p>
+                                    </div> : <div
+                                        className={`inline-flex items-center justify-center p-[10px] h-[42px] w-[42px] rounded-xl text-sm font-semibold  ${itemLines.is_maintenance
+                                            ? "bg-[#F04438] text-[#FFFFFF]"
+                                            : itemLines.is_maintenance_changeover
+                                                ? "bg-[#00B0F0] text-[#FFFFFF]"
+                                                : itemLines.is_material
+                                                    ? "bg-[#F79009] text-[#FFFFFF]"
+                                                    : itemLines.is_material2
+                                                        ? "bg-[#12B569] text-[#FFFFFF]" : "bg-[#D0D3D9] text-[#514E4E]"
                                             }`}
                                     >
                                         <p className="text-[14px] font-[600]">

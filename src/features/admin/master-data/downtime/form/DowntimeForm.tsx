@@ -46,7 +46,7 @@ export default function DowntimeForm() {
                             <Select
                                 value={{
                                     value: form.machineCategory,
-                                    label: form.machineCategory.name,
+                                    label: form.machineCategory.name ?? "Choose Machine Category",
                                 }}
                                 onChange={(e) =>
                                     form.handleChangeForm(

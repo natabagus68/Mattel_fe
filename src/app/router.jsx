@@ -6,7 +6,7 @@ import { AdminLayout } from "../features/admin/adminLayout";
 import { General } from "../features/admin/dashboard/general/General";
 import { ManPower } from "../features/admin/dashboard/manpower/ManPower";
 import { Report } from "../features/admin/report/Report.jsx";
-import  MachineForm from "../features/admin/master-data/machine/form/MachineForm";
+import MachineForm from "../features/admin/master-data/machine/form/MachineForm";
 import { Account } from "../features/admin/user/account/Account";
 import { Mechanic } from "../features/admin/monitoring/mechanic/Mechanic.jsx";
 import { MachineProblem } from "../features/admin/dashboard/machine-problem/MachineProblem.jsx";
@@ -14,7 +14,7 @@ import { MonitoringLine } from "../features/admin/monitoring/line/MonitoringLine
 import { PartForm } from "../features/admin/master-data/machine-part/PartForm";
 import { LineLocationForm } from "../features/admin/master-data/line/LineLocationForm";
 import { GuestLayouts } from "../features/guest/GuestLayouts.jsx";
-import AccountDetail  from "../features/admin/user/account/detail/AccountDetail";
+import AccountDetail from "../features/admin/user/account/detail/AccountDetail";
 import { AccountForm } from "../features/admin/user/account/AccountForm";
 import { Layout } from "../features/admin/monitoring/layout/Layout.jsx";
 import { Trash } from "../features/admin/user/account/Trash.jsx";
@@ -22,7 +22,7 @@ import { Access } from "../features/admin/user/access/Access";
 import { MappingMenu } from "../features/admin/user/access/mapping-permissions/MappingMenu.jsx";
 import { AccessForm } from "../features/admin/user/access/AccessForm";
 import { PermissionForm } from "../features/admin/user/access/mapping-permissions/PermissionForm";
-import LineGroupForm  from "../features/admin/master-data/line-group/form/LineGroupForm";
+import LineGroupForm from "../features/admin/master-data/line-group/form/LineGroupForm";
 import LineDeviceForm from "../features/admin/master-data/line-device/form/LineDeviceForm";
 import MachineCategoryForm from "../features/admin/master-data/machine-category/form/MachineCategoryForm";
 import InputChangeOverView from "../features/admin/layoutMenu/inputChangeOver/InputChangeOverView";
@@ -63,22 +63,22 @@ const dashboardRouter = [
     path: "dashboard/man-power",
     element: <ManpowerNew />,
   },
-  { 
-    path: "dashboard/machine-problem", 
-    element: <MachineProblemNew /> 
+  {
+    path: "dashboard/machine-problem",
+    element: <MachineProblemNew />
   },
-  { 
-    path: "dashboard/line", 
-    element: <LineView /> 
+  {
+    path: "dashboard/line",
+    element: <LineView />
   },
 ];
 const layoutMenu = [
-  { path : 'layout-menu/input-changeover', element : <InputChangeOverView/> },
-  { path : 'layout-menu/changeover-summary', element : <ChangeOverSummaryView/> },
-  { path : 'layout-menu/changeover-ticket', element : <ChangeOverTicket/> },
-  { path : 'layout-menu/drawing-and-machine', element : <DrawingAndMachineView/> },
-  { path : 'layout-menu/drawing-and-machine/:id/add', element : <DrawingAndMachineForm/> },
-  { path : 'layout-menu/drawing-and-machine/:id/show', element : <DrawingAndMachineDetail/> },
+  { path: 'layout-menu/input-changeover', element: <InputChangeOverView /> },
+  { path: 'layout-menu/changeover-summary', element: <ChangeOverSummaryView /> },
+  { path: 'layout-menu/changeover-ticket', element: <ChangeOverTicket /> },
+  { path: 'layout-menu/drawing-and-machine', element: <DrawingAndMachineView /> },
+  { path: 'layout-menu/drawing-and-machine/:id/add', element: <DrawingAndMachineForm /> },
+  { path: 'layout-menu/drawing-and-machine/:id/show', element: <DrawingAndMachineDetail /> },
 ]
 const monitoringRouter = [
   {

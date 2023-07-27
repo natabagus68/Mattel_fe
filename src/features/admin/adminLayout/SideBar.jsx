@@ -70,7 +70,7 @@ export const SideBar = () => {
           <NavItem to={`master/line-group`} label={`Line Group`} />
           <NavItem to={`master/line-device`} label={`Line Device`} />
           <NavItem to={`master/line`} label={`Line`} />
-          <NavItem to={`master/machine-part`} label={`Machine Part`} />
+          {/* <NavItem to={`master/machine-part`} label={`Machine Part`} /> */}
           <NavItem to={`master/machine-category`} label={`Machine Category`} />
           <NavItem to={`master/machine`} label={`Machine`} />
           <NavItem to={`master/downtime`} label={`Downtime`} />
