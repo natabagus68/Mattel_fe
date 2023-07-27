@@ -50,6 +50,7 @@ import AccountView from "../features/admin/user/account/view/AccountView";
 import AccountFormView from "../features/admin/user/account/form/AccountFormView";
 import AccessUser from "../features/admin/user/access/view/access-view";
 import AccessForm from "../features/admin/user/access/form/access-form-view";
+import { Permission } from "../features/admin/user/access/permission/permission-view";
 
 const Root = () => {
     return <Outlet />;
@@ -147,7 +148,7 @@ const accountRouter = [
     { path: "user/account/trash", element: <Trash /> },
     { path: "user/access", element: <AccessUser /> },
     { path: "user/access/:id/permission", element: <MappingMenu /> },
-    { path: "user/access/permission/create", element: <PermissionForm /> },
+    { path: "user/access/permission/create/:id", element: <Permission /> },
     { path: "user/access/create", element: <AccessForm /> },
     { path: "user/access/:id/edit", element: <AccessForm /> },
 ];

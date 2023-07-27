@@ -30,6 +30,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `admin/position/${id}`,
                 method: "DELETE"
             })
+        }),
+        getPermissionData: builder.query({
+            query: (id) => `admin/position/${id}/module-permission`
+        }),
+        updatePermissionData: builder.mutation({
+            query: ({ position_id, module_id, permission_id }) => ({
+                url: `admin/position/${position_id}/module-permission/${module_id}/${permission_id}`,
+                method: 'PUT'
+            })
         })
     })
 })
@@ -39,5 +48,7 @@ export const {
     useCreateDataAccessMutation,
     useUpdateDataAccessMutation,
     useGetDetailDataAccessQuery,
-    useDeleteDataAccessMutation
+    useDeleteDataAccessMutation,
+    useGetPermissionDataQuery,
+    useUpdatePermissionDataMutation
 } = userApiSlice

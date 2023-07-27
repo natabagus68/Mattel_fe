@@ -4,6 +4,7 @@ import {
     useDeleteDataAccessMutation,
     useGetDataAccessQuery,
 } from "../../../../../app/services/userService";
+import { config } from "../../../../../common/utils";
 interface IParams {
     q: string | null | undefined;
     page: number;
@@ -39,11 +40,15 @@ export const useAccessUser = () => {
     const toForm = (id?: string | undefined) => {
         id ? navigate(`${id}/edit`) : navigate("create");
     };
+    const toPermission = (id) => {
+        navigate(`${config.pathPrefix}user/access/permission/create/${id}`);
+    };
     return {
         dataAccess,
         handleChangeFilter,
         toForm,
         destroyAcceess,
         tableParam,
+        toPermission,
     };
 };
