@@ -115,7 +115,14 @@ export default function AccessUser() {
 
                                                 <td className="px-2 py-2 text-sm w-[10%]">
                                                     <div className="inline-flex gap-3">
-                                                        <button className="inline-flex items-center justify-center p-[16px] rounded bg-[#20519F] h-[48px] w-[48px]">
+                                                        <button
+                                                            onClick={() =>
+                                                                model.toPermission(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center justify-center p-[16px] rounded bg-[#20519F] h-[48px] w-[48px]"
+                                                        >
                                                             <EyeIcon
                                                                 height={24}
                                                                 width={24}
