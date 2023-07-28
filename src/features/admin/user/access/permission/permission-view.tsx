@@ -113,7 +113,7 @@ export const Permission = () => {
                                                                             }
                                                                             onChange={() =>
                                                                                 model.updateChecklist(
-                                                                                    element.id,
+                                                                                    item.id,
                                                                                     el.id
                                                                                 )
                                                                             }
