@@ -17,20 +17,20 @@ export const SideBar = () => {
     const { navOpen } = useSelector((state) => state.adminLayout);
     const permission = useSelector((state) => state.adminLayout.permissions);
     const { data } = useGetAuthenticatedUserQuery();
-    const dashboard = data?.data?.permissions?.find(
-        (item) => item.module === "Dashboard"
-    );
+    const dashboard = !!data?.data?.permissions
+        ?.find((item) => item.module === "Dashboard")
+        ?.permissions?.find((item) => item.name == "View");
 
-    const layout = data?.data?.permissions?.find(
-        (item) => item?.module === "Layout"
-    );
+    const layout = !!data?.data?.permissions
+        ?.find((item) => item?.module === "Layout")
+        ?.permissions?.find((item) => item.name == "View");
 
-    const masterData = data?.data?.permissions?.find(
-        (item) => item?.module === "Master Data"
-    );
-    const user = data?.data?.permissions?.find(
-        (item) => item?.module === "User"
-    );
+    const masterData = !!data?.data?.permissions
+        ?.find((item) => item?.module === "Master Data")
+        ?.permissions?.find((item) => item.name == "View");
+    const user = !!data?.data?.permissions
+        ?.find((item) => item?.module === "User")
+        ?.permissions?.find((item) => item.name == "View");
     return (
         <>
             <div
