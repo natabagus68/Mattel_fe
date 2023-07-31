@@ -3,7 +3,7 @@ import { apiSlice } from "../../features/api/apiSlice";
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAuthenticatedUser: builder.query({
-      query: () => ({ url: "/auth/me" }),
+      query: () => ({ url: "/admin/me" }),
       providesTags: ["Auth"],
     }),
     login: builder.mutation({
@@ -46,6 +46,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
         );
       },
     }),
+    me: builder.query({
+      query: () => 'admin/me'
+    })
   }),
 });
 
@@ -53,4 +56,5 @@ export const {
   useGetAuthenticatedUserQuery,
   useLoginMutation,
   useLogoutMutation,
+  useMeQuery
 } = authApiSlice;
