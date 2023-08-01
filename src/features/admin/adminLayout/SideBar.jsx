@@ -17,20 +17,22 @@ export const SideBar = () => {
     const { navOpen } = useSelector((state) => state.adminLayout);
     const permission = useSelector((state) => state.adminLayout.permissions);
     const { data } = useGetAuthenticatedUserQuery();
-    const dashboard = !!data?.data?.permissions
-        ?.find((item) => item.module === "Dashboard")
-        ?.permissions?.find((item) => item.name == "View");
+    const dashboard = data?.data?.permissions?.find(
+        (item) => item.module === "Dashboard"
+    );
 
-    const layout = !!data?.data?.permissions
-        ?.find((item) => item?.module === "Layout")
-        ?.permissions?.find((item) => item.name == "View");
+    const layout = data?.data?.permissions?.find(
+        (item) => item?.module === "Layout"
+    );
 
-    const masterData = !!data?.data?.permissions
-        ?.find((item) => item?.module === "Master Data")
-        ?.permissions?.find((item) => item.name == "View");
-    const user = !!data?.data?.permissions
-        ?.find((item) => item?.module === "User")
-        ?.permissions?.find((item) => item.name == "View");
+    const masterData = data?.data?.permissions?.find(
+        (item) => item?.module === "Master Data"
+    );
+
+    const user = data?.data?.permissions?.find(
+        (item) => item?.module === "User"
+    );
+
     return (
         <>
             <div
@@ -45,25 +47,10 @@ export const SideBar = () => {
                     <img className="mr-[13.74px]" src={appLogo} alt="" />
                     <AppNameText />
                 </div>
-                {/* {data?.data?.permissions?.map((item) => {
-                    return (
-                        <>
-                            {!item?.childs?.length ? (
-                                <NavItem label={item?.module} />
-                            ) : (
-                                <NavItem label={item?.module}>
-                                    {item?.childs?.map((el) => (
-                                        <NavItem
-                                            label={el.module}
-                                            to={item.module}
-                                        />
-                                    ))}
-                                </NavItem>
-                            )}
-                        </>
-                    );
-                })} */}
-                {dashboard && (
+
+                {!!dashboard?.permissions?.find(
+                    (item) => item.name === "View"
+                ) && (
                     <NavItem
                         label={`Dashboard`}
                         icon={<DashboardIcon className="mr-3 -mb-1" />}
@@ -99,7 +86,9 @@ export const SideBar = () => {
                     </NavItem>
                 )}
 
-                {layout && (
+                {!!layout?.permissions?.find(
+                    (item) => item.name === "View"
+                ) && (
                     <NavItem
                         label={`Layout Menu`}
                         icon={<FileIconsNew className="mr-3 -mb-1" />}
@@ -139,7 +128,9 @@ export const SideBar = () => {
                     </NavItem>
                 )}
 
-                {masterData && (
+                {!!masterData?.permissions?.find(
+                    (item) => item.name === "View"
+                ) && (
                     <NavItem
                         label={`Master`}
                         icon={<MasterDataIcon className="mr-3 -mb-1" />}
@@ -197,7 +188,7 @@ export const SideBar = () => {
                         )}
                     </NavItem>
                 )}
-                {user && (
+                {!!user?.permissions?.find((item) => item.name === "View") && (
                     <NavItem
                         label={`User`}
                         icon={<UsersIcon className="mr-3 -mb-1" />}
