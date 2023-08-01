@@ -40,6 +40,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'PUT'
             })
         })
+
     })
 })
 

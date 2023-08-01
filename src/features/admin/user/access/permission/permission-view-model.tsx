@@ -15,13 +15,50 @@ export const usePermission = () => {
     const { data: detailAccess } = useGetDetailDataAccessQuery(id);
     const [updatePermission, resultUpdate] = useUpdatePermissionDataMutation();
     const [temp, setTemp] = useState<Permission[]>([]);
-
-
     const updateChecklist = async (
-        module_id: string,
+        module_id: string | undefined,
         permission_id: string | undefined
     ) => {
+        // setTemp((prev) => {
+        //     const data = prev.map((item) => {
+        //         return Permission.create({
+        //             ...item.unmarshall(),
+        //             permission: item.permission.map((el) => {
+        //                 return Checklist.create({
+        //                     id: el.id,
+        //                     name: el.name,
+        //                     active:
+        //                         module_id === item.id && permission_id === el.id
+        //                             ? !el.active
+        //                             : el.active,
+        //                     disable: el.disable,
+        //                 });
+        //             }),
+        //             child: item.child.map((element, i) => {
+        //                 return Permission.create({
+        //                     id: element.id,
+        //                     module: element.module,
+        //                     permission: element.permission.map((el) => {
+        //                         return Checklist.create({
+        //                             active:
+        //                                 element.id === module_id &&
+        //                                 permission_id === el.id
+        //                                     ? !el.active
+        //                                     : el.active,
+        //                             name: el.name,
+        //                             disable: el.disable,
+        //                         });
+        //                     }),
+        //                     child: [],
+        //                 });
+        //             }),
+        //         });
+        //     });
+        //     return data;
+        // });
+
         await updatePermission({ position_id: id, module_id, permission_id });
+
         await refetch();
     };
     const toBack = () => {
@@ -73,7 +110,7 @@ export const usePermission = () => {
 
         //   @ts-ignore
         // setSearchparam((prev) => ({ ...prev, ...paramData }))
-    }, [])
+    }, []);
 
     return {
         temp,

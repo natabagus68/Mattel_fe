@@ -106,7 +106,9 @@ export const Permission = () => {
                                                                             checked={
                                                                                 el.active
                                                                             }
-                                                                            hidden={el.disable}
+                                                                            hidden={
+                                                                                el.disable
+                                                                            }
                                                                             onChange={() =>
                                                                                 model.updateChecklist(
                                                                                     item.id,
