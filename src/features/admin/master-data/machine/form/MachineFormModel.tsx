@@ -137,7 +137,7 @@ export default function useMachineFormModel() {
             setTempForm((prev) => {
                 return {
                     ...prev,
-                    line_name: obj.line_group.name + ' - ' + obj.name,
+                    line_name: obj.line_group.name + obj.name,
                 };
             });
         } else {
