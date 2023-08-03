@@ -97,6 +97,19 @@ export default function MachineForm() {
                                 placeholder="Input Machine no"
                             />
                         </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
+                                Asset No
+                            </label>
+                            <input
+                                type="text"
+                                name="asset_number"
+                                value={form.formData.asset_number}
+                                onChange={form.handleChangeForm}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Input Asset no"
+                            />
+                        </div>
 
                         <div className="inline-flex flex-col gap-2">
                             <label

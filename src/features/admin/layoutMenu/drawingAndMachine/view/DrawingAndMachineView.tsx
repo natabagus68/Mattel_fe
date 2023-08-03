@@ -62,7 +62,7 @@ export default function DrawingAndMachineView() {
                 <div className='overflow-y-auto'>
                     <table className='w-full'>
                         <thead className='border-y border-y-[#D0D3D9] bg-[#FAFAFB]'>
-                            <th className='p-2 font-semibold text-sm text-[#667085] text-start w-full'>Toy Number</th>
+                            {/* <th className='p-2 font-semibold text-sm text-[#667085] text-start w-full'>Toy Number</th> */}
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start whitespace-nowrap'>Machine Quantity</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start whitespace-nowrap'>Drawing</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start whitespace-nowrap'>Status Machine Qty</th>
@@ -71,7 +71,7 @@ export default function DrawingAndMachineView() {
                             {
                                 data.LayoutData?.data.map((item, i) => (
                                     <tr className='border-b border-b-[#D0D3D9]' key={i}>
-                                        <td className='px-2 py-4 text-sm '>{item.toy.number}</td>
+                                        {/* <td className='px-2 py-4 text-sm '>{item.toy.number}</td> */}
                                         <td className='px-2 py-4 text-sm '>{
                                             item.machine_quantity ? item.machine_quantity : 0
                                         }</td>

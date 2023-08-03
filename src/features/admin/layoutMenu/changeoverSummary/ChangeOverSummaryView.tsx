@@ -63,10 +63,11 @@ export default function ChangeOverSummaryView() {
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Created Date</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Week Ending</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Production Sch Date</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Preparation Sch Date</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Preparation Shift Sch</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Production Shift Sch</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line</th>
-                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Toy Number</th>
+                            {/* <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Toy Number</th> */}
                         </thead>
                         <tbody className='text-[#514E4E]'>
                             {
@@ -75,10 +76,11 @@ export default function ChangeOverSummaryView() {
                                         <td className='px-2 py-4 text-sm '>{moment(item.created_at).format('DD/MM/YYYY')}</td>
                                         <td className='px-2 py-4 text-sm '>{moment(item.week_ending).format('DD/MM/YYYY')}</td>
                                         <td className='px-2 py-4 text-sm '>{moment(item.production_sch_date).format('DD/MM/YYYY')}</td>
+                                        <td className='px-2 py-4 text-sm '>{moment(item.preparation_sch_date).format('DD/MM/YYYY')}</td>
                                         <td className='px-2 py-4 text-sm '>{item.preparation_shift}</td>
                                         <td className='px-2 py-4 text-sm '>{item.production_shift}</td>
                                         <td className='px-2 py-4 text-sm '>{item.line.name}</td>
-                                        <td className='px-2 py-4 text-sm '>{item.toy.number}</td>
+                                        {/* <td className='px-2 py-4 text-sm '>{item.toy.number}</td> */}
                                     </tr>
                                 ))
                             }

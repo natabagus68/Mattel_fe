@@ -8,6 +8,7 @@ export default function useChangeOverTicketModel() {
   const [layoutParam, setLayoutParam] = useState({
     page: Number(searchParam.get("page")) || 1,
     production_sch: searchParam.get("production_sch") || "",
+    preparation_sch: searchParam.get("preparation_sch") || "",
     week_ending: moment().endOf('week').format('YYYY-MM-DD'),
     production_shift: searchParam.get("production_shift") || "",
     preparation_shift: searchParam.get("preparation_shift") || "",
@@ -41,6 +42,10 @@ export default function useChangeOverTicketModel() {
     setLayoutParam(prev => ({ ...prev, production_sch: value }))
   }
 
+  const handlePreparationSchDate = (value) => {
+    setLayoutParam(prev => ({ ...prev, preparation_sch: value }))
+  }
+
   const handleProductionShift = (value) => {
     setLayoutParam(prev => ({ ...prev, production_shift: value }))
   }
@@ -49,7 +54,7 @@ export default function useChangeOverTicketModel() {
     setLayoutParam(prev => ({ ...prev, preparation_shift: value }))
   }
 
-  const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery({ page: layoutParam.page, production_sch: layoutParam.production_sch, week_ending: layoutParam.week_ending, production_shift: layoutParam.production_shift, preparation_shift: layoutParam.preparation_shift })
+  const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery({ page: layoutParam.page, production_sch: layoutParam.production_sch, preparation_sch: layoutParam.preparation_sch, week_ending: layoutParam.week_ending, production_shift: layoutParam.production_shift, preparation_shift: layoutParam.preparation_shift })
 
   const onPrevPage = () => {
     setLayoutParam(prev => ({ ...prev, page: prev.page - 1 }))
@@ -77,6 +82,7 @@ export default function useChangeOverTicketModel() {
     layoutParam,
     handlePreparationShift,
     handleProductionSchDate,
+    handlePreparationSchDate,
     handleProductionShift,
     onNextPage,
     onPrevPage,
