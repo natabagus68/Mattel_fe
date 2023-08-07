@@ -11,6 +11,7 @@ export default function useChangeOverSummaryModel() {
   const [layoutParam, setLayoutParam] = useState({
     page: Number(searchParam.get("page")) || 1,
     production_sch: searchParam.get("production_sch") || "",
+    preparation_sch: searchParam.get("preparation_sch") || "",
     week_ending: moment().endOf('week').format('YYYY-MM-DD'),
     production_shift: searchParam.get("production_shift") || "",
     preparation_shift: searchParam.get("preparation_shift") || "",

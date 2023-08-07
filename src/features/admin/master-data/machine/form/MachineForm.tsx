@@ -52,7 +52,7 @@ export default function MachineForm() {
                             <Select
                                 value={{
                                     value: form.tempForm,
-                                    label: form.tempForm.machine_name,
+                                    label: form.tempForm.machine_name ?? "Choose Machine Category",
                                 }}
                                 onChange={(e) =>
                                     form.handleChangeForm(
@@ -72,6 +72,20 @@ export default function MachineForm() {
                         </div>
                         <div className="inline-flex flex-col gap-2">
                             <label htmlFor="name" className="font-bold">
+                                Abbreviation
+                            </label>
+                            <input
+                                type="text"
+                                name="code"
+                                readOnly
+                                value={form.formData.code}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Will Automatically Filled"
+                                disabled
+                            />
+                        </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
                                 Machine No
                             </label>
                             <input
@@ -85,18 +99,18 @@ export default function MachineForm() {
                         </div>
                         <div className="inline-flex flex-col gap-2">
                             <label htmlFor="name" className="font-bold">
-                                Code
+                                Asset No
                             </label>
                             <input
                                 type="text"
-                                name="code"
-                                readOnly
-                                value={form.formData.code}
+                                name="asset_number"
+                                value={form.formData.asset_number}
+                                onChange={form.handleChangeForm}
                                 className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
-                                placeholder="Will Automatically Filled"
-                                disabled
+                                placeholder="Input Asset no"
                             />
                         </div>
+
                         <div className="inline-flex flex-col gap-2">
                             <label
                                 htmlFor="line_group_id"
@@ -115,9 +129,10 @@ export default function MachineForm() {
                                 form.handleChangeForm(e, "line_id")
                             }
                             options={form.responLine?.data?.map((item, i) => {
+                                console.log("item = ", item)
                                 return {
                                     value: item,
-                                    label: item.name,
+                                    label: item.line_group.name + item.name
                                 };
                             })}
                         />

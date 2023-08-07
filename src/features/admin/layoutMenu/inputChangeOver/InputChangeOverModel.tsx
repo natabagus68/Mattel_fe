@@ -16,6 +16,7 @@ export default function useInputChangeOverModel() {
 
     const [changeOverSchedule, setToyChangeOverSchedule] = useState({
         production_sch_date: moment().format('YYYY-MM-DD'),
+        preparation_sch_date: moment().format('YYYY-MM-DD'),
         week_ending: moment().endOf('week').format('YYYY-MM-DD'),
         production_shift: 'Shift 1',
         preparation_shift: 'Shift 1',
@@ -103,6 +104,7 @@ export default function useInputChangeOverModel() {
                     line_id: changeOverSchedule.line_id,
                     toy_id: toyChangover.map((item) => { return item.value }),
                     production_sch_date: changeOverSchedule.production_sch_date,
+                    preparation_sch_date: changeOverSchedule.preparation_sch_date,
                     week_ending: changeOverSchedule.week_ending,
                     production_shift: changeOverSchedule.production_shift,
                     preparation_shift: changeOverSchedule.preparation_shift
@@ -115,6 +117,7 @@ export default function useInputChangeOverModel() {
 
                 setToyChangeOverSchedule({
                     production_sch_date: moment().format('YYYY-MM-DD'),
+                    preparation_sch_date: moment().format('YYYY-MM-DD'),
                     week_ending: moment().endOf('week').format('YYYY-MM-DD'),
                     production_shift: 'Shift 1',
                     preparation_shift: 'Shift 1',

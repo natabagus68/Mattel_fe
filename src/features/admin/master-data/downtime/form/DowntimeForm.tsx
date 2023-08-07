@@ -37,6 +37,48 @@ export default function DowntimeForm() {
                         className="flex flex-col w-[85%] gap-3"
                     >
                         <div className="inline-flex flex-col gap-2">
+                            <label
+                                htmlFor="machine_category_id"
+                                className="font-bold"
+                            >
+                                Machine Category
+                            </label>
+                            <Select
+                                value={{
+                                    value: form.machineCategory,
+                                    label: form.machineCategory.name ?? "Choose Machine Category",
+                                }}
+                                onChange={(e) =>
+                                    form.handleChangeForm(
+                                        e,
+                                        "machine_category_id"
+                                    )
+                                }
+                                options={form.responMachineCategory?.data.map(
+                                    (item, i) => {
+                                        return {
+                                            value: item,
+                                            label: item.name,
+                                        };
+                                    }
+                                )}
+                            />
+                        </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label htmlFor="name" className="font-bold">
+                                Abbreviation
+                            </label>
+                            <input
+                                type="text"
+                                name="abbreviation"
+                                readOnly
+                                value={form.formData.abbreviation}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                                placeholder="Will Automatically Filled"
+                                disabled
+                            />
+                        </div>
+                        <div className="inline-flex flex-col gap-2">
                             <label htmlFor="name" className="font-bold">
                                 Downtime Reason
                             </label>
@@ -60,34 +102,6 @@ export default function DowntimeForm() {
                                 onChange={form.handleChangeForm}
                                 className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
                                 placeholder="Input minutes number"
-                            />
-                        </div>
-                        <div className="inline-flex flex-col gap-2">
-                            <label
-                                htmlFor="machine_category_id"
-                                className="font-bold"
-                            >
-                                Machine Category
-                            </label>
-                            <Select
-                                value={{
-                                    value: form.machineCategory,
-                                    label: form.machineCategory.name,
-                                }}
-                                onChange={(e) =>
-                                    form.handleChangeForm(
-                                        e,
-                                        "machine_category_id"
-                                    )
-                                }
-                                options={form.responMachineCategory?.data.map(
-                                    (item, i) => {
-                                        return {
-                                            value: item,
-                                            label: item.name,
-                                        };
-                                    }
-                                )}
                             />
                         </div>
                         <div className="flex items-center gap-3 w-[50%] pt-6">

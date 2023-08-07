@@ -53,143 +53,143 @@ import AccessForm from "../features/admin/user/access/form/access-form-view";
 import { Permission } from "../features/admin/user/access/permission/permission-view";
 
 const Root = () => {
-    return <Outlet />;
+  return <Outlet />;
 };
 
 const dashboardRouter = [
-    {
-        path: "dashboard/general",
-        element: <GeneralView />,
-    },
-    {
-        path: "dashboard/man-power",
-        element: <ManpowerNew />,
-    },
-    {
-        path: "dashboard/machine-problem",
-        element: <MachineProblemNew />,
-    },
-    {
-        path: "dashboard/line",
-        element: <LineView />,
-    },
+  {
+    path: "dashboard/general",
+    element: <GeneralView />,
+  },
+  {
+    path: "dashboard/man-power",
+    element: <ManpowerNew />,
+  },
+  {
+    path: "dashboard/machine-problem",
+    element: <MachineProblemNew />,
+  },
+  {
+    path: "dashboard/line",
+    element: <LineView />,
+  },
 ];
 const layoutMenu = [
-    { path: "layout-menu/input-changeover", element: <InputChangeOverView /> },
-    {
-        path: "layout-menu/changeover-summary",
-        element: <ChangeOverSummaryView />,
-    },
-    { path: "layout-menu/changeover-ticket", element: <ChangeOverTicket /> },
-    {
-        path: "layout-menu/drawing-and-machine",
-        element: <DrawingAndMachineView />,
-    },
-    {
-        path: "layout-menu/drawing-and-machine/:id/add",
-        element: <DrawingAndMachineForm />,
-    },
-    {
-        path: "layout-menu/drawing-and-machine/:id/show",
-        element: <DrawingAndMachineDetail />,
-    },
+  { path: "layout-menu/input-changeover", element: <InputChangeOverView /> },
+  {
+    path: "layout-menu/changeover-summary",
+    element: <ChangeOverSummaryView />,
+  },
+  { path: "layout-menu/changeover-ticket", element: <ChangeOverTicket /> },
+  {
+    path: "layout-menu/drawing-and-machine",
+    element: <DrawingAndMachineView />,
+  },
+  {
+    path: "layout-menu/drawing-and-machine/:id/add",
+    element: <DrawingAndMachineForm />,
+  },
+  {
+    path: "layout-menu/drawing-and-machine/:id/show",
+    element: <DrawingAndMachineDetail />,
+  },
 ];
 const monitoringRouter = [
-    {
-        path: "monitoring/line",
-        element: <MonitoringLine />,
-    },
-    { path: "monitoring/mechanic", element: <Mechanic /> },
-    { path: "monitoring/layout", element: <Layout /> },
+  {
+    path: "monitoring/line",
+    element: <MonitoringLine />,
+  },
+  { path: "monitoring/mechanic", element: <Mechanic /> },
+  { path: "monitoring/layout", element: <Layout /> },
 ];
 const reportRouter = [
-    {
-        path: "report",
-        element: <Report />,
-    },
+  {
+    path: "report",
+    element: <Report />,
+  },
 ];
 const masterRouter = [
-    { path: "master/toy", element: <ToyView /> },
-    { path: "master/toy/add", element: <ToyForm /> },
-    { path: "master/toy/:id/edit", element: <ToyForm /> },
-    { path: "master/machine", element: <MachineView /> },
-    { path: "master/machine/add", element: <MachineForm /> },
-    { path: "master/machine/:id/edit", element: <MachineForm /> },
-    { path: "master/line", element: <LineMasterView /> },
-    { path: "master/line/add", element: <LineForm /> },
-    { path: "master/line/:id/edit", element: <LineForm /> },
-    { path: "master/line-group", element: <LineGroupView /> },
-    { path: "master/line-group/add", element: <LineGroupForm /> },
-    { path: "master/line-group/:id/edit", element: <LineGroupForm /> },
-    { path: "master/line-device", element: <LineDeviceView /> },
-    { path: "master/line-device/add", element: <LineDeviceForm /> },
-    { path: "master/line-device/:id/edit", element: <LineDeviceForm /> },
-    { path: "master/machine-part", element: <MachinePartView /> },
-    { path: "master/machine-part/add", element: <MachinePartForm /> },
-    { path: "master/machine-part/:id/edit", element: <MachinePartForm /> },
-    { path: "master/machine-category", element: <MachineCategoryView /> },
-    { path: "master/machine-category/add", element: <MachineCategoryForm /> },
-    {
-        path: "master/machine-category/:id/edit",
-        element: <MachineCategoryForm />,
-    },
-    { path: "master/downtime", element: <DowntimeView /> },
-    { path: "master/downtime/add", element: <DowntimeForm /> },
-    { path: "master/downtime/:id/edit", element: <DowntimeForm /> },
+  { path: "master/toy", element: <ToyView /> },
+  { path: "master/toy/add", element: <ToyForm /> },
+  { path: "master/toy/:id/edit", element: <ToyForm /> },
+  { path: "master/machine", element: <MachineView /> },
+  { path: "master/machine/add", element: <MachineForm /> },
+  { path: "master/machine/:id/edit", element: <MachineForm /> },
+  { path: "master/line", element: <LineMasterView /> },
+  { path: "master/line/add", element: <LineForm /> },
+  { path: "master/line/:id/edit", element: <LineForm /> },
+  { path: "master/line-group", element: <LineGroupView /> },
+  { path: "master/line-group/add", element: <LineGroupForm /> },
+  { path: "master/line-group/:id/edit", element: <LineGroupForm /> },
+  { path: "master/line-device", element: <LineDeviceView /> },
+  { path: "master/line-device/add", element: <LineDeviceForm /> },
+  { path: "master/line-device/:id/edit", element: <LineDeviceForm /> },
+  { path: "master/machine-part", element: <MachinePartView /> },
+  { path: "master/machine-part/add", element: <MachinePartForm /> },
+  { path: "master/machine-part/:id/edit", element: <MachinePartForm /> },
+  { path: "master/machine-category", element: <MachineCategoryView /> },
+  { path: "master/machine-category/add", element: <MachineCategoryForm /> },
+  {
+    path: "master/machine-category/:id/edit",
+    element: <MachineCategoryForm />,
+  },
+  { path: "master/downtime", element: <DowntimeView /> },
+  { path: "master/downtime/add", element: <DowntimeForm /> },
+  { path: "master/downtime/:id/edit", element: <DowntimeForm /> },
 ];
 const accountRouter = [
-    {
-        path: "user/account",
-        element: <AccountView />,
-    },
-    { path: "user/account/:id/detail", element: <AccountDetail /> },
-    { path: "user/account/:id/edit", element: <AccountFormView /> },
-    { path: "user/account/add", element: <AccountFormView /> },
-    { path: "user/account/trash", element: <Trash /> },
-    { path: "user/access", element: <AccessUser /> },
-    { path: "user/access/:id/permission", element: <MappingMenu /> },
-    { path: "user/access/permission/create/:id", element: <Permission /> },
-    { path: "user/access/create", element: <AccessForm /> },
-    { path: "user/access/:id/edit", element: <AccessForm /> },
+  {
+    path: "user/account",
+    element: <AccountView />,
+  },
+  { path: "user/account/:id/detail", element: <AccountDetail /> },
+  { path: "user/account/:id/edit", element: <AccountFormView /> },
+  { path: "user/account/add", element: <AccountFormView /> },
+  { path: "user/account/trash", element: <Trash /> },
+  { path: "user/access", element: <AccessUser /> },
+  { path: "user/access/:id/permission", element: <MappingMenu /> },
+  { path: "user/access/permission/create/:id", element: <Permission /> },
+  { path: "user/access/create", element: <AccessForm /> },
+  { path: "user/access/:id/edit", element: <AccessForm /> },
 ];
 
 export default createBrowserRouter([
-    {
-        path: config.pathPrefix,
-        element: <Navigate to={`${config.pathPrefix}login`} />,
-    },
-    {
-        path: config.pathPrefix,
-        element: <GuestLayouts />,
-        errorElement: <Error404 />,
-        children: [
-            {
-                path: "login",
-                element: <Login />,
-            },
-        ],
-    },
-    {
-        path: config.pathPrefix,
-        element: <AdminLayout />,
-        errorElement: <Error404 />,
-        children: [
-            ...dashboardRouter,
-            ...monitoringRouter,
-            ...reportRouter,
-            ...masterRouter,
-            ...accountRouter,
-            ...layoutMenu,
-            {
-                path: "404",
-                element: <Error404 text="You dont get access" />,
-            },
-        ],
-    },
-    {
-        path: "*",
-        element: <Error404 />,
-    },
+  {
+    path: config.pathPrefix,
+    element: <Navigate to={`${config.pathPrefix}login`} />,
+  },
+  {
+    path: config.pathPrefix,
+    element: <GuestLayouts />,
+    errorElement: <Error404 />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
+  },
+  {
+    path: config.pathPrefix,
+    element: <AdminLayout />,
+    errorElement: <Error404 />,
+    children: [
+      ...dashboardRouter,
+      ...monitoringRouter,
+      ...reportRouter,
+      ...masterRouter,
+      ...accountRouter,
+      ...layoutMenu,
+      {
+        path: "404",
+        element: <Error404 text="You dont get access" />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <Error404 />,
+  },
 ]);
 
 // export const router = (permission) => {

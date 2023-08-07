@@ -66,6 +66,7 @@ export default function AccountView() {
                                 <td className='p-2 font-semibold text-sm text-[#667085] text-start'>Status</td>
                                 <td className='p-2 font-semibold text-sm text-[#667085] text-start'>Name</td>
                                 <td className='p-2 font-semibold text-sm text-[#667085] text-start'>KPK</td>
+                                <td className='p-2 font-semibold text-sm text-[#667085] text-start'>Position</td>
                                 <td className='p-2 font-semibold text-sm text-[#667085] text-start'>Role</td>
                                 <td className='p-2 font-semibold text-sm text-[#667085] text-start'>ACTION</td>
                             </tr>
@@ -96,6 +97,7 @@ export default function AccountView() {
                                                 </td>
                                                 <td className='px-2 py-4 text-sm'>{item.name}</td>
                                                 <td className='px-2 py-4 text-sm'>{item.employee?.kpk}</td>
+                                                <td className='px-2 py-4 text-sm'>{item.positions?.map(item => { return item.name }).join(',')}</td>
                                                 <td className='px-2 py-4 text-sm'>{item.roles?.map(item => { return item.name }).join(',')}</td>
                                                 <td className='px-2 py-2 text-sm w-[10%]'>
                                                     <div className='inline-flex gap-3'>

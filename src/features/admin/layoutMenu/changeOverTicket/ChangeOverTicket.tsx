@@ -26,6 +26,10 @@ export default function ChangeOverTicket() {
                             <input type="date" onChange={(e) => model.handleProductionSchDate(e.target.value)} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
+                            <span>Preparation Sch Date</span>
+                            <input type="date" onChange={(e) => model.handlePreparationSchDate(e.target.value)} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
+                        </div>
+                        <div className='flex flex-col gap-1 w-full'>
                             <span>Week Ending</span>
                             <input type="date" value={moment(model.layoutParam.production_sch).endOf('week').format('YYYY-MM-DD')} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
                         </div>
@@ -76,10 +80,11 @@ export default function ChangeOverTicket() {
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Created Date</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Week Ending</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Production Sch Date</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Preparation Sch Date</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Preparation Shift Sch</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Production Shift Sch</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line</th>
-                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Toy Number</th>
+                            {/* <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Toy Number</th> */}
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Status</th>
                         </thead>
                         <tbody className='text-[#514E4E]'>
@@ -89,10 +94,11 @@ export default function ChangeOverTicket() {
                                         <td className='px-2 py-4 text-sm '>{moment(item.created_at).format('DD/MM/YYYY')}</td>
                                         <td className='px-2 py-4 text-sm '>{moment(item.week_ending).format('DD/MM/YYYY')}</td>
                                         <td className='px-2 py-4 text-sm '>{moment(item.production_sch_date).format('DD/MM/YYYY')}</td>
+                                        <td className='px-2 py-4 text-sm '>{moment(item.preparation_sch_date).format('DD/MM/YYYY')}</td>
                                         <td className='px-2 py-4 text-sm '>{item.preparation_shift}</td>
                                         <td className='px-2 py-4 text-sm '>{item.production_shift}</td>
                                         <td className='px-2 py-4 text-sm '>{item.line.name}</td>
-                                        <td className='px-2 py-4 text-sm '>{item.toy.number}</td>
+                                        {/* <td className='px-2 py-4 text-sm '>{item.toy.number}</td> */}
                                         <td className='px-2 py-4 text-sm '>
                                             {
                                                 item.status == 'Not Started' ? (
@@ -102,10 +108,6 @@ export default function ChangeOverTicket() {
                                                 ) : item.status === 'On Progress' ? (
                                                     <div className='w-full rounded-xl p-[10px] bg-[#F79009] inline-flex items-center justify-center text-sm font-semibold text-[#FFF]'>
                                                         On Progress
-                                                    </div>
-                                                ) : item.status === 'Not Closed' ? (
-                                                    <div className='w-full rounded-xl p-[10px] bg-[#1BBDD4] inline-flex items-center justify-center text-sm font-semibold text-[#FFF]'>
-                                                        Not Closed
                                                     </div>
                                                 ) : item.status === 'Finished' ? (
                                                     <div className='w-full rounded-xl p-[10px] bg-[#12B569] inline-flex items-center justify-center text-sm font-semibold text-[#FFF]'>

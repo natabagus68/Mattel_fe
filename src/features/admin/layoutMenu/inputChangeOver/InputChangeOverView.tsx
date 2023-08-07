@@ -26,6 +26,10 @@ export default function InputChangeOverView() {
                             <input type="date" name='production_sch_date' value={changeOver.changeOverSchedule.production_sch_date} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
+                            <span>Preparation Sch Date</span>
+                            <input type="date" name='preparation_sch_date' value={changeOver.changeOverSchedule.preparation_sch_date} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
+                        </div>
+                        <div className='flex flex-col gap-1 w-full'>
                             <span>Week Ending</span>
                             <input type="date" value={moment(changeOver.changeOverSchedule.production_sch_date).endOf('week').format('YYYY-MM-DD')} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
                         </div>

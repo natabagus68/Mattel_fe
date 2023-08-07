@@ -32,6 +32,7 @@ export default function useMachineFormModel() {
     const initialValue = {
         code: "",
         number: 0,
+        asset_number: 0,
         line_id: "",
         machine_category_id: "",
     };
@@ -137,7 +138,7 @@ export default function useMachineFormModel() {
             setTempForm((prev) => {
                 return {
                     ...prev,
-                    line_name: obj.name,
+                    line_name: obj.line_group.name + obj.name,
                 };
             });
         } else {
@@ -170,14 +171,14 @@ export default function useMachineFormModel() {
         id
             ? setModalConfirm(true)
             : (storeLine({
-                  form: {
-                      ...formData,
-                      part: machineParts.map((item) => {
-                          return item.value;
-                      }),
-                  },
-              }),
-              setModalSuccess(true));
+                form: {
+                    ...formData,
+                    part: machineParts.map((item) => {
+                        return item.value;
+                    }),
+                },
+            }),
+                setModalSuccess(true));
     };
     const handleCloseModal = () => {
         setModalConfirm(false);
@@ -194,18 +195,19 @@ export default function useMachineFormModel() {
     useEffect(() => {
         responDataMachine
             ? (setFormData({
-                  code: responDataMachine?.data.code,
-                  number: responDataMachine?.data.number,
-                  line_id: responDataMachine?.data.line_id,
-                  machine_category_id:
-                      responDataMachine?.data.machine_category_id,
-              }),
-              setTempForm({
-                  machine_name: responDataMachine?.data?.machine_category?.name,
-                  line_name: responDataMachine?.data?.line?.name,
-              }),
-              responDataMachine?.data.machine_parts
-                  ? setMachineParts(
+                code: responDataMachine?.data.code,
+                number: responDataMachine?.data.number,
+                asset_number: responDataMachine?.data.asset_number,
+                line_id: responDataMachine?.data.line_id,
+                machine_category_id:
+                    responDataMachine?.data.machine_category_id,
+            }),
+                setTempForm({
+                    machine_name: responDataMachine?.data?.machine_category?.name,
+                    line_name: responDataMachine?.data?.line?.line_group?.name != undefined || responDataMachine?.data?.line?.name != undefined ? responDataMachine?.data?.line?.line_group?.name + responDataMachine?.data?.line?.name : 'Choose Line Location',
+                }),
+                responDataMachine?.data.machine_parts
+                    ? setMachineParts(
                         responDataMachine?.data.machine_parts?.map(
                             (item, i) => {
                                 return {
@@ -215,7 +217,7 @@ export default function useMachineFormModel() {
                             }
                         )
                     )
-                  : setMachineParts([{ id: 1, value: "" }]))
+                    : setMachineParts([{ id: 1, value: "" }]))
             : null;
     }, [responDataMachine.data.code]);
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetUserDetailQuery, useUpdateUserMutation } from '../accountApiSlice';
 import moment from 'moment';
+import { useGetDataAccessQuery } from '../../../../../app/services/userService';
 
 export default function useAccountFormModel() {
     let { id } = useParams()
@@ -15,6 +16,7 @@ export default function useAccountFormModel() {
     const [fileData, setForm] = useState(new FormData())
 
     const { data: responDataUser = { data: [] }, refetch } = useGetUserDetailQuery(id, { skip: id ? false : true })
+    const { data: responDataPosition = { data: [] }, refetchPosition } = useGetDataAccessQuery({ limit: 999 })
 
 
     const [updateUser, resultUpdate] = useUpdateUserMutation()
@@ -73,7 +75,7 @@ export default function useAccountFormModel() {
     };
 
     const onConfirm = async () => {
-        alert(`Berhasil`)
+        updateUser({ id: id, form: formData });
         await refetch()
         setModalConfirm(false)
         setModalSuccess(true)
@@ -83,7 +85,7 @@ export default function useAccountFormModel() {
         id ? (
             setModalConfirm(true)
         ) : (
-            alert(`Berhasil`),
+            storeUser(formData),
             setModalSuccess(true)
         )
     }

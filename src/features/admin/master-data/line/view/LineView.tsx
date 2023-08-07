@@ -48,6 +48,7 @@ export default function LineMasterView() {
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>No.</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line Group</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line Number</th>
+                            <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line Location</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Line Device</th>
                             <th className='p-2 font-semibold text-sm text-[#667085] text-start'>Action</th>
                         </thead>
@@ -60,6 +61,7 @@ export default function LineMasterView() {
                                                 <td className='px-2 py-4 text-sm w-[25%]'>{i + 1}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group?.name}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.name}</td>
+                                                <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_group?.name + item.name}</td>
                                                 <td className='px-2 py-4 text-sm whitespace-nowrap w-[25%]'>{item.line_device?.name}</td>
                                                 <td className='px-2 py-2 text-sm '>
                                                     <div className='inline-flex gap-3'>
