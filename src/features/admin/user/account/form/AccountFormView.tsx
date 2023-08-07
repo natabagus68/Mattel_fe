@@ -66,7 +66,7 @@ export default function AccountFormView() {
               null
             )
           }
-          {/* <div className='inline-flex flex-col gap-2'>
+          <div className='inline-flex flex-col gap-2'>
             <label htmlFor="role" className='font-bold'>Role</label>
             <select name="role"
               className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]'
@@ -76,7 +76,7 @@ export default function AccountFormView() {
               <option value="" selected disabled>Select</option>
 
             </select>
-          </div> */}
+          </div>
           <div className='inline-flex flex-col gap-2'>
             <label htmlFor="role" className='font-bold'>Position</label>
             <select name="position"
