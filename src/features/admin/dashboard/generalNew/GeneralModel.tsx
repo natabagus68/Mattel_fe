@@ -33,6 +33,11 @@ export default function useGeneralModel() {
     const changeDateRepairAVG = (value: IinitialObject) => setRepairAVG(value);
     const changeDateRepairSUM = (value: IinitialObject) => setRepairSUM(value);
 
+    // clearing datepicker value
+    const clearResponseAVG = () => setResponseAVG(initialObject);
+    const clearResponseSUM = () => setResponseSUM(initialObject);
+    const clearRepairAVG = () => setRepairAVG(initialObject);
+    const clearRepairSUM = () => setRepairSUM(initialObject);
     const handleShift = () => {
         const currentTime = moment();
         const shift1Start = moment().set({ hour: 22, minute: 40 });
@@ -81,5 +86,9 @@ export default function useGeneralModel() {
         changeDateResponseSUM,
         changeDateRepairAVG,
         changeDateRepairSUM,
+        clearResponseAVG,
+        clearResponseSUM,
+        clearRepairAVG,
+        clearRepairSUM,
     };
 }

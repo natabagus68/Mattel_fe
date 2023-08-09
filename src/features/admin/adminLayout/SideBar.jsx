@@ -192,14 +192,8 @@ export const SideBar = () => {
                     <NavItem
                         label={`User`}
                         icon={<UsersIcon className="mr-3 -mb-1" />}
-                    >
-                        {user?.childs?.find(
-                            (item) => item.module === "Account"
-                        ) && <NavItem to={`user/account`} label={`Account`} />}
-                        {user?.childs?.find(
-                            (item) => item.module === "Access"
-                        ) && <NavItem to={`user/access`} label={`Access`} />}
-                    </NavItem>
+                        to={"user/account"}
+                    />
                 )}
             </div>
         </>

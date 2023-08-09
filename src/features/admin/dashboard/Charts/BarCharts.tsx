@@ -34,8 +34,9 @@ export default function BarCharts({
     value,
     titleYAxes,
     filter = true,
-    handleDate = (val) => { },
+    handleDate = (val) => {},
     dateValue = null,
+    clearMothod = () => {},
 }) {
     const optionsCharts = {
         plugins: {
@@ -101,16 +102,15 @@ export default function BarCharts({
                     <Datepicker
                         primaryColor="blue"
                         containerClassName={
-                            "bg-white border border-gray-200 rounded-md relative"
+                            "bg-white border border-gray-200 rounded-md"
                         }
-                        inputClassName={
-                            "bg-white px-12 py-1 rounded-md outline-none"
-                        }
+                        inputClassName={"bg-white px-12 py-1 rounded-md"}
                         toggleClassName={
                             "text-gray-200 absolute right-2 top-1.5"
                         }
                         onChange={handleDate}
                         value={dateValue}
+                        showShortcuts={true}
                     />
                 )}
             </div>

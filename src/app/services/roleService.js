@@ -12,6 +12,6 @@ export const roleSlice = apiSlice.injectEndpoints({
 });
 
 export const {
-    useGetAllRole,
-    useGetEngineerRole
+    useGetAllRoleQuery,
+    useGetEngineerRoleQuery
 } = roleSlice
