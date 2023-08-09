@@ -1,58 +1,86 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import { useGetUserDetailQuery, useUpdateUserMutation } from '../accountApiSlice';
-import moment from 'moment';
-import { useGetDataAccessQuery } from '../../../../../app/services/userService';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+    useGetUserDetailQuery,
+    useUpdateUserMutation,
+} from "../accountApiSlice";
+import moment from "moment";
+import { useGetDataAccessQuery } from "../../../../../app/services/userService";
+import { useGetAllRoleQuery } from "../../../../../app/services/roleService";
+import { AccountForm } from "../../../../../domain/model/account-form";
+import { useCreateUserMutation } from "../accountApiSlice";
 
 export default function useAccountFormModel() {
-    let { id } = useParams()
+    let { id } = useParams();
     const navigate = useNavigate();
-    const [modalConfirm, setModalConfirm] = useState(false)
-    const [modalSuccess, setModalSuccess] = useState(false)
-    const [chooseImage, setChooseImage] = useState(false);
-    const [layoutName, setLayoutName] = useState(null);
-    const [fileUrl, setFileUrl] = useState<any | null>(null);
-    const [filesDraawing, setFileDrawing] = useState()
-    const [fileData, setForm] = useState(new FormData())
+    const [modalConfirm, setModalConfirm] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const [openView, setOpenView] = useState(false);
+    const [form, setForm] = useState<AccountForm>(
+        AccountForm.create({
+            name: "",
+            email: "",
+            kpk: "",
+            password: "",
+            role: "",
+            position: "",
+            file: undefined,
+        })
+    );
+    const handelOpenImage = () => {
+        setOpenView(!openView);
+    };
+    const [imgURL, setImgURL] = useState<string | undefined>(undefined);
+    const onChangeInput = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+        setForm((prevState) => {
+            return AccountForm.create({
+                ...prevState.unmarshall(),
+                [e.target.name]: e.target.value,
+            });
+        });
+    };
 
-    const { data: responDataUser = { data: [] }, refetch } = useGetUserDetailQuery(id, { skip: id ? false : true })
-    const { data: responDataPosition = { data: [] }, refetchPosition } = useGetDataAccessQuery({ limit: 999 })
+    const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm((prevState) => {
+            return AccountForm.create({
+                ...prevState.unmarshall(),
+                file: e.target.files?.[0],
+            });
+        });
 
+        const file: any = e.target.files?.[0];
+        const url = URL.createObjectURL(file);
+        setImgURL(url);
+    };
+    const removeImage = () => {
+        setForm((prevState) => {
+            return AccountForm.create({
+                ...prevState.unmarshall(),
+                file: undefined,
+            });
+        });
 
-    const [updateUser, resultUpdate] = useUpdateUserMutation()
-    const [storeUser, resultStore] = useUpdateUserMutation()
+        setImgURL("");
+    };
+    const { data: responDataUser, refetch } = useGetUserDetailQuery(id, {
+        skip: id ? false : true,
+    });
+    const { data: responDataPosition, refetchPosition } = useGetDataAccessQuery(
+        { limit: 999 }
+    );
+    const { data: responseDataRole, refetch: refectRole } =
+        useGetAllRoleQuery();
+
+    const [updateUser, { data: resultUpdate, error: errorUpdate }] =
+        useUpdateUserMutation();
+    const [storeUser, { data: resultStore, error: errorStore }] =
+        useCreateUserMutation();
 
     const onPageBack = () => navigate(-1);
 
-    const onImageChange = (e) => {
-
-        fileData.append('file', e.target.files[0])
-        setLayoutName(e.target.value);
-        e.target.value != null ? setChooseImage(true) : null;
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const url = e.target?.result;
-            setFileUrl(url);
-        };
-        reader.readAsDataURL(file);
-    };
-
-    const initialValue = {
-        name: '',
-        email: '',
-        kpk: '',
-        password: '',
-        role: '',
-        position: '',
-    }
-
-    const [formData, setFormData] = useState(initialValue)
-    const handleChangeForm = (e) => {
-        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
-    }
-
-    const [shiftData, setShiftData] = useState("")
+    const [shiftData, setShiftData] = useState("");
 
     const handleShift = () => {
         const currentTime = moment();
@@ -61,12 +89,25 @@ export default function useAccountFormModel() {
         const shift2Start = moment().set({ hour: 7, minute: 10 });
         const shift3Start = moment().set({ hour: 15, minute: 40 });
 
-
-        if (currentTime.isAfter(shift1Start) && currentTime.isBefore(shift2Start) || currentTime.isAfter(shift1Continues) && currentTime.isBefore(shift2Start) || currentTime.isSame(shift1Start)) {
+        if (
+            (currentTime.isAfter(shift1Start) &&
+                currentTime.isBefore(shift2Start)) ||
+            (currentTime.isAfter(shift1Continues) &&
+                currentTime.isBefore(shift2Start)) ||
+            currentTime.isSame(shift1Start)
+        ) {
             setShiftData("Shift 1");
-        } else if (currentTime.isAfter(shift2Start) && currentTime.isBefore(shift3Start) || currentTime.isSame(shift2Start)) {
+        } else if (
+            (currentTime.isAfter(shift2Start) &&
+                currentTime.isBefore(shift3Start)) ||
+            currentTime.isSame(shift2Start)
+        ) {
             setShiftData("Shift 2");
-        } else if (currentTime.isAfter(shift3Start) && currentTime.isBefore(shift1Start) || currentTime.isSame(shift3Start)) {
+        } else if (
+            (currentTime.isAfter(shift3Start) &&
+                currentTime.isBefore(shift1Start)) ||
+            currentTime.isSame(shift3Start)
+        ) {
             setShiftData("Shift 3");
         } else {
             // If none of the shifts match, return a default value
@@ -74,63 +115,77 @@ export default function useAccountFormModel() {
         }
     };
 
-    const onConfirm = async () => {
-        updateUser({ id: id, form: formData });
-        await refetch()
-        setModalConfirm(false)
-        setModalSuccess(true)
-    }
-    const onSave = async (e) => {
-        e.preventDefault()
-        id ? (
-            setModalConfirm(true)
-        ) : (
-            storeUser(formData),
-            setModalSuccess(true)
-        )
-    }
+    const onButtonSave = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        setModalConfirm(true);
+    };
+
     const handleCloseModal = () => {
-        setModalConfirm(false)
-        setModalSuccess(false)
-    }
+        setModalConfirm(false);
+    };
 
+    const onConfirm = async () => {
+        const data = new FormData();
+        data.append("name", form.name);
+        data.append("kpk", form.kpk);
+        data.append("email", form.email);
+        data.append("password", form.password);
+        data.append("position", form.position);
+        data.append("role", form.role);
+        data.append("file", form.file);
+        data.append("phone", "");
+        if (!!id) {
+            await updateUser({ id, form: data });
 
-    useEffect(() => {
-        async function refresh() {
-            id ?
-                await refetch()
-                : null
+            setModalConfirm(false);
+            setModalSuccess(true);
+        } else {
+            await storeUser(data);
+
+            setModalConfirm(false);
+            setModalSuccess(true);
         }
-        refresh();
-    }, [id])
+    };
+    useEffect(() => {
+        if (!!id && !!responDataUser) {
+            setForm((prevState) => {
+                return AccountForm.create({
+                    ...prevState.unmarshall(),
+                    name: responDataUser?.data?.name ?? "",
+                    email: responDataUser?.data?.email ?? "",
+                    kpk: responDataUser?.data?.employee?.kpk ?? "",
+                    password: responDataUser?.data?.password ?? "",
+                    role: responDataUser?.data?.roles[0]?.id ?? "",
+                    position: responDataUser?.data?.positions[0]?.id ?? "",
+                    file: responDataUser?.data?.photo ?? "",
+                });
+            });
+
+            setImgURL(responDataUser?.data?.photo ?? "");
+        }
+    }, [id, responDataUser]);
 
     useEffect(() => {
-        responDataUser ?
-            setFormData({ 'name': responDataUser?.data.name, 'email': responDataUser?.data.email, 'kpk': responDataUser?.data.employee?.kpk, 'position': responDataUser?.data.position?.id ?? '', 'role': responDataUser?.data.roles?.id ?? '', 'password': '' })
-            : setFormData(initialValue)
-    }, [responDataUser.data.id])
-
-    useEffect(() => {
-        handleShift()
-    }, [])
-
+        handleShift();
+    }, []);
 
     return {
         id,
-        filesDraawing,
-        setFileDrawing,
-        fileUrl,
-        chooseImage,
-        layoutName,
-        onImageChange,
-        onPageBack,
-        onSave,
-        formData,
-        handleChangeForm,
+        form,
+        shiftData,
+        responseDataRole,
+        responDataPosition,
+        imgURL,
         modalConfirm,
         modalSuccess,
+        openView,
+        removeImage,
+        onPageBack,
+        onChangeInput,
+        onChangeImage,
+        onButtonSave,
         handleCloseModal,
         onConfirm,
-        shiftData
-    }
+        handelOpenImage,
+    };
 }

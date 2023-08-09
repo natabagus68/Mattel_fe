@@ -46,12 +46,15 @@ export default function AccessUser() {
                         </div>
                     </div>
                     <div className="py-[3px] px-1 inline-flex gap-[10px] bg-[#F0F1F3] rounded-md w-fit">
-                        <div className="py-[6px] px-3 rounded ">
+                        <div
+                            className="py-[6px] px-3 rounded cursor-pointer"
+                            onClick={model.toAccount}
+                        >
                             <span className="text-sm font-semibold text-[#989FAD] ">
                                 Account
                             </span>
                         </div>
-                        <div className="py-[6px] px-3 rounded bg-[#FFF]">
+                        <div className="py-[6px] px-3 rounded bg-[#FFF] cursor-pointer">
                             <span className="text-sm font-semibold text-[#313030]">
                                 Access
                             </span>

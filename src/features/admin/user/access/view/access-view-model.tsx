@@ -43,6 +43,7 @@ export const useAccessUser = () => {
     const toPermission = (id) => {
         navigate(`${config.pathPrefix}user/access/permission/create/${id}`);
     };
+    const toAccount = () => navigate("/user/account");
     return {
         dataAccess,
         handleChangeFilter,
@@ -50,5 +51,6 @@ export const useAccessUser = () => {
         destroyAcceess,
         tableParam,
         toPermission,
+        toAccount,
     };
 };
