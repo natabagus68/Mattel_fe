@@ -14,6 +14,8 @@ export default function useLineFormModel() {
     const navigate = useNavigate();
     const [modalConfirm, setModalConfirm] = useState(false);
     const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
 
     const { data: responLineGroup, isLoading: loadLineGroup } =
         useGetLineGroupsQuery({ limit: 999 });
@@ -123,10 +125,35 @@ export default function useLineFormModel() {
         e.preventDefault();
         id
             ? setModalConfirm(true)
-            : (storeLine(formData), setModalSuccess(true));
+            : (storeLine(formData).then((result) => {
+                console.log({ result })
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+
+                    setModalSuccess(true)
+                }
+            }).catch((err) => {
+                setModalFailed(true)
+            }));
     };
+
+    const handleValidation = async (e) => {
+        e.preventDefault();
+
+        if (formData.name.length > 2) {
+            setModalFailed(true)
+            setFailedMessage("Line Number length Not More Than 2")
+        } else {
+            handleSave(e);
+        }
+    }
+
     const handleCloseModal = () => {
         setModalConfirm(false);
+        setModalFailed(false);
         setModalSuccess(false);
     };
 
@@ -160,9 +187,12 @@ export default function useLineFormModel() {
         id,
         modalConfirm,
         modalSuccess,
+        modalFailed,
+        failedMessage,
         handleBack,
         handleCloseModal,
         handleSave,
+        handleValidation,
         formData,
         handleChangeLineGroup,
         tempLocation,

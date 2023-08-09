@@ -5,6 +5,7 @@ import { ArrowIcon, SaveIcons } from '../../../../../common/components/icons';
 import { SaveConfirmationDialog } from '../../../../../common/components/dialog/SaveConfirmationDialog';
 import { SuccessDialog } from '../../../../../common/components/dialog/SuccessDialog';
 import useLineDeviceFormModel from './LineDeviceFormModel';
+import { FailedDialog } from '../../../../../common/components/dialog/FailedDialog';
 
 export default function LineDeviceForm() {
     const form = useLineDeviceFormModel()
@@ -16,7 +17,7 @@ export default function LineDeviceForm() {
             </div>
             <div className='rounded-[6px] flex flex-col gap-4 border border-[#D0D3D9] bg-[#FFF] text-[#313030] min-h-[600px]'>
                 <div className='py-[20px] px-6 flex justify-between items-center border-b border-b-[#D0D3D9]'>
-                    <span className='text-2xl font-bold'>{form.id ? "Edit Line Group" : "Add Line Group"}</span>
+                    <span className='text-2xl font-bold'>{form.id ? "Edit Line Device" : "Add Line Device"}</span>
                     <button onClick={form.handleBack} className='rounded py-3 px-5 inline-flex gap-2 items-center border border-[#514E4E] text-sm font-semibold '>
                         <ArrowIcon color='#14988B' className='-rotate-90' />
                         Back
@@ -38,6 +39,13 @@ export default function LineDeviceForm() {
                 </div>
             </div>
             <SaveConfirmationDialog open={form.modalConfirm} setClose={form.handleCloseModal} onSave={form.onConfirm} />
+            <FailedDialog
+                open={form.modalFailed}
+                navigate={() => {
+                    form.handleCloseModal();
+                }}
+                message={form.failedMessage}
+            />
             <SuccessDialog open={form.modalSuccess} navigate={() => { form.handleCloseModal(); form.handleBack() }} />
         </main>
     )

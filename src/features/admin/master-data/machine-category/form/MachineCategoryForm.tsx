@@ -5,6 +5,7 @@ import moment from 'moment';
 import { SaveConfirmationDialog } from '../../../../../common/components/dialog/SaveConfirmationDialog';
 import { SuccessDialog } from '../../../../../common/components/dialog/SuccessDialog';
 import useMachineCategoryFormModel from './MachineCategoryFormModel';
+import { FailedDialog } from '../../../../../common/components/dialog/FailedDialog';
 
 export default function MachineCategoryForm() {
     const form = useMachineCategoryFormModel()
@@ -23,7 +24,7 @@ export default function MachineCategoryForm() {
                     </button>
                 </div>
                 <div className='px-6 flex flex-col gap-5'>
-                    <form onSubmit={form.handleSave} className='flex flex-col w-[85%] gap-6'>
+                    <form onSubmit={form.handleValidation} className='flex flex-col w-[85%] gap-6'>
                         <div className='inline-flex flex-col gap-2'>
                             <label htmlFor="name" className='font-bold'>Name</label>
                             <input type="text" name='name' value={form.formData.name} onChange={form.handleChangeForm} className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]' placeholder='Enter Machine Category Name' />
@@ -42,6 +43,13 @@ export default function MachineCategoryForm() {
                 </div>
             </div>
             <SaveConfirmationDialog open={form.modalConfirm} setClose={form.handleCloseModal} onSave={form.onConfirm} />
+            <FailedDialog
+                open={form.modalFailed}
+                navigate={() => {
+                    form.handleCloseModal();
+                }}
+                message={form.failedMessage}
+            />
             <SuccessDialog open={form.modalSuccess} navigate={() => { form.handleCloseModal(); form.handleBack() }} />
         </main>
     )

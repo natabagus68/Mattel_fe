@@ -8,6 +8,8 @@ export default function useLineGroupFormModel() {
     const navigate = useNavigate()
     const [modalConfirm, setModalConfirm] = useState(false)
     const [modalSuccess, setModalSuccess] = useState(false)
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
 
     const { data: responDataLineGroup = { data: [] }, refetch } = useGetLineGroupDetailQuery(id, { skip: id ? false : true })
 

@@ -6,6 +6,7 @@ import useLineFormModel from "./LineFormModel";
 import { SaveConfirmationDialog } from "../../../../../common/components/dialog/SaveConfirmationDialog";
 import { SuccessDialog } from "../../../../../common/components/dialog/SuccessDialog";
 import Select from "react-select";
+import { FailedDialog } from "../../../../../common/components/dialog/FailedDialog";
 
 export default function LineForm() {
     const form = useLineFormModel();
@@ -33,7 +34,7 @@ export default function LineForm() {
                 </div>
                 <div className="px-6 flex flex-col gap-5">
                     <form
-                        onSubmit={form.handleSave}
+                        onSubmit={form.handleValidation}
                         className="flex flex-col w-[85%] gap-6"
                     >
                         <div className="inline-flex flex-col gap-2">
@@ -130,6 +131,13 @@ export default function LineForm() {
                 open={form.modalConfirm}
                 setClose={form.handleCloseModal}
                 onSave={form.onConfirm}
+            />
+            <FailedDialog
+                open={form.modalFailed}
+                navigate={() => {
+                    form.handleCloseModal();
+                }}
+                message={form.failedMessage}
             />
             <SuccessDialog
                 open={form.modalSuccess}
