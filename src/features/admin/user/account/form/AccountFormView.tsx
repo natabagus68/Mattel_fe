@@ -162,13 +162,11 @@ export default function AccountFormView() {
                         {/* Input Field Photo */}
                         <div className="relative flex ">
                             <div
-                                className={` ${
-                                    !!user.imgURL
+                                className={` ${!!user.imgURL
                                         ? "bg-[#F04438]"
                                         : "bg-[#B9BDC7]"
-                                } h-[43px]  ${
-                                    !!user.imgURL ? "w-[130px]" : "w-[94px]"
-                                } flex items-center justify-center rounded-l-lg cursor-pointer`}
+                                    } h-[43px]  ${!!user.imgURL ? "w-[130px]" : "w-[94px]"
+                                    } flex items-center justify-center rounded-l-lg cursor-pointer`}
                             >
                                 {!!!user.imgURL ? (
                                     <label
@@ -224,7 +222,7 @@ export default function AccountFormView() {
                             <button
                                 type="submit"
                                 className="flex items-center justify-center gap-2 w-full rounded py-3 px-5 bg-[#F04438] text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50"
-                                // disabled={!!user.formData.name}
+                            // disabled={!!user.formData.name}
                             >
                                 <SaveIcons />
                                 Save

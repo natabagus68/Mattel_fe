@@ -154,11 +154,22 @@ export default function useLineFormModel() {
 
     const handleValidation = async (e) => {
         e.preventDefault();
-
-        if (formData.name.length > 2) {
+        if (formData.line_group_id == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Line Group must be selected")
+        }
+        else if (formData.name == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Line Number must be filled")
+        }
+        else if (formData.name.length > 2) {
             setModalFailed(true)
             setFailedMessage("Line Number length Not More Than 2")
-        } else {
+        } else if (formData.line_device_id == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Line Device must be selected")
+        }
+        else {
             handleSave(e);
         }
     }
