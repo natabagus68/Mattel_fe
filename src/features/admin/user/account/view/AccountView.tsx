@@ -16,6 +16,8 @@ import PaginationNew from "../../../../../common/components/table/PaginationNew"
 
 export default function AccountView() {
     const user = useAccountViewModel();
+    console.log("respon rol : ", user?.responRole)
+
     return (
         <main>
             <div className="flex justify-between items-center mb-6">
@@ -78,11 +80,17 @@ export default function AccountView() {
                             <select
                                 name="role"
                                 onChange={user.handleChangeParam}
-                                value={user.paramData.sort}
+                                value={user.paramData.role}
                                 className="p-2 rounded text-sm outline-none"
                             >
-                                <option value="Leader">Leader</option>
-                                <option value="Mechanic">Mechanic</option>
+                                <option value={""} selected>
+                                    All Role
+                                </option>
+                                {!user.loadRole && user.responRole.data.length != 0 ? user.responRole.data.map((item, i) => (
+                                    <option value={item.id} key={item.id}>
+                                        {item.name}
+                                    </option>
+                                )) : null}
                             </select>
                         </div>
                         <div className="inline-flex items-center gap-2">
@@ -231,7 +239,7 @@ export default function AccountView() {
                                 ) : (
                                     <tr>
                                         <td
-                                            colSpan={5}
+                                            colSpan={6}
                                             className="py-2 px-[20px] text-center bg-red-200"
                                         >
                                             Data empty
@@ -240,7 +248,7 @@ export default function AccountView() {
                                 )
                             ) : (
                                 <tr>
-                                    <td colSpan={5} className="py-2 px-[20px]">
+                                    <td colSpan={6} className="py-2 px-[20px]">
                                         <div className="inline-flex justify-center w-full">
                                             <Loader />
                                         </div>

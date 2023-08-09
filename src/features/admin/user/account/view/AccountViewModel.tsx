@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGetUsersQuery, useVerifyUserMutation } from "../accountApiSlice";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment";
+import { useGetAllRoleQuery } from "../../../../../app/services/roleService";
 
 export default function useAccountViewModel() {
     const navigate = useNavigate();
@@ -16,6 +17,11 @@ export default function useAccountViewModel() {
         role: searchParam.get("role") || "",
     });
 
+
+    const { data: responRole, isLoading: loadRole } =
+        useGetAllRoleQuery();
+
+
     const {
         data: responDataUser = { data: [] },
         isLoading,
@@ -24,6 +30,7 @@ export default function useAccountViewModel() {
         page: paramData.page,
         limit: 10,
         q: paramData.search,
+        role_id: paramData.role,
         sort_val: paramData.sort.split("_")[1],
         table_name: paramData.sort.split("_")[0],
     });
@@ -130,6 +137,8 @@ export default function useAccountViewModel() {
         handleCancelDelete,
         onDelete,
         responDataUser,
+        responRole,
+        loadRole,
         refetchUser,
         handleChangeParam,
         paramData,
