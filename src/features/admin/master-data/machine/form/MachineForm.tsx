@@ -110,6 +110,24 @@ export default function MachineForm() {
                                 placeholder="Input Asset no"
                             />
                         </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label
+                                htmlFor="condition"
+                                className="font-bold"
+                            >
+                                Status
+                            </label>
+
+                            <select
+                                name="condition"
+                                onChange={form.handleChangeForm}
+                                value={form.formData.condition}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                            >
+                                <option value="Available">Available</option>
+                                <option value="Not Active">Not Active</option>
+                            </select>
+                        </div>
 
                         <div className="inline-flex flex-col gap-2">
                             <label
