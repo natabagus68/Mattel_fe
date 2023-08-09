@@ -15,6 +15,8 @@ export default function useMachineFormModel() {
     const navigate = useNavigate();
     const [modalConfirm, setModalConfirm] = useState(false);
     const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
 
     const { data: responLine, isLoading: loadLine } = useGetLinesQuery({
         limit: 999,
@@ -31,8 +33,8 @@ export default function useMachineFormModel() {
 
     const initialValue = {
         code: "",
-        number: 0,
-        asset_number: 0,
+        number: "",
+        asset_number: "",
         line_id: "",
         machine_category_id: "",
         condition: "",
@@ -162,6 +164,14 @@ export default function useMachineFormModel() {
                     return item.value;
                 }),
             },
+        }).then((result) => {
+            if (result && result.error) {
+                const errorMessage = result.error.data.message || "Something went terribly wrong"
+                setModalFailed(true)
+                setFailedMessage(errorMessage)
+            }
+        }).catch((err) => {
+            setModalFailed(true)
         });
         await refetch();
         setModalConfirm(false);
@@ -178,13 +188,49 @@ export default function useMachineFormModel() {
                         return item.value;
                     }),
                 },
-            }),
-                setModalSuccess(true));
+            }).then((result) => {
+                console.log({ result })
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+                    setModalSuccess(true)
+                }
+            }).catch((err) => {
+                setModalFailed(true)
+
+            }));
     };
     const handleCloseModal = () => {
         setModalConfirm(false);
         setModalSuccess(false);
+        setModalFailed(false);
     };
+
+    const handleValidation = async (e) => {
+        e.preventDefault();
+
+        console.log("data = ", formData)
+
+        if (formData.number == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Machine Number must be filled")
+        } else if (formData.number.toString().length > 3) {
+            setModalFailed(true)
+            setFailedMessage("Machine Number length Not More Than 3")
+        } else if (formData.machine_category_id == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Machine Category must be filled")
+        } else if (formData.line_id == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Line must be filled")
+        }
+        else {
+            handleSave(e);
+        }
+
+    }
 
     useEffect(() => {
         async function refresh() {
@@ -231,11 +277,14 @@ export default function useMachineFormModel() {
         id,
         modalConfirm,
         modalSuccess,
+        modalFailed,
+        failedMessage,
         handleBack,
         handleCloseModal,
         handleSave,
         formData,
         handleChangeForm,
+        handleValidation,
         onConfirm,
         responDataMachine,
         responMachineCategory,

@@ -116,7 +116,19 @@ export default function useLineFormModel() {
         navigate(-1);
     };
     const onConfirm = async () => {
-        updateLine({ lineId: id, form: formData });
+        updateLine({ lineId: id, form: formData }).then((result) => {
+            if (result && result.error) {
+                const errorMessage = result.error.data.message || "Something went terribly wrong"
+                setModalFailed(true)
+                setFailedMessage(errorMessage)
+            } else {
+
+                setModalSuccess(true)
+            }
+        }).catch((err) => {
+            setModalFailed(true)
+
+        });;
         await refetch();
         setModalConfirm(false);
         setModalSuccess(true);
