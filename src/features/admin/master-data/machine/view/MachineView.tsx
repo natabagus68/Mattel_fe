@@ -80,6 +80,9 @@ export default function MachineView() {
                             <th className="p-2 font-semibold text-sm text-[#667085] text-start">
                                 LINE LOCATION
                             </th>
+                            <th className="p-2 font-semibold text-sm text-[#667085] text-start">
+                                STATUS
+                            </th>
                             {/* <th className='p-2 font-semibold text-sm text-[#667085] text-start'>PART</th> */}
                             {/* <th className="p-2 font-semibold text-sm text-[#667085] text-start">
                                 DEVICE ID
@@ -108,6 +111,9 @@ export default function MachineView() {
                                                 </td>
                                                 <td className="px-2 py-4 text-sm">
                                                     {item.line?.line_group?.name != undefined || item.line?.name != undefined ? item.line?.line_group?.name + item.line?.name : "-"}
+                                                </td>
+                                                <td className="px-2 py-4 text-sm">
+                                                    {item.condition}
                                                 </td>
                                                 {/* <td className='px-2 py-4 text-sm'>
                                             {

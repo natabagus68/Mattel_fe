@@ -35,6 +35,7 @@ export default function useMachineFormModel() {
         asset_number: 0,
         line_id: "",
         machine_category_id: "",
+        condition: "",
     };
 
     const [tempForm, setTempForm] = useState({
@@ -198,6 +199,7 @@ export default function useMachineFormModel() {
                 code: responDataMachine?.data.code,
                 number: responDataMachine?.data.number,
                 asset_number: responDataMachine?.data.asset_number,
+                condition: responDataMachine?.data.condition,
                 line_id: responDataMachine?.data.line_id,
                 machine_category_id:
                     responDataMachine?.data.machine_category_id,

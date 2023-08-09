@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useShowDrawingQuery } from '../../layoutApiSlice';
+import { useGetLayoutsQuery } from '../../layoutApiSlice';
 import moment from 'moment';
 
 export default function useDrawingAndMachineDetailModel() {
@@ -9,7 +9,7 @@ export default function useDrawingAndMachineDetailModel() {
     const location = useLocation()
     const navigate = useNavigate();
 
-    const { data: LayoutDataById = { data: [] }, isLoading, refetch } = useShowDrawingQuery(id)
+    const { data: LayoutDataById = { data: [] }, isLoading, refetch } = useGetLayoutsQuery(id)
 
     const [shiftData, setShiftData] = useState("")
 

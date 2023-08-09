@@ -22,16 +22,20 @@ export default function InputChangeOverView() {
                     <span className='text-base font-semibold'>Input Changeover Schedule</span>
                     <div className='flex flex-row gap-6 text-sm font-semibold w-[80%]'>
                         <div className='flex flex-col gap-1 w-full'>
-                            <span>Production Sch Date</span>
-                            <input type="date" name='production_sch_date' value={changeOver.changeOverSchedule.production_sch_date} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
-                        </div>
-                        <div className='flex flex-col gap-1 w-full'>
                             <span>Preparation Sch Date</span>
                             <input type="date" name='preparation_sch_date' value={changeOver.changeOverSchedule.preparation_sch_date} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
-                            <span>Week Ending</span>
-                            <input type="date" value={moment(changeOver.changeOverSchedule.production_sch_date).endOf('week').format('YYYY-MM-DD')} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
+                            <span>Preparation Shift</span>
+                            <select name="preparation_shift" id="" value={changeOver.changeOverSchedule.preparation_shift} onChange={changeOver.handleChangeScheduleFilter} className='py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E]'>
+                                <option value="Shift 1">Shift 1</option>
+                                <option value="Shift 2">Shift 2</option>
+                                <option value="Shift 3">Shift 3</option>
+                            </select>
+                        </div>
+                        <div className='flex flex-col gap-1 w-full'>
+                            <span>Production Sch Date</span>
+                            <input type="date" name='production_sch_date' value={changeOver.changeOverSchedule.production_sch_date} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs' />
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
                             <span>Production Shift</span>
@@ -42,12 +46,8 @@ export default function InputChangeOverView() {
                             </select>
                         </div>
                         <div className='flex flex-col gap-1 w-full'>
-                            <span>Preparation Shift</span>
-                            <select name="preparation_shift" id="" value={changeOver.changeOverSchedule.preparation_shift} onChange={changeOver.handleChangeScheduleFilter} className='py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E]'>
-                                <option value="Shift 1">Shift 1</option>
-                                <option value="Shift 2">Shift 2</option>
-                                <option value="Shift 3">Shift 3</option>
-                            </select>
+                            <span>Week Ending</span>
+                            <input type="date" value={moment(changeOver.changeOverSchedule.production_sch_date).endOf('week').format('YYYY-MM-DD')} onChange={changeOver.handleChangeScheduleFilter} className=' py-2 px-3 rounded-[6px] border border-[#D0D3D9] bg-[#FFF] text-sm text-[#514E4E] placeholder:text-xs disabled:border-none disabled:bg-[#D0D3D9] disabled:text-[#9A9898] ' disabled={true} />
                         </div>
                     </div>
                 </div>

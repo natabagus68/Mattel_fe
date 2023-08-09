@@ -115,14 +115,14 @@ export const SideBar = () => {
                             label={`Changeover Summary`}
                             to={`layout-menu/changeover-summary`}
                         />
-                        <NavItem
+                        {/* <NavItem
                             label={`Changeover Ticket`}
                             to={`layout-menu/changeover-ticket`}
                         />
                         <NavItem
                             label={`Drawing and Machine`}
                             to={`layout-menu/drawing-and-machine`}
-                        />
+                        /> */}
                     </NavItem>
                 )}
 
@@ -141,10 +141,10 @@ export const SideBar = () => {
                             label={`Line Device`}
                         />
                         <NavItem to={`master/line`} label={`Line`} />
-                        <NavItem
+                        {/* <NavItem
                             to={`master/machine-part`}
                             label={`Machine Part`}
-                        />
+                        /> */}
                         <NavItem
                             to={`master/machine-category`}
                             label={`Machine Category`}
