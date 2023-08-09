@@ -24,7 +24,7 @@ export default function LineDeviceForm() {
                     </button>
                 </div>
                 <div className='px-6 flex flex-col gap-5'>
-                    <form onSubmit={form.handleSave} className='flex flex-col w-[85%]'>
+                    <form onSubmit={form.handleValidation} className='flex flex-col w-[85%]'>
                         <div className='inline-flex flex-col gap-2'>
                             <label htmlFor="name" className='font-bold'>Line Device Name</label>
                             <input type="text" name='name' value={form.formData.name} onChange={form.handleChangeForm} className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]' placeholder='Enter Line Device Name' />

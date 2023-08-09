@@ -86,7 +86,15 @@ export default function useMachineCategoryFormModel() {
     const handleValidation = async (e) => {
         e.preventDefault();
 
-        if (formData.abbreviation.length > 3) {
+        if (formData.name == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Name must be inputted")
+        }
+        else if (formData.abbreviation == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Abbreviation must be inputted")
+        }
+        else if (formData.abbreviation.length > 3) {
             setModalFailed(true)
             setFailedMessage("Abbreviation length Not More Than 3")
         } else {

@@ -78,6 +78,17 @@ export default function useLineDeviceFormModel() {
             })
         );
     }
+
+    const handleValidation = async (e) => {
+        e.preventDefault();
+        if (formData.name == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Line Device Name must be inputted")
+        }
+        else {
+            handleSave(e);
+        }
+    }
     const handleCloseModal = () => {
         setModalConfirm(false)
         setModalSuccess(false)
@@ -108,6 +119,7 @@ export default function useLineDeviceFormModel() {
         modalConfirm,
         modalSuccess,
         modalFailed,
+        handleValidation,
         failedMessage,
         handleBack,
         handleCloseModal,
