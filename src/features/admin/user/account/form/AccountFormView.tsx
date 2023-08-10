@@ -11,6 +11,7 @@ import { SaveConfirmationDialog } from "../../../../../common/components/dialog/
 import { SuccessDialog } from "../../../../../common/components/dialog/SuccessDialog";
 import { EditIcon, TrashIcon } from "lucide-react";
 import ImageView from "../../../../../common/components/dialog/ImageView";
+import { FailedDialog } from "../../../../../common/components/dialog/FailedDialog";
 
 export default function AccountFormView() {
     const user = useAccountFormModel();
@@ -163,8 +164,8 @@ export default function AccountFormView() {
                         <div className="relative flex ">
                             <div
                                 className={` ${!!user.imgURL
-                                        ? "bg-[#F04438]"
-                                        : "bg-[#B9BDC7]"
+                                    ? "bg-[#F04438]"
+                                    : "bg-[#B9BDC7]"
                                     } h-[43px]  ${!!user.imgURL ? "w-[130px]" : "w-[94px]"
                                     } flex items-center justify-center rounded-l-lg cursor-pointer`}
                             >
@@ -234,6 +235,13 @@ export default function AccountFormView() {
                     open={user.modalConfirm}
                     setClose={user.handleCloseModal}
                     onSave={user.onConfirm}
+                />
+                <FailedDialog
+                    open={user.modalFailed}
+                    navigate={() => {
+                        user.handleCloseModal();
+                    }}
+                    message={user.failedMessage}
                 />
                 <SuccessDialog
                     open={user.modalSuccess}
