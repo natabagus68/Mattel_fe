@@ -11,6 +11,7 @@ import { SaveConfirmationDialog } from "../../../../../common/components/dialog/
 import { SuccessDialog } from "../../../../../common/components/dialog/SuccessDialog";
 import { EditIcon, TrashIcon } from "lucide-react";
 import ImageView from "../../../../../common/components/dialog/ImageView";
+import { FailedDialog } from "../../../../../common/components/dialog/FailedDialog";
 
 export default function AccountFormView() {
     const user = useAccountFormModel();
@@ -162,13 +163,11 @@ export default function AccountFormView() {
                         {/* Input Field Photo */}
                         <div className="relative flex ">
                             <div
-                                className={` ${
-                                    !!user.imgURL
-                                        ? "bg-[#F04438]"
-                                        : "bg-[#B9BDC7]"
-                                } h-[43px]  ${
-                                    !!user.imgURL ? "w-[130px]" : "w-[94px]"
-                                } flex items-center justify-center rounded-l-lg cursor-pointer`}
+                                className={` ${!!user.imgURL
+                                    ? "bg-[#F04438]"
+                                    : "bg-[#B9BDC7]"
+                                    } h-[43px]  ${!!user.imgURL ? "w-[130px]" : "w-[94px]"
+                                    } flex items-center justify-center rounded-l-lg cursor-pointer`}
                             >
                                 {!!!user.imgURL ? (
                                     <label
@@ -224,7 +223,7 @@ export default function AccountFormView() {
                             <button
                                 type="submit"
                                 className="flex items-center justify-center gap-2 w-full rounded py-3 px-5 bg-[#F04438] text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50"
-                                // disabled={!!user.formData.name}
+                            // disabled={!!user.formData.name}
                             >
                                 <SaveIcons />
                                 Save
@@ -236,6 +235,13 @@ export default function AccountFormView() {
                     open={user.modalConfirm}
                     setClose={user.handleCloseModal}
                     onSave={user.onConfirm}
+                />
+                <FailedDialog
+                    open={user.modalFailed}
+                    navigate={() => {
+                        user.handleCloseModal();
+                    }}
+                    message={user.failedMessage}
                 />
                 <SuccessDialog
                     open={user.modalSuccess}

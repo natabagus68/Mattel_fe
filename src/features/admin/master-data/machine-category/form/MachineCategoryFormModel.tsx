@@ -8,6 +8,8 @@ export default function useMachineCategoryFormModel() {
     const navigate = useNavigate()
     const [modalConfirm, setModalConfirm] = useState(false)
     const [modalSuccess, setModalSuccess] = useState(false)
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
 
     const { data: responDataMachineCategory = { data: [] }, refetch } = useGetMachineCategoryDetailQuery(id, { skip: id ? false : true })
 
@@ -61,13 +63,43 @@ export default function useMachineCategoryFormModel() {
         id ? (
             setModalConfirm(true)
         ) : (
-            storeMachineCategory(formData),
-            setModalSuccess(true)
-        )
+            storeMachineCategory(formData).then((result) => {
+                console.log({ result })
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+
+                    setModalSuccess(true)
+                }
+            }).catch((err) => {
+                setModalFailed(true)
+            }));
     }
     const handleCloseModal = () => {
         setModalConfirm(false)
         setModalSuccess(false)
+        setModalFailed(false)
+    }
+
+    const handleValidation = async (e) => {
+        e.preventDefault();
+
+        if (formData.name == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Name must be inputted")
+        }
+        else if (formData.abbreviation == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Abbreviation must be inputted")
+        }
+        else if (formData.abbreviation.length > 3) {
+            setModalFailed(true)
+            setFailedMessage("Abbreviation length Not More Than 3")
+        } else {
+            handleSave(e);
+        }
     }
 
     useEffect(() => {
@@ -96,9 +128,12 @@ export default function useMachineCategoryFormModel() {
         id,
         modalConfirm,
         modalSuccess,
+        modalFailed,
+        failedMessage,
         handleBack,
         handleCloseModal,
         handleSave,
+        handleValidation,
         formData,
         handleChangeForm,
         onConfirm,

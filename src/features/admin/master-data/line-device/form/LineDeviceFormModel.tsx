@@ -8,6 +8,8 @@ export default function useLineDeviceFormModel() {
     const navigate = useNavigate()
     const [modalConfirm, setModalConfirm] = useState(false)
     const [modalSuccess, setModalSuccess] = useState(false)
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
 
     const { data: responDataLineDevice = { data: [] }, refetch } = useGetLineDeviceDetailQuery(id, { skip: id ? false : true })
 
@@ -61,13 +63,36 @@ export default function useLineDeviceFormModel() {
         id ? (
             setModalConfirm(true)
         ) : (
-            storeLine(formData),
-            setModalSuccess(true)
-        )
+            storeLine(formData).then((result) => {
+                console.log({ result })
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+
+                    setModalSuccess(true)
+                }
+            }).catch((err) => {
+                setModalFailed(true)
+            })
+        );
+    }
+
+    const handleValidation = async (e) => {
+        e.preventDefault();
+        if (formData.name == undefined) {
+            setModalFailed(true)
+            setFailedMessage("Line Device Name must be inputted")
+        }
+        else {
+            handleSave(e);
+        }
     }
     const handleCloseModal = () => {
         setModalConfirm(false)
         setModalSuccess(false)
+        setModalFailed(false)
     }
 
     useEffect(() => {
@@ -93,6 +118,9 @@ export default function useLineDeviceFormModel() {
         id,
         modalConfirm,
         modalSuccess,
+        modalFailed,
+        handleValidation,
+        failedMessage,
         handleBack,
         handleCloseModal,
         handleSave,

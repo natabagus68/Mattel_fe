@@ -11,6 +11,7 @@ import {
 import { Breadcrumbs } from "../../../../../common/components";
 import moment from "moment";
 import Select from "react-select";
+import { FailedDialog } from "../../../../../common/components/dialog/FailedDialog";
 
 export default function MachineForm() {
     const form = useMachineFormModel();
@@ -38,7 +39,7 @@ export default function MachineForm() {
                 </div>
                 <div className="px-6 pb-6 flex flex-col gap-5">
                     <form
-                        onSubmit={form.handleSave}
+                        onSubmit={form.handleValidation}
                         className="flex flex-col w-[85%] gap-6"
                     >
                         <div className="inline-flex flex-col gap-2">
@@ -110,6 +111,24 @@ export default function MachineForm() {
                                 placeholder="Input Asset no"
                             />
                         </div>
+                        <div className="inline-flex flex-col gap-2">
+                            <label
+                                htmlFor="condition"
+                                className="font-bold"
+                            >
+                                Status
+                            </label>
+
+                            <select
+                                name="condition"
+                                onChange={form.handleChangeForm}
+                                value={form.formData.condition}
+                                className="rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]"
+                            >
+                                <option value="Available">Available</option>
+                                <option value="Not Active">Not Active</option>
+                            </select>
+                        </div>
 
                         <div className="inline-flex flex-col gap-2">
                             <label
@@ -154,6 +173,13 @@ export default function MachineForm() {
                 open={form.modalConfirm}
                 setClose={form.handleCloseModal}
                 onSave={form.onConfirm}
+            />
+            <FailedDialog
+                open={form.modalFailed}
+                navigate={() => {
+                    form.handleCloseModal();
+                }}
+                message={form.failedMessage}
             />
             <SuccessDialog
                 open={form.modalSuccess}

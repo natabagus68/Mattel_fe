@@ -1,11 +1,12 @@
 
 import React, { useEffect, useState } from 'react'
-import { useGetLayoutsQuery } from '../layoutApiSlice';
-import { useSearchParams } from 'react-router-dom';
+import { useDeleteLayoutMutation, useGetLayoutsQuery } from '../../layoutApiSlice';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import moment from 'moment'
 
 
 export default function useChangeOverSummaryModel() {
+  const navigate = useNavigate()
 
   const [searchParam, setSearchparam] = useSearchParams()
   const [layoutParam, setLayoutParam] = useState({
@@ -15,8 +16,15 @@ export default function useChangeOverSummaryModel() {
     week_ending: moment().endOf('week').format('YYYY-MM-DD'),
     production_shift: searchParam.get("production_shift") || "",
     preparation_shift: searchParam.get("preparation_shift") || "",
+    ticket_status: searchParam.get("ticket_status") || "",
   }
   )
+
+  const [modalDelete, setModalDelete] = useState(false)
+  const [deleteIdSelected, setDeleteIdSelected] = useState(null)
+  const [deleteLayout, resultDelete] = useDeleteLayoutMutation()
+
+
 
   const [shiftData, setShiftData] = useState("")
 
@@ -44,15 +52,21 @@ export default function useChangeOverSummaryModel() {
     setLayoutParam(prev => ({ ...prev, production_sch: value }))
   }
 
+  const handlePreparationSchDate = (value) => {
+    setLayoutParam(prev => ({ ...prev, preparation_sch: value }))
+  }
   const handleProductionShift = (value) => {
     setLayoutParam(prev => ({ ...prev, production_shift: value }))
+  }
+  const handleStatus = (value) => {
+    setLayoutParam(prev => ({ ...prev, ticket_status: value }))
   }
 
   const handlePreparationShift = (value) => {
     setLayoutParam(prev => ({ ...prev, preparation_shift: value }))
   }
 
-  const { data: LayoutData = { data: [] }, refetch } = useGetLayoutsQuery({ page: layoutParam.page, production_sch: layoutParam.production_sch, week_ending: layoutParam.week_ending, production_shift: layoutParam.production_shift, preparation_shift: layoutParam.preparation_shift })
+  const { data: LayoutData = { data: [] }, isLoading, refetch: refetch } = useGetLayoutsQuery({ page: layoutParam.page, production_sch: layoutParam.production_sch, week_ending: layoutParam.week_ending, production_shift: layoutParam.production_shift, preparation_shift: layoutParam.preparation_shift, ticket_status: layoutParam.ticket_status })
 
   const onPrevPage = () => {
     setLayoutParam(prev => ({ ...prev, page: prev.page - 1 }))
@@ -60,6 +74,27 @@ export default function useChangeOverSummaryModel() {
 
   const onNextPage = () => {
     setLayoutParam(prev => ({ ...prev, page: prev.page + 1 }))
+  }
+
+  const handleEdit = (id) => {
+    navigate(`${id}/edit`)
+  }
+
+  const handleAdd = () => {
+    navigate(`add`)
+  }
+
+  const handleDelete = (id) => {
+    setDeleteIdSelected(id)
+    setModalDelete(true)
+  }
+  const handleCancelDelete = () => {
+    setDeleteIdSelected(null)
+    setModalDelete(false)
+  }
+  const onDelete = async () => {
+    deleteLayout(deleteIdSelected)
+    await refetch()
   }
 
   useEffect(() => {
@@ -77,11 +112,20 @@ export default function useChangeOverSummaryModel() {
   return {
     LayoutData,
     layoutParam,
+    isLoading,
     handlePreparationShift,
     handleProductionSchDate,
+    handlePreparationSchDate,
     handleProductionShift,
+    handleStatus,
     onNextPage,
     onPrevPage,
+    handleAdd,
+    handleEdit,
+    handleDelete,
+    onDelete,
+    modalDelete,
+    handleCancelDelete,
     shiftData
   }
 }

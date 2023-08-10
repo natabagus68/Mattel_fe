@@ -3,7 +3,7 @@ import { apiSlice } from "../../../api/apiSlice.js";
 export const accountApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: ({page = 1, limit = 10, search = '', table_name = '', sort_val = ''}) => `/admin/user?page=${page}&limit=${limit}&search=${search}&table_name=${table_name}&sort_val=${sort_val}`,
+      query: ({ page = 1, limit = 10, q = '', table_name = '', role_id = '', sort_val = '' }) => `/admin/user?page=${page}&limit=${limit}&search=${q}&table_name=${table_name}&sort_val=${sort_val}&role_id=${role_id}`,
       providesTags: ["Users"],
     }),
     getUserDetail: builder.query({

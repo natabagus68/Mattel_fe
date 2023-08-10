@@ -15,6 +15,9 @@ export default function useAccountFormModel() {
     const navigate = useNavigate();
     const [modalConfirm, setModalConfirm] = useState(false);
     const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
+
     const [openView, setOpenView] = useState(false);
     const [form, setForm] = useState<AccountForm>(
         AccountForm.create({
@@ -120,6 +123,8 @@ export default function useAccountFormModel() {
 
     const handleCloseModal = () => {
         setModalConfirm(false);
+        setModalFailed(false);
+        setModalSuccess(false);
     };
 
     const onConfirm = async () => {
@@ -133,15 +138,35 @@ export default function useAccountFormModel() {
         data.append("file", form.file);
         data.append("phone", "");
         if (!!id) {
-            await updateUser({ id, form: data });
+            await updateUser({ id, form: data }).then((result) => {
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+                    setModalConfirm(false);
+                    setModalSuccess(true);
+                }
+            }).catch((err) => {
+                setModalConfirm(false);
+                setModalFailed(true)
+            });;
 
-            setModalConfirm(false);
-            setModalSuccess(true);
+
         } else {
-            await storeUser(data);
-
-            setModalConfirm(false);
-            setModalSuccess(true);
+            await storeUser(data).then((result) => {
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+                    setModalConfirm(false);
+                    setModalSuccess(true);
+                }
+            }).catch((err) => {
+                setModalConfirm(false);
+                setModalFailed(true)
+            });;
         }
     };
     useEffect(() => {
@@ -176,6 +201,8 @@ export default function useAccountFormModel() {
         imgURL,
         modalConfirm,
         modalSuccess,
+        modalFailed,
+        failedMessage,
         openView,
         removeImage,
         onPageBack,

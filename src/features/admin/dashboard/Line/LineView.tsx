@@ -47,7 +47,7 @@ export default function LineView() {
                                 })
                             }
                         >
-                            <div className="min-h-[12px] min-w-[12px] bg-[#FF0] rounded-full"></div>
+                            <div className="min-h-[12px] min-w-[12px] bg-[#F79009] rounded-full"></div>
                             <span className="text-sm">
                                 Material Issue (Packaging & Costume)
                             </span>

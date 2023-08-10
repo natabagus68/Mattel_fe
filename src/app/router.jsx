@@ -25,7 +25,8 @@ import LineGroupForm from "../features/admin/master-data/line-group/form/LineGro
 import LineDeviceForm from "../features/admin/master-data/line-device/form/LineDeviceForm";
 import MachineCategoryForm from "../features/admin/master-data/machine-category/form/MachineCategoryForm";
 import InputChangeOverView from "../features/admin/layoutMenu/inputChangeOver/InputChangeOverView";
-import ChangeOverSummaryView from "../features/admin/layoutMenu/changeoverSummary/ChangeOverSummaryView";
+import ChangeOverSummaryView from "../features/admin/layoutMenu/changeoverSummary/view/ChangeOverSummaryView";
+import ChangeOverSummaryForm from "../features/admin/layoutMenu/changeoverSummary/form/ChangeOverSummaryForm";
 import ChangeOverTicket from "../features/admin/layoutMenu/changeOverTicket/ChangeOverTicket";
 import DrawingAndMachineView from "../features/admin/layoutMenu/drawingAndMachine/view/DrawingAndMachineView";
 import DrawingAndMachineForm from "../features/admin/layoutMenu/drawingAndMachine/form/DrawingAndMachineForm";
@@ -79,6 +80,10 @@ const layoutMenu = [
   {
     path: "layout-menu/changeover-summary",
     element: <ChangeOverSummaryView />,
+  },
+  {
+    path: "layout-menu/changeover-summary/:id/edit",
+    element: <ChangeOverSummaryForm />,
   },
   { path: "layout-menu/changeover-ticket", element: <ChangeOverTicket /> },
   {

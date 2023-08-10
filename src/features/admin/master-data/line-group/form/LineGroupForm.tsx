@@ -5,6 +5,7 @@ import { SaveConfirmationDialog } from '../../../../../common/components/dialog/
 import { SuccessDialog } from '../../../../../common/components/dialog/SuccessDialog';
 import useLineGroupFormModel from './LineGroupFormModel';
 import moment from 'moment';
+import { FailedDialog } from '../../../../../common/components/dialog/FailedDialog';
 
 export default function LineGroupForm() {
     const form = useLineGroupFormModel()
@@ -23,7 +24,7 @@ export default function LineGroupForm() {
                     </button>
                 </div>
                 <div className='px-6 flex flex-col gap-5'>
-                    <form onSubmit={form.handleSave} className='flex flex-col w-[85%]'>
+                    <form onSubmit={form.handleValidation} className='flex flex-col w-[85%]'>
                         <div className='inline-flex flex-col gap-2'>
                             <label htmlFor="name" className='font-bold'>Name</label>
                             <input type="text" name='name' value={form.formData.name} onChange={form.handleChangeForm} className='rounded-lg px-4 py-2 outline-none border border-[#D0D3D9]' placeholder='Enter Line Group Name' />
@@ -39,6 +40,13 @@ export default function LineGroupForm() {
             </div>
             <SaveConfirmationDialog open={form.modalConfirm} setClose={form.handleCloseModal} onSave={form.onConfirm} />
             <SuccessDialog open={form.modalSuccess} navigate={() => { form.handleCloseModal(); form.handleBack() }} />
+            <FailedDialog
+                open={form.modalFailed}
+                navigate={() => {
+                    form.handleCloseModal();
+                }}
+                message={form.failedMessage}
+            />
         </main>
     )
 }
