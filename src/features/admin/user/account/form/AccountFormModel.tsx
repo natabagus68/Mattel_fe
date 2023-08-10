@@ -73,10 +73,8 @@ export default function useAccountFormModel() {
     const { data: responseDataRole, refetch: refectRole } =
         useGetAllRoleQuery();
 
-    const [updateUser, { data: resultUpdate, error: errorUpdate }] =
-        useUpdateUserMutation();
-    const [storeUser, { data: resultStore, error: errorStore }] =
-        useCreateUserMutation();
+    const [updateUser, { error: errorUpdate }] = useUpdateUserMutation();
+    const [storeUser, { error: errorStore }] = useCreateUserMutation();
 
     const onPageBack = () => navigate(-1);
 

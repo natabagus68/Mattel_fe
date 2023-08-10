@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
     useDeleteDataAccessMutation,
@@ -44,6 +44,9 @@ export const useAccessUser = () => {
         navigate(`${config.pathPrefix}user/access/permission/create/${id}`);
     };
     const toAccount = () => navigate("/user/account");
+    useEffect(() => {
+        refetchAccess();
+    }, []);
     return {
         dataAccess,
         handleChangeFilter,

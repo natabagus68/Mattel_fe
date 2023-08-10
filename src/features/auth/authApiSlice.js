@@ -31,8 +31,8 @@ export const authApiSlice = apiSlice.injectEndpoints({
           sessionStorage.setItem(
             "permission",
             JSON.stringify(
-              data.data.positions[0].permissions.map((el) =>
-                el.name.toLowerCase()
+              data?.data?.positions?.[0]?.permissions?.map((el) =>
+                el?.name.toLowerCase()
               )
             )
           );
