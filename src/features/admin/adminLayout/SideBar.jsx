@@ -74,7 +74,7 @@ export const SideBar = () => {
                                 )}
 
                             {dashboard?.childs?.find(
-                                (item) => item.module == "Man Power"
+                                (item) => item.module == "Manpower"
                             ) && (
                                     <NavItem
                                         to={`dashboard/man-power`}
