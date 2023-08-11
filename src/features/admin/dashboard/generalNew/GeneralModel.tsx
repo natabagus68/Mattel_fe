@@ -6,15 +6,12 @@ import {
     useGetTopFiveResponseAVGQuery,
     useGetTopFiveResponseSUMQuery,
 } from "../../../../app/services/dashboardservice";
-interface IinitialObject {
-    startDate: Date;
-    endDate: Date;
-}
+
 export default function useGeneralModel() {
     const [shiftData, setShiftData] = useState("");
-    const initialObject: IinitialObject = {
-        startDate: new Date(),
-        endDate: new Date(),
+    const initialObject = {
+        startDate: null,
+        endDate: null,
     };
     const [responseAVG, setResponseAVG] = useState(initialObject);
     const [responseSUM, setResponseSUM] = useState(initialObject);
@@ -26,18 +23,14 @@ export default function useGeneralModel() {
     const { data: getResponseAVG } = useGetTopFiveResponseAVGQuery(responseAVG);
     const { data: getRepairAVG } = useGetTopFiveResponseAVGQuery(repairAVG);
     const { data: getDownTimeTrend } = useGetHourlytrendQuery();
-    const changeDateResponseAVG = (value: IinitialObject) =>
-        setResponseAVG(value);
-    const changeDateResponseSUM = (value: IinitialObject) =>
-        setResponseSUM(value);
-    const changeDateRepairAVG = (value: IinitialObject) => setRepairAVG(value);
-    const changeDateRepairSUM = (value: IinitialObject) => setRepairSUM(value);
 
-    // clearing datepicker value
-    const clearResponseAVG = () => setResponseAVG(initialObject);
-    const clearResponseSUM = () => setResponseSUM(initialObject);
-    const clearRepairAVG = () => setRepairAVG(initialObject);
-    const clearRepairSUM = () => setRepairSUM(initialObject);
+    // change value datepicker
+    const changeDateResponseAVG = (value) => setResponseAVG(value);
+
+    const changeDateResponseSUM = (value) => setResponseSUM(value);
+    const changeDateRepairAVG = (value) => setRepairAVG(value);
+    const changeDateRepairSUM = (value) => setRepairSUM(value);
+
     const handleShift = () => {
         const currentTime = moment();
         const shift1Start = moment().set({ hour: 22, minute: 40 });
@@ -86,9 +79,9 @@ export default function useGeneralModel() {
         changeDateResponseSUM,
         changeDateRepairAVG,
         changeDateRepairSUM,
-        clearResponseAVG,
-        clearResponseSUM,
-        clearRepairAVG,
-        clearRepairSUM,
+        responseAVG,
+        responseSUM,
+        repairAVG,
+        repairSUM,
     };
 }

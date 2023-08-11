@@ -81,7 +81,7 @@ export default function GeneralView() {
                     />
 
                     <BarCharts
-                        dateValue={dashboard.getRepairSUM}
+                        dateValue={dashboard.repairSUM}
                         handleDate={(val) => dashboard.changeDateRepairSUM(val)}
                         titleHeader={"Top 5 Slowest Repair Time (SUM)"}
                         label={dashboard.getRepairSUM?.data?.map(
@@ -94,7 +94,7 @@ export default function GeneralView() {
                         titleYAxes={"SUM of Repair Time (Min)"}
                     />
                     <BarCharts
-                        dateValue={dashboard.getResponseSUM}
+                        dateValue={dashboard.responseSUM}
                         handleDate={(val) =>
                             dashboard.changeDateResponseSUM(val)
                         }
@@ -110,7 +110,7 @@ export default function GeneralView() {
                     />
 
                     <BarCharts
-                        dateValue={dashboard.getRepairAVG}
+                        dateValue={dashboard.repairAVG}
                         handleDate={dashboard.changeDateRepairAVG}
                         titleHeader={"Top 5 Slowest Repair Time (AVG)"}
                         label={dashboard.getRepairAVG?.data?.map(
@@ -123,7 +123,7 @@ export default function GeneralView() {
                         titleYAxes={"AVG of Repair Time (Min)"}
                     />
                     <BarCharts
-                        dateValue={dashboard.getResponseAVG}
+                        dateValue={dashboard.responseAVG}
                         handleDate={dashboard.changeDateResponseAVG}
                         titleHeader={"Top 5 Slowest Response Time (AVG)"}
                         label={dashboard.getResponseAVG?.data?.map(

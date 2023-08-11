@@ -34,10 +34,10 @@ export default function BarCharts({
     value,
     titleYAxes,
     filter = true,
-    handleDate = (val) => {},
-    dateValue = null,
-    clearMothod = () => {},
+    handleDate = (val): void => {},
+    dateValue,
 }) {
+    console.log(dateValue);
     const optionsCharts = {
         plugins: {
             legend: {
@@ -99,19 +99,26 @@ export default function BarCharts({
                     {titleHeader}
                 </span>
                 {filter && (
-                    <Datepicker
-                        primaryColor="blue"
-                        containerClassName={
-                            "bg-white border border-gray-200 rounded-md"
-                        }
-                        inputClassName={"bg-white px-12 py-1 rounded-md"}
-                        toggleClassName={
-                            "text-gray-200 absolute right-2 top-1.5"
-                        }
-                        onChange={handleDate}
-                        value={dateValue}
-                        showShortcuts={true}
-                    />
+                    <>
+                        <div className="w-fit relative">
+                            <Datepicker
+                                placeholder="Choose Range Date"
+                                primaryColor="blue"
+                                containerClassName={
+                                    " border border-gray-200 rounded-md relative"
+                                }
+                                inputClassName={
+                                    " px-12 py-1 rounded-md outline-none text-black"
+                                }
+                                // toggleClassName={
+                                //     "text-gray-200 absolute right-2 top-1.5"
+                                // }
+                                onChange={handleDate}
+                                value={dateValue}
+                                showShortcuts={true}
+                            />
+                        </div>
+                    </>
                 )}
             </div>
             <div>
