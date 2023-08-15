@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGetUsersQuery, useVerifyUserMutation } from "../accountApiSlice";
+import { useDeleteUserMutation, useGetUsersQuery, useVerifyUserMutation } from "../accountApiSlice";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment";
 import { useGetAllRoleQuery } from "../../../../../app/services/roleService";
@@ -35,7 +35,7 @@ export default function useAccountViewModel() {
         table_name: paramData.sort.split("_")[0],
     });
     const [verifyUser, resultVerify] = useVerifyUserMutation();
-    // const [deleteMachineCategory, resultDelete] = useDeleteU()
+    const [deleteUser, resultDelete] = useDeleteUserMutation()
 
     const [shiftData, setShiftData] = useState("");
 
@@ -108,8 +108,7 @@ export default function useAccountViewModel() {
         setModalDelete(false);
     };
     const onDelete = async () => {
-        // deleteMachineCategory(deleteIdSelected)
-        alert(`delete`);
+        deleteUser(deleteIdSelected)
         await refetchUser();
     };
 

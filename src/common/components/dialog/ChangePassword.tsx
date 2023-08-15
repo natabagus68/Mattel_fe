@@ -35,45 +35,45 @@ export default function ModalChangePassword({ onClick, open, setClose, value, ha
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-0"
               >
-                <form onSubmit={(e) => {onClick(e);setClose()}}>
+                <form onSubmit={(e) => { onClick(e) }}>
 
-                    <Dialog.Panel className="flex justify-center items-center flex-col gap-8 transform overflow-hidden rounded-xl bg-white-lightest align-middle shadow-xl transition-all text-center min-w-[500px] px-6 pt-10 pb-6">
-                        <div className='inline-flex items-center gap-4 self-start'>
-                            <div className='border-[8px] border-[#FEECEB] bg-[#FAC5C1] rounded-full inline-flex justify-center items-center p-2 w-[52px] h-[52px]'>
-                                <ChangePassIcon className=''/>
-                            </div>
-                            <div className='inline-flex flex-col items-start'>
-                                <span className='text-2xl font-semibold text-[#313030]'>Change Password</span>
-                                <span className='text-sm text-[#9A9898]'>Update your password.</span>
-                            </div>
-                        </div>
-                        <div className='flex flex-col gap-3 w-full'>
-                            <div className='inline-flex flex-col gap-2 items-start w-full'>
-                                <span>New Password</span>
-                                <input name='new_password' value={value?.new_password} onChange={handleChange} type="password" className='px-4 py-[10px] rounded-lg border boder-[#D0D3D9] w-full' placeholder='enter new password' />
-                            </div>
-                            <div className='inline-flex flex-col gap-2 items-start w-full'>
-                                <span>Confirm Password</span>
-                                <input name='confirm_password' value={value?.confirm_password} onChange={handleChange} type="password" className='px-4 py-[10px] rounded-lg border boder-[#D0D3D9] w-full' placeholder='re-enter new password' />
-                            </div>
-                        </div>
+                  <Dialog.Panel className="flex justify-center items-center flex-col gap-8 transform overflow-hidden rounded-xl bg-white-lightest align-middle shadow-xl transition-all text-center min-w-[500px] px-6 pt-10 pb-6">
+                    <div className='inline-flex items-center gap-4 self-start'>
+                      <div className='border-[8px] border-[#FEECEB] bg-[#FAC5C1] rounded-full inline-flex justify-center items-center p-2 w-[52px] h-[52px]'>
+                        <ChangePassIcon className='' />
+                      </div>
+                      <div className='inline-flex flex-col items-start'>
+                        <span className='text-2xl font-semibold text-[#313030]'>Change Password</span>
+                        <span className='text-sm text-[#9A9898]'>Update your password.</span>
+                      </div>
+                    </div>
+                    <div className='flex flex-col gap-3 w-full'>
+                      <div className='inline-flex flex-col gap-2 items-start w-full'>
+                        <span>New Password</span>
+                        <input name='new_password' value={value?.new_password} onChange={handleChange} type="password" className='px-4 py-[10px] rounded-lg border boder-[#D0D3D9] w-full' placeholder='enter new password' />
+                      </div>
+                      <div className='inline-flex flex-col gap-2 items-start w-full'>
+                        <span>Confirm Password</span>
+                        <input name='confirm_password' value={value?.confirm_password} onChange={handleChange} type="password" className='px-4 py-[10px] rounded-lg border boder-[#D0D3D9] w-full' placeholder='re-enter new password' />
+                      </div>
+                    </div>
                     <div className="flex justify-center gap-3 w-full">
-                        <button
+                      <button
                         onClick={setClose}
                         type='button'
                         className="py-3 px-[20px] rounded border border-[#6F6C6C] outline-none text-sm font-semibold text-[#6F6C6C] w-full"
-                        >
+                      >
                         Cancel
-                        </button>
-                        <button
+                      </button>
+                      <button
                         type={`submit`}
                         role={`button`}
                         className="py-3 px-[20px] rounded border border-[#F04438] bg-[#F04438] outline-none text-sm font-semibold text-[#FFF] w-full"
-                        >
+                      >
                         Update
-                        </button>
+                      </button>
                     </div>
-                    </Dialog.Panel>
+                  </Dialog.Panel>
                 </form>
               </Transition.Child>
             </div>

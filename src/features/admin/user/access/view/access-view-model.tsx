@@ -14,6 +14,9 @@ interface IParams {
 export const useAccessUser = () => {
     const navigate = useNavigate();
     const [params, setParams] = useSearchParams();
+    const [modalDelete, setModalDelete] = useState(false)
+    const [deleteIdSelected, setDeleteIdSelected] = useState(null)
+
     const [tableParam, setTableParam] = useState<IParams>({
         q: params.get("q")?.toString(),
         page: 1,
@@ -33,10 +36,21 @@ export const useAccessUser = () => {
             };
         });
     };
-    const destroyAcceess = (id: string) => {
-        deleteAccess(id);
-        refetchAccess();
-    };
+
+    const handleDelete = (id) => {
+        setDeleteIdSelected(id)
+        setModalDelete(true)
+    }
+
+    const handleCancelDelete = () => {
+        setDeleteIdSelected(null)
+        setModalDelete(false)
+    }
+    const onDelete = async () => {
+        deleteAccess(deleteIdSelected)
+        await refetchAccess()
+    }
+
     const toForm = (id?: string | undefined) => {
         id ? navigate(`${id}/edit`) : navigate("create");
     };
@@ -45,10 +59,13 @@ export const useAccessUser = () => {
     };
     const toAccount = () => navigate("/user/account");
     return {
+        modalDelete,
         dataAccess,
         handleChangeFilter,
         toForm,
-        destroyAcceess,
+        handleDelete,
+        handleCancelDelete,
+        onDelete,
         tableParam,
         toPermission,
         toAccount,

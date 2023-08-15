@@ -39,7 +39,7 @@ export const DeleteDialog = ({ onClick, open, setClose }) => {
                   </div>
                   <div className="inline-flex flex-col text-[#313030]">
                     <span className="text-2xl font-semibold">Delete</span>
-                    <span className="text-[#514E4E]"> Are you sure you want to delete this file? </span>
+                    <span className="text-[#514E4E]"> Are you sure you want to delete this data? </span>
                   </div>
                   <div className="flex justify-center gap-3 w-full">
                     <button

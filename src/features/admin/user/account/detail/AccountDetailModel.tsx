@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetUserDetailQuery } from '../accountApiSlice'
+import { useGetUserDetailQuery, useUpdatePasswordMutation } from '../accountApiSlice'
 import moment from 'moment'
 
 export default function useAccountDetailModel() {
@@ -8,7 +8,15 @@ export default function useAccountDetailModel() {
     const navigate = useNavigate()
     const [modalChangePassword, setModalChangePassword] = useState(false)
 
+    const [modalConfirm, setModalConfirm] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
+
+
     const { data: responDataUser = { data: [] }, refetch } = useGetUserDetailQuery(id, { skip: id ? false : true })
+
+    const [changePass, resultChangePass] = useUpdatePasswordMutation();
 
     const handleBack = () => {
         navigate(-1)
@@ -22,7 +30,7 @@ export default function useAccountDetailModel() {
         new_password: '',
         confirm_password: ''
     }
-    const [formPassword, setFormPasswrod] = useState(initialValue)
+    const [formPassword, setFormPassword] = useState(initialValue)
 
 
     const [shiftData, setShiftData] = useState("")
@@ -52,16 +60,34 @@ export default function useAccountDetailModel() {
     }
     const handleCloseModal = () => {
         setModalChangePassword(false)
+        setModalConfirm(false);
+        setModalFailed(false);
+        setModalSuccess(false);
     }
 
     const handleChangeForm = (e) => {
-        setFormPasswrod(prev => ({ ...prev, [e.target.name]: e.target.value }))
+        setFormPassword(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    const onUpdatePassword = (e) => {
+
+    const onUpdatePassword = async (e) => {
         e.preventDefault()
-        alert(`berhasil`)
+        changePass({ id, form: formPassword }).then((result) => {
+            if (result && result.error) {
+                const errorMessage = result.error.data.message || "Something went terribly wrong"
+                setModalFailed(true)
+                setFailedMessage(errorMessage)
+            } else {
+                setModalSuccess(true)
+            }
+        }).catch((err) => {
+            setModalFailed(true)
+        });
+
+        await refetch();
     }
+
+
 
     useEffect(() => {
         async function refresh() {
@@ -70,7 +96,7 @@ export default function useAccountDetailModel() {
                 : null
         }
         refresh();
-    }, [id])
+    }, [])
 
     useEffect(() => {
         handleShift()
@@ -86,6 +112,10 @@ export default function useAccountDetailModel() {
         onUpdatePassword,
         handleBack,
         handleEdit,
-        shiftData
+        shiftData,
+        modalConfirm,
+        modalSuccess,
+        modalFailed,
+        failedMessage,
     }
 }

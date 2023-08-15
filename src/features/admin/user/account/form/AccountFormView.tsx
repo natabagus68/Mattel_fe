@@ -160,69 +160,80 @@ export default function AccountFormView() {
                                 })}
                             </select>
                         </div>
+
                         {/* Input Field Photo */}
-                        <div className="relative flex ">
-                            <div
-                                className={` ${!!user.imgURL
-                                    ? "bg-[#F04438]"
-                                    : "bg-[#B9BDC7]"
-                                    } h-[43px]  ${!!user.imgURL ? "w-[130px]" : "w-[94px]"
-                                    } flex items-center justify-center rounded-l-lg cursor-pointer`}
+                        <div className="inline-flex flex-col gap-2">
+                            <label
+                                htmlFor="file"
+                                className="font-bold text-[#313030]"
                             >
-                                {!!!user.imgURL ? (
-                                    <label
-                                        htmlFor="FILE"
-                                        className="text-[#514E4E] cursor-pointer"
-                                    >
-                                        Choose
-                                    </label>
-                                ) : (
-                                    <p
-                                        onClick={user.handelOpenImage}
-                                        className="text-white-lightest text-[16px] font-[400]"
-                                    >
-                                        View Image
-                                    </p>
-                                )}
-                            </div>
-                            <input
-                                type="file"
-                                name="image"
-                                id="FILE"
-                                className=" hidden  "
-                                onChange={user.onChangeImage}
-                            />
-                            <div className="h-[43px] px-4 items-center flex bg-white  border border-[#D0D3D9] rounded-r-lg w-full">
-                                {user.imgURL}
-                            </div>
-                            {!!user.imgURL && (
-                                <>
-                                    <div className="flex items-center gap-2 ml-3">
-                                        <div className="h-8 w-8 bg-[#F79009] flex items-center justify-center">
-                                            <label htmlFor="FILE">
-                                                <EditIcon
+                                Profile Picture
+                            </label>
+                            <div className="relative flex ">
+
+                                <div
+                                    className={` ${!!user.imgURL
+                                        ? "bg-[#F04438]"
+                                        : "bg-[#B9BDC7]"
+                                        } h-[43px]  ${!!user.imgURL ? "w-[130px]" : "w-[94px]"
+                                        } flex items-center justify-center rounded-l-lg cursor-pointer`}
+                                >
+                                    {!!!user.imgURL ? (
+                                        <label
+                                            htmlFor="FILE"
+                                            className="text-[#514E4E] cursor-pointer"
+                                        >
+                                            Choose
+                                        </label>
+                                    ) : (
+                                        <p
+                                            onClick={user.handelOpenImage}
+                                            className="text-white-lightest text-[16px] font-[400]"
+                                        >
+                                            View Image
+                                        </p>
+                                    )}
+                                </div>
+                                <input
+                                    type="file"
+                                    name="image"
+                                    id="FILE"
+                                    className=" hidden  "
+                                    onChange={user.onChangeImage}
+                                />
+                                <div className="h-[43px] px-4 items-center flex bg-white  border border-[#D0D3D9] rounded-r-lg w-full">
+                                    {user.imgURL}
+                                </div>
+                                {!!user.imgURL && (
+                                    <>
+                                        <div className="flex items-center gap-2 ml-3">
+                                            <div className="h-8 w-8 bg-[#F79009] flex items-center justify-center">
+                                                <label htmlFor="FILE">
+                                                    <EditIcon
+                                                        color="white"
+                                                        size={16}
+                                                    />
+                                                </label>
+                                            </div>
+                                            <div
+                                                onClick={user.removeImage}
+                                                className="h-8 w-8 bg-[#F04438] flex items-center justify-center cursor-pointer"
+                                            >
+                                                <TrashIcon
                                                     color="white"
                                                     size={16}
                                                 />
-                                            </label>
+                                            </div>
                                         </div>
-                                        <div
-                                            onClick={user.removeImage}
-                                            className="h-8 w-8 bg-[#F04438] flex items-center justify-center cursor-pointer"
-                                        >
-                                            <TrashIcon
-                                                color="white"
-                                                size={16}
-                                            />
-                                        </div>
-                                    </div>
-                                </>
-                            )}
+                                    </>
+                                )}
+                            </div>
                         </div>
+
                         <div className="inline-flex gap-4 items-center w-1/2">
                             <button
                                 type="submit"
-                                className="flex items-center justify-center gap-2 w-full rounded py-3 px-5 bg-[#F04438] text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50"
+                                className="flex items-center justify-center gap-2 w-full rounded py-3 px-5 mb-4 bg-[#F04438] text-[#FFF] text-sm font-semibold disabled:bg-[#F04438]/50"
                             // disabled={!!user.formData.name}
                             >
                                 <SaveIcons />

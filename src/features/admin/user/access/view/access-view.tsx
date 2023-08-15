@@ -148,7 +148,7 @@ export default function AccessUser() {
                                                         </button>
                                                         <button
                                                             onClick={() =>
-                                                                model.destroyAcceess(
+                                                                model.handleDelete(
                                                                     item.id
                                                                 )
                                                             }
@@ -175,7 +175,7 @@ export default function AccessUser() {
                         onPrev={1}
                     />
                 </div>
-                {/* <DeleteDialog onClick={null} open={null} setClose={null} /> */}
+                <DeleteDialog onClick={model.onDelete} open={model.modalDelete} setClose={model.handleCancelDelete} />
             </main>
         </>
     );
