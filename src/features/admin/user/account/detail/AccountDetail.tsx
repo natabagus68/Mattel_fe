@@ -4,6 +4,9 @@ import moment from 'moment'
 import { ArrowIcon, PenIcon } from '../../../../../common/components/icons'
 import ModalChangePassword from '../../../../../common/components/dialog/ChangePassword'
 import useAccountDetailModel from './AccountDetailModel'
+import { SaveConfirmationDialog } from '../../../../../common/components/dialog/SaveConfirmationDialog'
+import { FailedDialog } from '../../../../../common/components/dialog/FailedDialog'
+import { SuccessDialog } from '../../../../../common/components/dialog/SuccessDialog'
 
 export default function AccountDetail() {
     const detail = useAccountDetailModel()
@@ -75,7 +78,7 @@ export default function AccountDetail() {
                                                 <PenIcon />
                                                 Update Password
                                             </button>
-                                            <span className='text-[10px] text-[#F79009]'>Last update two months ago</span>
+                                            <span className='text-[10px] text-[#F79009]'>Last Update {moment(detail.responDataUser?.data.updated_at).fromNow()}</span>
                                         </div>
                                     </td>
                                 </tr>
@@ -85,6 +88,20 @@ export default function AccountDetail() {
                 </div>
             </div>
             <ModalChangePassword onClick={detail.onUpdatePassword} open={detail.modalChangePassword} setClose={detail.handleCloseModal} handleChange={detail.handleChangeForm} value={detail.formPassword} />
+            <FailedDialog
+                open={detail.modalFailed}
+                navigate={() => {
+                    detail.handleCloseModal();
+                }}
+                message={detail.failedMessage}
+            />
+            <SuccessDialog
+                open={detail.modalSuccess}
+                navigate={() => {
+                    detail.handleCloseModal();
+                    // detail.handleBack();
+                }}
+            />
         </main>
     )
 }

@@ -30,6 +30,19 @@ export const accountApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
       }),
     }),
+    deleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `/admin/user/${userId}`,
+        method: "DELETE",
+      }),
+    }),
+    updatePassword: builder.mutation({
+      query: ({ id, form }) => ({
+        url: `/admin/user/${id}/change-pass`,
+        method: "PUT",
+        body: form,
+      }),
+    }),
   }),
 });
 
@@ -39,4 +52,6 @@ export const {
   useCreateUserMutation,
   useUpdateUserMutation,
   useVerifyUserMutation,
+  useDeleteUserMutation,
+  useUpdatePasswordMutation,
 } = accountApiSlice;

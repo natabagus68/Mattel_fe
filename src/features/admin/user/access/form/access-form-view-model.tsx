@@ -8,6 +8,12 @@ import {
 
 export const useAccessForm = () => {
     const { id } = useParams();
+    const [modalConfirm, setModalConfirm] = useState(false);
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const [modalFailed, setModalFailed] = useState(false);
+    const [failedMessage, setFailedMessage] = useState("Something went terribly wrong");
+
+
     const navigate = useNavigate();
     const [form, setForm] = useState({
         name: "",
@@ -32,15 +38,50 @@ export const useAccessForm = () => {
         e.preventDefault();
         navigate(-1);
     };
+
+    const handleBack = () => {
+        navigate(-1);
+    };
+
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
         if (id) {
-            updateAccess({ form, id });
+            updateAccess({ form, id }).then((result) => {
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+                    setModalSuccess(true)
+                }
+            }).catch((err) => {
+                setModalFailed(true)
+            });;
         } else {
-            stroreAccess(form);
+            stroreAccess(form).then((result) => {
+                console.log({ result })
+
+                if (result && result.error) {
+                    const errorMessage = result.error.data.message || "Something went terribly wrong"
+                    setModalFailed(true)
+                    setFailedMessage(errorMessage)
+                } else {
+                    setModalSuccess(true)
+                }
+            }).catch((err) => {
+                setModalFailed(true)
+
+            });;
         }
-        navigate(-1);
+        // navigate(-1);
     };
+
+    const handleCloseModal = () => {
+        setModalConfirm(false);
+        setModalFailed(false);
+        setModalSuccess(false);
+    };
+
 
     useEffect(() => {
         if (id && detailAccess) {
@@ -60,10 +101,16 @@ export const useAccessForm = () => {
         id,
         form,
         desable,
+        modalConfirm,
+        modalSuccess,
+        modalFailed,
+        failedMessage,
         changeFormValue,
         back,
         handleSubmit,
+        handleCloseModal,
         navigate,
         detailAccess,
+        handleBack,
     };
 };

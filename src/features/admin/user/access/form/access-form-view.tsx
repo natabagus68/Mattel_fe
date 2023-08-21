@@ -11,6 +11,7 @@ import { Breadcrumbs } from "../../../../../common/components";
 import moment from "moment";
 import Select from "react-select";
 import { useAccessForm } from "./access-form-view-model";
+import { FailedDialog } from "../../../../../common/components/dialog/FailedDialog";
 
 export default function AccessForm() {
     const model = useAccessForm();
@@ -63,18 +64,20 @@ export default function AccessForm() {
                     </form>
                 </div>
             </div>
-            {/* <SaveConfirmationDialog
-                open={form.modalConfirm}
-                setClose={form.handleCloseModal}
-                onSave={form.onConfirm}
-            /> */}
-            {/* <SuccessDialog
-                open={form.modalSuccess}
+            <FailedDialog
+                open={model.modalFailed}
                 navigate={() => {
-                    form.handleCloseModal();
-                    form.handleBack();
+                    model.handleCloseModal();
                 }}
-            /> */}
+                message={model.failedMessage}
+            />
+            <SuccessDialog
+                open={model.modalSuccess}
+                navigate={() => {
+                    model.handleCloseModal();
+                    model.handleBack();
+                }}
+            />
         </main>
     );
 }
