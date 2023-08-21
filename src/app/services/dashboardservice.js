@@ -19,6 +19,18 @@ export const dashboardApiSlice = apiSlice.injectEndpoints({
         getFiveTopRepairAVG: builder.query({
             query: ({ startDate = '', endDate = '' }) => `admin/dashboard/general/top-5-avg-slowest-repair?startDate=${startDate}&endDate=${endDate}`
         }),
+        getTopFiveMachineDownTime: builder.query({
+            query: ({ startDate = new Date().toDateString(), endDate = new Date().toDateString() }) => `admin/dashboard/general/top-5-machine-downtime?startDate=${startDate}&endDate=${endDate}`
+        }),
+        getTopFiveLineDownTime: builder.query({
+            query: ({ startDate = new Date().toDateString(), endDate = new Date().toDateString() }) => `admin/dashboard/general/top-5-line-downtime?startDate=${startDate}&endDate=${endDate}`
+        }),
+        getResponeTime: builder.query({
+            query: () => `admin/dashboard/general/response-time-trend`
+        }),
+        getRepairTime: builder.query({
+            query: () => `admin/dashboard/general/repair-time-trend`
+        }),
         // Line
         getLineMonitoring: builder.query({
             query: ({
@@ -81,5 +93,9 @@ export const {
     useGetTopFiveResponseAVGQuery,
     useGetTopFiveRepairSumQuery,
     useGetFiveTopRepairAVGQuery,
-    useGetHourlytrendQuery
+    useGetHourlytrendQuery,
+    useGetTopFiveLineDownTimeQuery,
+    useGetTopFiveMachineDownTimeQuery,
+    useGetResponeTimeQuery,
+    useGetRepairTimeQuery
 } = dashboardApiSlice

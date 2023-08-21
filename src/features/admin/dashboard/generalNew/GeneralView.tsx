@@ -50,6 +50,8 @@ export default function GeneralView() {
 
                 <div className="grid grid-cols-2 gap-6">
                     <PieCharts
+                        dateValue={dashboard.topFiveMachine}
+                        onChange={dashboard.changeTopFiveMachineDownTime}
                         titleHeader={"Top 5 Machine Downtime"}
                         label={[
                             "Sealing Blister",
@@ -65,9 +67,15 @@ export default function GeneralView() {
                             "#49CADD",
                             "#43ADA2",
                         ]}
-                        value={[30, 54, 67, 12, 23]}
+                        value={
+                            dashboard?.getTopFiveMachineDownTime?.data.map(
+                                (item) => item
+                            ) ?? []
+                        }
                     />
                     <PieCharts
+                        dateValue={dashboard.topFiveLineDownTime}
+                        onChange={dashboard.changeTopLineDownTime}
                         titleHeader={"Top 5 Line Downtime"}
                         label={["B01", "AB1", "F03", "E03", "E10"]}
                         color={[
@@ -77,7 +85,11 @@ export default function GeneralView() {
                             "#49CADD",
                             "#43ADA2",
                         ]}
-                        value={[30, 54, 67, 12, 23]}
+                        value={
+                            dashboard?.getTopFiveLineDownTime?.data?.map(
+                                (item) => item
+                            ) ?? []
+                        }
                     />
 
                     <BarCharts
@@ -139,18 +151,34 @@ export default function GeneralView() {
                     <div className="col-span-2">
                         <LineCharts
                             titleHeader={"24 Hours Trend of Response Time"}
-                            label={["B01", "AB1", "F03", "E01", "E01"]}
+                            label={
+                                dashboard?.responeTime?.data?.map(
+                                    (item) => item?.time
+                                ) ?? []
+                            }
                             color={"#F9A63A"}
-                            value={[33, 53, 78, 54, 22]}
+                            value={
+                                dashboard?.responeTime?.data?.map(
+                                    (item) => item?.sum_of_data
+                                ) ?? []
+                            }
                             titleYAxes={"AVG of Response Time (Min)"}
                         />
                     </div>
                     <div className="col-span-2">
                         <LineCharts
                             titleHeader={"24 Hours Trend of Repair Time"}
-                            label={["B01", "AB1", "F03", "E01", "E01"]}
+                            label={
+                                dashboard?.responeTime?.data?.map(
+                                    (item) => item?.time
+                                ) ?? []
+                            }
                             color={"#F36960"}
-                            value={[33, 53, 78, 54, 22]}
+                            value={
+                                dashboard?.repairTime?.data?.map(
+                                    (item) => item?.sum_of_data
+                                ) ?? []
+                            }
                             titleYAxes={"AVG of Repair Time (Min)"}
                         />
                     </div>

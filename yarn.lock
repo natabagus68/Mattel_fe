@@ -3552,6 +3552,11 @@ tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.1.tgz#fd8c9a0ff42590b25703c0acb3de3d3f4ede0410"
   integrity sha512-t0hLfiEKfMUoqhG+U1oid7Pva4bbDPHYfJNiB7BiIjRkj1pyC++4N3huJfqY6aRH6VTB0rvtzQwjM4K6qpfOig==
 
+tw-daterange@^1.1.25:
+  version "1.1.25"
+  resolved "https://registry.yarnpkg.com/tw-daterange/-/tw-daterange-1.1.25.tgz#ca209ef1cf2c18eb71be9a0be2259ee37010d46a"
+  integrity sha512-UD+NQ0USTwT7UaXl0rRsbNq2KHIXBpKRmTcaR2EBwbFvf1lBIPGsCUacO33TicbiiVgT8Cblq/xGF40hVUHVzw==
+
 type-fest@^0.16.0:
   version "0.16.0"
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.16.0.tgz"

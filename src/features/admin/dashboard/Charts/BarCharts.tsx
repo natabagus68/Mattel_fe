@@ -100,22 +100,20 @@ export default function BarCharts({
                 </span>
                 {filter && (
                     <>
-                        <div className="w-fit relative">
-                            <Datepicker
-                                placeholder="Choose Range Date"
-                                primaryColor="blue"
-                                containerClassName={
-                                    " border border-gray-200 rounded-md relative"
-                                }
-                                inputClassName={
-                                    " px-12 py-1 rounded-md outline-none text-black"
-                                }
-                                // toggleClassName={
-                                //     "text-gray-200 absolute right-2 top-1.5"
-                                // }
+                        <div className="w-fit flex items-center gap-3 bg-white">
+                            <input
+                                type="date"
+                                name="startDate"
+                                value={dateValue.startDate}
                                 onChange={handleDate}
-                                value={dateValue}
-                                showShortcuts={true}
+                                className="outline-none w-40 py-2 px-4 border border-gray-200 rounded-md placeholder-gray-400  text-[14px]"
+                            />
+                            <input
+                                type="date"
+                                name="endDate"
+                                value={dateValue.endDate}
+                                onChange={handleDate}
+                                className="outline-none w-40 py-2 px-4 border border-gray-200 rounded-md placeholder-gray-400  text-[14px]"
                             />
                         </div>
                     </>

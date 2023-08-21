@@ -2,6 +2,10 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import {
     useGetHourlytrendQuery,
+    useGetRepairTimeQuery,
+    useGetResponeTimeQuery,
+    useGetTopFiveLineDownTimeQuery,
+    useGetTopFiveMachineDownTimeQuery,
     useGetTopFiveRepairSumQuery,
     useGetTopFiveResponseAVGQuery,
     useGetTopFiveResponseSUMQuery,
@@ -17,19 +21,72 @@ export default function useGeneralModel() {
     const [responseSUM, setResponseSUM] = useState(initialObject);
     const [repairAVG, setRepairAVG] = useState(initialObject);
     const [repairSUM, setRepairSUM] = useState(initialObject);
+    const [topFiveMachine, setTopFiveDownTime] = useState(initialObject);
+    const [topFiveLineDownTime, setTopLineDownTime] = useState(initialObject);
 
     const { data: getResponseSUM } = useGetTopFiveResponseSUMQuery(responseSUM);
     const { data: getRepairSUM } = useGetTopFiveRepairSumQuery(repairSUM);
     const { data: getResponseAVG } = useGetTopFiveResponseAVGQuery(responseAVG);
     const { data: getRepairAVG } = useGetTopFiveResponseAVGQuery(repairAVG);
     const { data: getDownTimeTrend } = useGetHourlytrendQuery();
-
+    const { data: getTopFiveMachineDownTime } =
+        useGetTopFiveMachineDownTimeQuery(topFiveMachine);
+    const { data: getTopFiveLineDownTime } =
+        useGetTopFiveLineDownTimeQuery(topFiveLineDownTime);
+    const { data: responeTime } = useGetResponeTimeQuery();
+    const { data: repairTime } = useGetRepairTimeQuery();
     // change value datepicker
-    const changeDateResponseAVG = (value) => setResponseAVG(value);
 
-    const changeDateResponseSUM = (value) => setResponseSUM(value);
-    const changeDateRepairAVG = (value) => setRepairAVG(value);
-    const changeDateRepairSUM = (value) => setRepairSUM(value);
+    const changeTopFiveMachineDownTime = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setTopFiveDownTime((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value,
+            };
+        });
+    };
+
+    const changeTopLineDownTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTopLineDownTime((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value,
+            };
+        });
+    };
+
+    const changeDateResponseAVG = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setResponseAVG((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value,
+            };
+        });
+    };
+
+    const changeDateResponseSUM = (e: React.ChangeEvent<HTMLInputElement>) =>
+        setResponseSUM((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value,
+            };
+        });
+    const changeDateRepairAVG = (e: React.ChangeEvent<HTMLInputElement>) =>
+        setRepairAVG((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value,
+            };
+        });
+    const changeDateRepairSUM = (e: React.ChangeEvent<HTMLInputElement>) =>
+        setRepairSUM((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value,
+            };
+        });
 
     const handleShift = () => {
         const currentTime = moment();
@@ -75,13 +132,21 @@ export default function useGeneralModel() {
         getResponseAVG,
         getRepairAVG,
         getDownTimeTrend,
+        getTopFiveMachineDownTime,
+        getTopFiveLineDownTime,
+        responeTime,
+        repairTime,
         changeDateResponseAVG,
         changeDateResponseSUM,
         changeDateRepairAVG,
         changeDateRepairSUM,
+        changeTopFiveMachineDownTime,
+        changeTopLineDownTime,
         responseAVG,
         responseSUM,
         repairAVG,
         repairSUM,
+        topFiveMachine,
+        topFiveLineDownTime,
     };
 }
